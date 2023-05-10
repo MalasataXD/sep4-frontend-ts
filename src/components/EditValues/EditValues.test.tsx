@@ -28,18 +28,29 @@ describe('EditValues', () => {
         fireEvent.change(getByPlaceholderText('Temperature (°C)'), { target: { value: '-21' } });
         fireEvent.click(saveButton);
         expect(getByText('Temperature must be between -20 and 100')).toBeInTheDocument();
-
-
-        // Test for validation error when humidity is out of range
-        fireEvent.change(getByPlaceholderText('Humidity (%)'), { target: { value: '101' } });
-        fireEvent.click(saveButton);
-        expect(getByText('Humidity must be between 0 and 100')).toBeInTheDocument();
-
-        fireEvent.change(getByPlaceholderText('Humidity (%)'), { target: { value: '-1' } });
-        fireEvent.click(saveButton);
-        expect(getByText('Humidity must be between 0 and 100')).toBeInTheDocument();
     });
 
+    test('', () => {
+        const { getByText, getByPlaceholderText } = render(<EditValues />);
+        const saveButton = getByText('SAVE');
+        
+        // Test for validation error when input is empty
+        fireEvent.click(saveButton);
+        expect(getByText('There must be an input')).toBeInTheDocument();
+
+        //add input, so it doesn't interfere
+         fireEvent.change(getByPlaceholderText('Temperature (°C)'), { target: { value: '10' } });
+
+
+         // Test for validation error when humidity is out of range
+         fireEvent.change(getByPlaceholderText('Humidity (%)'), { target: { value: '101' } });
+         fireEvent.click(saveButton);
+         expect(getByText('Humidity must be between 0 and 100')).toBeInTheDocument();
+ 
+         fireEvent.change(getByPlaceholderText('Humidity (%)'), { target: { value: '-1' } });
+         fireEvent.click(saveButton);
+         expect(getByText('Humidity must be between 0 and 100')).toBeInTheDocument();
+    });
     
     test('is useState null after change', () => {
         //get button

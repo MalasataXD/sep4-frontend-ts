@@ -1,3 +1,4 @@
+import { LINK, EditValuesPost } from "../config"
 import { useState } from "react";
 import "./EditValues.css"
 
@@ -31,7 +32,7 @@ export function EditValues() {
         // Post to web-API
         if (validation()) {
             try {
-                const response = await fetch("http://localhost:8080/data", {
+                const response = await fetch(LINK + EditValuesPost, {
                     headers: { "Content-Type": "application/json" },
                     method: "POST",
                     body: JSON.stringify(
