@@ -17,6 +17,9 @@ describe('EditValues', () => {
         fireEvent.click(saveButton);
         expect(getByText('There must be an input')).toBeInTheDocument();
     
+        //add input, so it doesn't interfere
+        fireEvent.change(getByPlaceholderText('Humidity (%)'), { target: { value: '0' } });
+
         // Test for validation error when temperature is out of range
         fireEvent.change(getByPlaceholderText('Temperature (°C)'), { target: { value: '101' } });
         fireEvent.click(saveButton);
