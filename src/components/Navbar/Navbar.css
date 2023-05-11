@@ -2,23 +2,25 @@
     display: flex;
     background-color: lightblue;
 
-    width: 95%;
-    height: 6.71%;
+    width: 93%;
+    height: 7%;
     border-radius: 6px;
     
     margin: 0 auto;
     margin-top: 1%;
+    padding-left: 1%;
+    padding-right: 1%;
 }
 
-/* Not a good way to do it, Should be changed later*/
+/* Not a good way to do it, Should be changed later (maybe)*/
 .Drop-down { 
     flex: 1;
     display: flex;
-    justify-content: center;
+    justify-content: left;
 }
 
 .logo {
-    flex: 6;
+    flex: 1;
     display: flex;
     justify-content: center;
 }
@@ -27,5 +29,5 @@
 .login {
     flex: 1;
     display: flex;
-    justify-content: center;
+    justify-content: right;
 }
