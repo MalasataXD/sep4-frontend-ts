@@ -1,0 +1,31 @@
+.navbar {
+    display: flex;
+    background-color: lightblue;
+
+    width: 95%;
+    height: 6.71%;
+    border-radius: 6px;
+    
+    margin: 0 auto;
+    margin-top: 1%;
+}
+
+/* Not a good way to do it, Should be changed later*/
+.Drop-down { 
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.logo {
+    flex: 6;
+    display: flex;
+    justify-content: center;
+}
+
+
+.login {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
