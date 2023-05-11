@@ -1,0 +1,20 @@
+.Login-Button {
+    width: 7.25%;
+    height: 5.71%;
+    background-color: #EF476F;
+    color: white;
+    border: none;
+    border-radius: 10%;
+}
+
+
+
+.Profile-img {
+    width: 3.39%;
+    height: 6%;
+    background-color: lightblue;
+    padding: 0.5%;
+    border-radius: 100%;
+
+
+}
