@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import LiveStats from "./components/LiveValue/LiveValue";
+import EditValues from "./components/EditValues/EditValues";
 
 function App() {
   return (
     <div className="App">
-      <LiveStats/>
+      <EditValues/>
     </div>
   );
 }
