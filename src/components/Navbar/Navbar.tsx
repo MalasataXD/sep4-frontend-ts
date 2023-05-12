@@ -1,5 +1,6 @@
 import "./Navbar.css"
 import LoginStaus from "../LoginStatus/LoginStatus"
+import CollapsibleMenu from "../CollapsibleMenu/CollapsibleMenu";
 import { Outlet } from "react-router-dom";
 export default function Navbar() {
 
@@ -7,7 +8,7 @@ export default function Navbar() {
         <div>
             <div className="navbar">
                 <div className="Drop-down">
-                    Burger   
+                    <CollapsibleMenu/>   
                 </div>
                 <div className="logo">
                     logo
