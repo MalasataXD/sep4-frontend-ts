@@ -1,10 +1,15 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { BrowserRouter } from "react-router-dom";
 
 import CollapsibleMenu from "./CollapsibleMenu";
 
 test("Show/hide menu on click", async () => {
-  render(<CollapsibleMenu />);
+  render(
+    <BrowserRouter>
+      <CollapsibleMenu />
+    </BrowserRouter>
+  );
 
   const hamburger = screen.getByRole("button");
 
