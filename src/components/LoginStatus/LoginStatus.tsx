@@ -8,17 +8,22 @@ export default function LoginStaus() {
     
     if (isLoggedIn()) {
         return (
-            <Link to={LoginStatus_Profil}><img src={profile} className="Profile-img" aria-label="Profile-img"></img></Link>
+            <Link to={`${LoginStatus_Profil}`}>
+                <img src={profile} className="Profile-img" aria-label="Profile-img"></img>
+            </Link>
         )
     } else {
         return (
-            <Link to={LoginStatus_Login}><button className="Login-Button" >Login</button></Link>
+            <Link to={`${LoginStatus_Login}`}>
+                <button className="Login-Button" >Login</button>
+            </Link>
+            
         )
     }
     
     // Check if user is logged in and token has not expired
     function isLoggedIn() {
-        const token = localStorage.getItem(JWTLocation);
+        const token = localStorage?.getItem(JWTLocation);
         return token !== null && !isTokenExpired(token);
     }
 

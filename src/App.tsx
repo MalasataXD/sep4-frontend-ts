@@ -1,33 +1,30 @@
 import React from "react";
 import "./App.css";
-import { createHashRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
+import Navbar from "./components/Navbar/Navbar";
+
+//test
+import LoginStaus from "./components/LoginStatus/LoginStatus";
 import LivePage from "./routes/LivePage/LivePage";
 
 //note: navbar ned to uses outlet
 
-const router = createHashRouter([
-  {
-    path: "/",
-    element: <LivePage />, //<div>navbar gos here</div>
-    children: [
-      {
-        path: "/",
-        element: <div>elemnet</div>,
-      },
-      {
-        path: "/",
-        element: <div>elemnet</div>,
-      },
-    ],
-  },
-  {
-    path: "/test",
-    element: <div>navbar gos here</div>,
-  },
-]);
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route element={<Navbar />}>
+      <Route index element={<LivePage />} />
+      <Route path="/test" element={<LoginStaus />} />
+    </Route>
+  )
+);
 
+//do not add to this. Add to router (maybe only css)
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <div>
+      <RouterProvider router={router} />
+    </div>
+  );
 }
 
 export default App;
