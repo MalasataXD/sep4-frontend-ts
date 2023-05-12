@@ -1,36 +1,34 @@
 .navbar {
+    /* Display flex and background color */
     display: flex;
-    background-color: lightblue;
+    background-color: #5F5B6B;
 
+    /* Align items to center vertically */
+    align-items: center;
+    /* Justify-content to set items at start, middle and end */
+    justify-content: space-between;
+
+    /* Width and heigh definition */
     width: 93%;
-    height: 7%;
+    height: 10%;
+
+    /* Border definition */
     border-radius: 6px;
-    
-    margin: 0 auto;
-    margin-top: 1%;
-    margin-bottom: 1%;
-    padding-left: 1%;
-    padding-right: 1%;
-    padding-top: 0.25%;
-    padding-bottom: 0.25%;
+
+    /* Margin and padding */
+    margin: 1% auto;
+    padding: 0.25% 1% 0.25% 1%;
 }
 
-/* Not a good way to do it, Should be changed later (maybe)*/
 .Drop-down { 
-    flex: 1;
-    display: flex;
-    justify-content: left;
+
 }
 
 .logo {
-    flex: 1;
-    display: flex;
-    justify-content: center;
+
 }
 
 
 .login {
-    flex: 1;
-    display: flex;
-    justify-content: right;
+
 }
