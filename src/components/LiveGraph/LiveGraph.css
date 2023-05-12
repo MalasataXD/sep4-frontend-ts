@@ -23,10 +23,26 @@
     }
   }
   
-  .temp-graph {
-    
+  .temp-graph-container {
+    width: 50%;
+    height: 250px;
   }
-  
-  .humidity-graph {
-    
+
+  @media (max-width: 1000px) {
+    .temp-graph-container {
+      width: 100%;
+      height: 250px;
+    }
+  }
+
+  .humidity-graph-container {
+    width: 50%;
+    height: 250px;
+  }
+
+  @media (max-width: 1000px) {
+    .humidity-graph-container {
+      width: 100%;
+      height: 250px;
+    }
   }

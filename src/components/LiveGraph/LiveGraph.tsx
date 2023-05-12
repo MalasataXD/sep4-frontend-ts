@@ -8,6 +8,7 @@ import {
     Tooltip,
     Legend,
     Line,
+    ResponsiveContainer,
   } from "recharts";
 import { useState, useEffect } from "react";
   
@@ -61,35 +62,35 @@ export default function LiveGraph() {
     <div className="App">
       <div className="graph-container">
         <div className="temp-graph-container">
-          <LineChart data-testid="temp-graph"
-            width={730}
-            height={250}
-            data={tempData}
-            margin={{ top: 5, right: 10, left: 0, bottom: 5 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" stroke="#111111" />
-            <XAxis dataKey="time" stroke="#000000" />
-            <YAxis type="number" stroke="#000000" domain={[-20, 100]}/>
-            <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey="temp" stroke="#EF476F" strokeWidth={4}/>
-          </LineChart>
+          <ResponsiveContainer width='100%' height='100%'>
+            <LineChart data-testid="temp-graph"
+              data={tempData}
+              margin={{ top: 5, right: 10, left: 0, bottom: 5 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" stroke="#111111" />
+              <XAxis dataKey="time" stroke="#000000" />
+              <YAxis type="number" stroke="#000000" domain={[-20, 100]}/>
+              <Tooltip />
+              <Legend />
+              <Line type="monotone" dataKey="temp" stroke="#EF476F" strokeWidth={4}/>
+            </LineChart>
+          </ResponsiveContainer>
         </div>
         <div className="humidity-graph-container">
-          <LineChart data-testid="humidity-graph"
-            width={730}
-            height={250}
-            data={humidityAndCO2Data}
-            margin={{ top: 5, right: 10, left: 0, bottom: 5 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" stroke="#111111" />
-            <XAxis dataKey="time" stroke="#000000" />
-            <YAxis type="number" stroke="#000000" domain={[0, 100]}/>
-            <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey="humidity" stroke="#06D6A0" strokeWidth={4}/>
-            <Line type="monotone" dataKey="co2" stroke="#037c5d" strokeWidth={4}/>
-          </LineChart>
+          <ResponsiveContainer width='100%' height='100%'>
+            <LineChart data-testid="humidity-graph"
+              data={humidityAndCO2Data}
+              margin={{ top: 5, right: 10, left: 0, bottom: 5 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" stroke="#111111" />
+              <XAxis dataKey="time" stroke="#000000" />
+              <YAxis type="number" stroke="#000000" domain={[0, 100]}/>
+              <Tooltip />
+              <Legend />
+              <Line type="monotone" dataKey="humidity" stroke="#06D6A0" strokeWidth={4}/>
+              <Line type="monotone" dataKey="co2" stroke="#037c5d" strokeWidth={4}/>
+            </LineChart>
+          </ResponsiveContainer>
         </div>
       </div>
     </div>
