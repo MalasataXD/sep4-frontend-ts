@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import "./LivePage.css";
 import LiveStats from "../../components/LiveValue/LiveValue";
 import EditValues from "../../components/EditValues/EditValues";
+import LiveGraph from "../../components/LiveGraph/LiveGraph";
 
 export default function LivePage() {
   return (
@@ -16,7 +17,7 @@ export default function LivePage() {
           <EditValues></EditValues>
         </div>
         <div className="graphs">
-          <h3>GRAPHS</h3>
+          <LiveGraph></LiveGraph>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 .LivePage {
-  border: 1px solid white;
+  /* border: 1px solid white; */
   display: flex;
   justify-content: space-around;
 }
@@ -13,5 +13,9 @@
 }
 
 .EditValues {
+  margin: 0% 1% 1% 1%;
+}
+
+.graphs {
   margin: 0% 1% 1% 1%;
 }
