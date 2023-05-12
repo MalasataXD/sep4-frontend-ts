@@ -1,37 +1,32 @@
 import React from 'react';
 import './App.css';
-import { createHashRouter, RouterProvider } from 'react-router-dom';
-
+import { createBrowserRouter, createHashRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import Navbar from "./components/Navbar/Navbar";
-
+import { Router } from 'express';
 
 //test
 import EditValues from "./components/EditValues/EditValues";
+import LiveStats from "./components/LiveValue/LiveValue";
+
+
 
 //note: navbar ned to uses outlet
 
-const router = createHashRouter([
-  {
-    path: "/",
-    element: <Navbar/>, //navbar gos here
-    children: [ //all the pages under here (gos in children).
-        {
-            path: "/",
-            element: <EditValues/>,
-        },
-        {
-            path: "/test",
-            element: <div>elemnet</div>,
-        },
-    ],
-  },
-]);
+const router  = createBrowserRouter(createRoutesFromElements(
+  <Route>
+    <Route index element={<EditValues/>}/>
+    <Route path='/test' element={<LiveStats/>}/>
+  </Route>
+))
 
 
 
 function App() {
   return (
-    <RouterProvider router={router} />
+    <div>
+      <Navbar/>
+      <RouterProvider router={router} />
+    </div>
   );
 }
 
