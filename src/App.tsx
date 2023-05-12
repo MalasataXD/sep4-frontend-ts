@@ -5,6 +5,7 @@ import { createHashRouter, RouterProvider } from "react-router-dom";
 import LoginStaus from "./components/LoginStatus/LoginStatus";
 import CollapsibleMenu from "./components/CollapsibleMenu/CollapsibleMenu";
 
+
 //note: navbar ned to uses outlet
 
 const router = createHashRouter([
