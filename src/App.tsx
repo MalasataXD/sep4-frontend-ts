@@ -1,21 +1,19 @@
-import React from 'react';
-import './App.css';
-import { createBrowserRouter, createHashRouter, createRoutesFromElements, Route, RouterProvider, BrowserRouter, Routes } from 'react-router-dom';
+import React from "react";
+import "./App.css";
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 
-
 //test
-import EditValues from "./components/EditValues/EditValues";
-import LiveStats from "./components/LiveValue/LiveValue";
-import LoginStaus from './components/LoginStatus/LoginStatus';
+import LoginStaus from "./components/LoginStatus/LoginStatus";
+import LivePage from "./routes/LivePage/LivePage";
 
 //note: navbar ned to uses outlet
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route element={<Navbar/>}>
-      <Route index element={<EditValues/>}/>
-      <Route path='/test' element={<LoginStaus/>}/>
+    <Route element={<Navbar />}>
+      <Route index element={<LivePage />} />
+      <Route path="/test" element={<LoginStaus />} />
     </Route>
   )
 );
