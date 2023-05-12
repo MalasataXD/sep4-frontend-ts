@@ -1,50 +1,32 @@
-<<<<<<< HEAD
 import React from 'react';
 import './App.css';
+import { createBrowserRouter, createHashRouter, createRoutesFromElements, Route, RouterProvider, BrowserRouter, Routes } from 'react-router-dom';
+import Navbar from "./components/Navbar/Navbar";
+
+
+//test
 import EditValues from "./components/EditValues/EditValues";
-import LiveGraph from './components/LiveGraph/LiveGraph';
-
-function App() {
-  return (
-    <div className="App">
-      <LiveGraph/>
-    </div>
-  );
-=======
-import React from "react";
-import "./App.css";
-import { createHashRouter, RouterProvider } from "react-router-dom";
-
-import LoginStaus from "./components/LoginStatus/LoginStatus";
-import CollapsibleMenu from "./components/CollapsibleMenu/CollapsibleMenu";
-
+import LiveStats from "./components/LiveValue/LiveValue";
+import LoginStaus from './components/LoginStatus/LoginStatus';
 
 //note: navbar ned to uses outlet
 
-const router = createHashRouter([
-  {
-    path: "/",
-    element: <CollapsibleMenu />, //<div>navbar gos here</div>
-    children: [
-      {
-        path: "/",
-        element: <div>elemnet</div>,
-      },
-      {
-        path: "/",
-        element: <div>elemnet</div>,
-      },
-    ],
-  },
-  {
-    path: "/test",
-    element: <div>navbar gos here</div>,
-  },
-]);
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route element={<Navbar/>}>
+      <Route index element={<EditValues/>}/>
+      <Route path='/test' element={<LoginStaus/>}/>
+    </Route>
+  )
+);
 
+//do not add to this. Add to router (maybe only css)
 function App() {
-  return <RouterProvider router={router} />;
->>>>>>> 45b22f6cd105a67dac8050807cfbbe4a8f1a851f
+  return (
+    <div>
+      <RouterProvider router={router} />
+    </div>
+  );
 }
 
 export default App;
