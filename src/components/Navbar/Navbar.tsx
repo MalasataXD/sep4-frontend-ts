@@ -1,7 +1,6 @@
-//import { LINK, EditValuesPost } from "../config"
-import { Outlet } from "react-router"
 import "./Navbar.css"
-
+import LoginStaus from "../LoginStatus/LoginStatus"
+import { Outlet } from "react-router-dom";
 export default function Navbar() {
 
     return (
@@ -14,9 +13,10 @@ export default function Navbar() {
                     logo
                 </div>
                 <div className="login">
-                    login
+                    <LoginStaus/>
                 </div>
             </div>
+            <Outlet/>
         </div>
     )
 }
