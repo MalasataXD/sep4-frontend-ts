@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./CollapsibleMenu.css";
 import Hamburger from "hamburger-react";
-import { LoginStatus_Profil } from "../config";
+import { LoginStatus_Profil, CollapsibleMenuItems, MenuItem } from "../config";
 
 export default function CollapsibleMenu() {
   const [showMenu, setShowMenu] = useState(false);
@@ -18,10 +18,9 @@ export default function CollapsibleMenu() {
         <Hamburger onToggle={toggleShowMenu} />
 
         <div className="dropdown-content">
-          <Link to={LoginStatus_Profil}>Link 1</Link>
-          <Link to={LoginStatus_Profil}>Link 2</Link>
-          <Link to={LoginStatus_Profil}>Link 3</Link>
-          <Link to={LoginStatus_Profil}>Link 4</Link>
+          {CollapsibleMenuItems.map((item: MenuItem) => (
+            <Link to={item.url}>{item.name}</Link>
+          ))}
         </div>
       </div>
     );
