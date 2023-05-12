@@ -36,4 +36,18 @@ describe('LoginStatus', () => {
     const profileImage = screen.getByRole('img', { name: /Profile-img/i });
     expect(profileImage).toBeInTheDocument();
   });
+
+  it('renders profile image when JWT token does not have an expiration', () => {
+    const decodedToken = { username: 'testuser' };
+    localStorage.setItem('jwt', `${decodedToken}`);
+    
+    render(
+        <MemoryRouter>
+          <LoginStatus />
+        </MemoryRouter>
+      );
+
+    const profileImage = screen.getByRole('img', { name: /Profile-img/i });
+    expect(profileImage).toBeInTheDocument();
+  });
 });

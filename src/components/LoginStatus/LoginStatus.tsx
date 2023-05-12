@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import profile from '../../img/profile.svg';
 import jwt_decode from "jwt-decode"; //64 base
 
-export function LoginStaus() {
+export default function LoginStaus() {
     
     if (isLoggedIn()) {
         return (
@@ -26,7 +26,7 @@ export function LoginStaus() {
         const decoded : any = jwt_decode(token);
       
         // If the 'exp' field does not exist, assume the token does not expire
-        if (!decoded.exp) {
+        if (decoded?.exp==null) {
           return false;
         }
       
@@ -34,5 +34,3 @@ export function LoginStaus() {
         return decoded.exp < now;
     }
 }
-
-export default LoginStaus;
