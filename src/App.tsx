@@ -1,11 +1,11 @@
-import React from 'react';
-import './App.css';
-import EditValues from "./components/EditValues/EditValues";
+import React from "react";
+import "./App.css";
+import LivePage from "./routes/LivePage/LivePage";
 
 function App() {
   return (
     <div className="App">
-      <EditValues/>
+      <LivePage />
     </div>
   );
 }

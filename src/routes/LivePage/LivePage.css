@@ -1,0 +1,17 @@
+.LivePage {
+  border: 1px solid white;
+  display: flex;
+  justify-content: space-around;
+}
+
+.editValues-graphs-Container {
+  width: 100%;
+}
+
+.LiveStats {
+  margin: 0% 1% 1% 1%;
+}
+
+.EditValues {
+  margin: 0% 1% 1% 1%;
+}
