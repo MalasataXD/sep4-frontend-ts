@@ -9,12 +9,19 @@ import {
     Legend,
     Line,
   } from "recharts";
+import { useState, useEffect } from "react";
   
 
 export default function LiveGraph() {
+  const [tempData, setTempData] = useState<tempObj[] | undefined>(undefined);
+  const [humidityAndCO2Data, setHumidityAndCO2Data] = useState<humidityAndCO2Obj[] | undefined>(undefined);
+  
+
   const today = new Date();
   const time =
-      today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      (today.getHours() < 10 ? "0" + today.getHours() : today.getHours()) + ":" + 
+      (today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes()) + ":" + 
+      (today.getSeconds() < 10 ? "0" + today.getSeconds() : today.getSeconds());
 
   interface tempObj {
     time: string,
@@ -43,30 +50,37 @@ export default function LiveGraph() {
     { time: time, humidity: 46, co2: 73 },
   ];
 
+  useEffect(() => {
+      //Set temp and humidity/CO2 data values
+      setTempData(temperatureData);
+      setHumidityAndCO2Data(humidityData);
+  }, []);
+
+
   return (
     <div className="App">
       <div className="graph-container">
-        <div className="temp-graph">
-          <LineChart
+        <div className="temp-graph-container">
+          <LineChart data-testid="temp-graph"
             width={730}
             height={250}
-            data={temperatureData}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            data={tempData}
+            margin={{ top: 5, right: 10, left: 0, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" stroke="#111111" />
             <XAxis dataKey="time" stroke="#000000" />
-            <YAxis type="number" stroke="#000000" domain={[-20, 60]}/>
+            <YAxis type="number" stroke="#000000" domain={[-20, 100]}/>
             <Tooltip />
             <Legend />
             <Line type="monotone" dataKey="temp" stroke="#EF476F" strokeWidth={4}/>
           </LineChart>
         </div>
-        <div className="humidity-graph">
-          <LineChart
+        <div className="humidity-graph-container">
+          <LineChart data-testid="humidity-graph"
             width={730}
             height={250}
-            data={humidityData}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            data={humidityAndCO2Data}
+            margin={{ top: 5, right: 10, left: 0, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" stroke="#111111" />
             <XAxis dataKey="time" stroke="#000000" />
