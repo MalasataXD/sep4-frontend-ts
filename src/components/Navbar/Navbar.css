@@ -10,7 +10,6 @@
 
     /* Width and heigh definition */
     width: 93%;
-    height: 10%;
 
     /* Border definition */
     border-radius: 6px;
@@ -18,17 +17,4 @@
     /* Margin and padding */
     margin: 1% auto;
     padding: 0.25% 1% 0.25% 1%;
-}
-
-.Drop-down { 
-
-}
-
-.logo {
-
-}
-
-
-.login {
-
 }
