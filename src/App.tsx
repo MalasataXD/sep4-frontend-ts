@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar/Navbar";
 //test
 import LoginStaus from "./components/LoginStatus/LoginStatus";
 import LivePage from "./routes/LivePage/LivePage";
+import CarouselComp from "./components/Carousel/Carousel";
 
 //note: navbar ned to uses outlet
 
@@ -22,7 +23,7 @@ const router = createBrowserRouter(
 function App() {
   return (
     <div>
-      <RouterProvider router={router} />
+      <CarouselComp/>
     </div>
   );
 }
