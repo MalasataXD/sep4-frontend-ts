@@ -4,42 +4,53 @@ import "./LiveValue.css";
 import { GetData, LINK } from "../config";
 
 export default function LiveStats() {
-  const [Temperature, setTemperature] = useState("20");
-  const [Humidity, setHumidity] = useState("20");
-  const [Carbon, setCarbon] = useState("13");
-  const [Counter, setCounter] = useState(0);
+  const [Temperature, setTemperature] = useState("0");
+  const [Humidity, setHumidity] = useState("0");
+  const [Carbon, setCarbon] = useState("0");
+  const [LastUpdate, setLastUpdate] = useState("0");
 
   // # Type for the incoming data from the API
   interface APIData {
+    id: number;
     temp: string;
     humidity: string;
     co2: string;
+    timestamp: string;
   }
 
   useEffect(() => {
     setTimeout(() => {
       fetchData();
     }, 120000); // NOTE: Waits 2 minutes between each fetch.
-  }, [Counter]);
+  }, []);
+
+  fetchData();
 
   async function fetchData(): Promise<void> {
-    // # Makes a request to the API to get the latest data
-    const response: Response = await fetch(LINK + GetData, { mode: "cors" });
-    // ! If something went wrong --> Throw an Error.
-    if (!response.ok) {
-      throw new Error("Could not get information from API...");
+    try {
+      // # Makes a request to the API to get the latest data
+
+      const response: Response = await fetch(LINK + GetData, {
+        mode: "cors",
+      });
+      // ! If something went wrong --> Throw an Error.
+      if (!response.ok) {
+        throw new Error("Could not get information from API...");
+      }
+
+      const data: APIData[] = await response.json(); // # Convert from JSON to APIData Object
+
+      // NOTE: Split the data into the correct displays.
+      setTemperature(data[0].temp);
+      setHumidity(data[0].humidity);
+      setCarbon(data[0].co2);
+
+      setLastUpdate(data[0].timestamp.split(" ", 2)[1]);
+
+      // TEMP: This would be removed, when the "GetLastest" method is implemented on Cloud
+    } catch (Error) {
+      setLastUpdate("Could not get information from API...");
     }
-
-    const data: APIData[] = await response.json(); // # Convert from JSON to APIData Object
-
-    // NOTE: Split the data into the correct displays.
-    setTemperature(data[Counter]?.temp);
-    setHumidity(data[Counter]?.humidity);
-    setCarbon(data[Counter]?.co2);
-
-    // TEMP: This would be removed, when the "GetLastest" method is implemented on Cloud
-    let counter: number = Counter + 1;
-    setCounter(counter);
   }
 
   // ¤ JSX
@@ -65,6 +76,13 @@ export default function LiveStats() {
           <b>C0₂</b>
         </div>
         <div>{Carbon} %</div>
+      </div>
+
+      <div className="section time">
+        <div className="title">
+          <b>Last Update</b>
+        </div>
+        <div>{LastUpdate} </div>
       </div>
     </div>
   );
