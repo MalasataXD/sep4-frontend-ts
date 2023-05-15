@@ -17,3 +17,6 @@ export interface MenuItem {
   name: string;
   url: string;
 }
+
+//TargetCard
+export const TargetCardUpdate: string = "/test";

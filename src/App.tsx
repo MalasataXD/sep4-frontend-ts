@@ -1,11 +1,16 @@
 import React from "react";
 import "./App.css";
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
+import LivePage from "./routes/LivePage/LivePage";
 
 //test
-import LoginStaus from "./components/LoginStatus/LoginStatus";
-import LivePage from "./routes/LivePage/LivePage";
+import TargetCard from "./components/TargetCard/TargetCard";
 
 //note: navbar ned to uses outlet
 
@@ -13,7 +18,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<Navbar />}>
       <Route index element={<LivePage />} />
-      <Route path="/test" element={<LoginStaus />} />
+      <Route path="/test" element={<TargetCard title="test" state={true} />} />
     </Route>
   )
 );

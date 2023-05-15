@@ -1,0 +1,49 @@
+.Edit-values-card {
+  background-color: #7f7979;
+  height: 17%;
+}
+
+.Title {
+  padding-top: 0.75%;
+  display: flex;
+  justify-content: center;
+  font-size: 125%;
+  font-family: "Sora", sans-serif;
+}
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  font-family: "Sora", sans-serif;
+  padding-bottom: 2%;
+}
+
+.hide {
+  display: none;
+}
+
+.Input {
+  margin-right: 5%;
+  padding: 1%;
+  width: 25%;
+  font-family: "Sora", sans-serif;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.Save-button {
+  width: 25%;
+  background-color: #ef476f;
+  color: white;
+  border: none;
+}
+
+.Input-container {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 2%;
+}
