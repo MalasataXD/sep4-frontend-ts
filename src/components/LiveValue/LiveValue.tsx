@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import "./LiveValue.css";
+import styles from "./LiveValue.module.css";
 import {GetData, LINK} from "../config";
 
 export default function LiveStats() {
@@ -23,7 +23,7 @@ export default function LiveStats() {
     useEffect(() => {
         setTimeout(() => {
             fetchData();
-        }, 1000); // NOTE: Waits 2 minutes between each fetch.
+        }, 120000); // NOTE: Waits 2 minutes between each fetch.
     }, []);
 
     // NOTE: Fetches data immediately, when the component is loaded.
@@ -33,8 +33,8 @@ export default function LiveStats() {
         // NOTE: Fetch the connection status
         const connectionSection = document.querySelector('.connection');
         if (connectionSection) {
-            connectionSection.classList.toggle('connection-up', HasConnection);
-            connectionSection.classList.toggle('connection-down', !HasConnection);
+            connectionSection.classList.toggle(`${styles.connectionUp}`, HasConnection);
+            connectionSection.classList.toggle(`${styles.connectionDown}`, !HasConnection);
         }
     }
 
@@ -72,37 +72,37 @@ export default function LiveStats() {
 
     // ¤ JSX
     return (
-        <div className="container">
-            <h3 id="header">LIVE</h3>
-            <div className="section zoom temperature">
-                <div className="title">
+        <div className={styles.container}>
+            <h3 id={styles.header}>LIVE</h3>
+            <div className={`${styles.section} ${styles.zoom} ${styles.temperature}`}>
+                <div className={styles.title}>
                     <b>Temperature</b>
                 </div>
                 <div>{Temperature} °C</div>
             </div>
 
-            <div className="section zoom humidity">
-                <div className="title">
+            <div className={`${styles.section} ${styles.zoom} ${styles.humidity}`}>
+                <div className={styles.title}>
                     <b>Humidity</b>
                 </div>
                 <div>{Humidity} %</div>
             </div>
 
-            <div className="section zoom carbon">
-                <div className="title">
+            <div className={`${styles.section} ${styles.zoom} ${styles.carbon}`}>
+                <div className={styles.title}>
                     <b>C0₂</b>
                 </div>
                 <div>{Carbon} %</div>
             </div>
 
-            <div className="section time">
-                <div className="title">
+            <div className={`${styles.section} ${styles.time}`}>
+                <div className={styles.title}>
                     <b>Last Update</b>
                 </div>
                 <div>{LastUpdate} </div>
             </div>
-            <div className="section connection">
-                <div className="title">
+            <div className={`${styles.section} connection`}>
+                <div className={styles.title}>
                     <b>STATUS</b>
                 </div>
             </div>
