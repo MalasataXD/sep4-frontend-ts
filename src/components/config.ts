@@ -23,7 +23,7 @@ interface ImageItem {
   alt: string;
 }
 export const CarouselImages: ImageItem[] = [
-  {url: "https://media.istockphoto.com/id/177228186/photo/young-capybara.jpg?s=612x612&w=0&k=20&c=MaLAlTZA3N5fa2Gp2FeCdZCwSbCLXkVVeKTks7IJIgM=", alt: "Image of a cute capybara"},
+  {url: "https://www.design.svgbackgrounds.com/wp-content/uploads/2021/05/rose-petals-gradient-overlapping-circle-background.jpg", alt: "Image of a cute capybara"},
   {url: "https://i.natgeofe.com/n/566ed88f-7ee4-4a57-be2e-aa312a5f65a1/capybara.jpg?w=1272&h=846", alt: "Image of a cute capybara"},
   {url: "https://images.immediate.co.uk/production/volatile/sites/23/2021/12/what-is-a-capybara-a9bac69.jpg", alt: "Image of a cute capybara"}
 ]
