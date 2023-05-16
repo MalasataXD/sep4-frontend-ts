@@ -1,9 +1,10 @@
-.Edit-values-card {
+.Target-card-card {
   background-color: #7f7979;
-  height: 17%;
+  display: inline-block;
+  width: 25%;
 }
 
-.Title {
+.Title-TargetCard {
   padding-top: 0.75%;
   display: flex;
   justify-content: center;
@@ -14,6 +15,7 @@
 .error-container {
   display: flex;
   justify-content: center;
+
   font-family: "Sora", sans-serif;
   padding-bottom: 2%;
 }
@@ -22,10 +24,9 @@
   display: none;
 }
 
-.Input {
-  margin-right: 5%;
+.Input-TargetCard {
   padding: 1%;
-  width: 25%;
+  width: 50%;
   font-family: "Sora", sans-serif;
 }
 
@@ -35,15 +36,16 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-.Save-button {
+.Save-button-TargetCard {
   width: 25%;
   background-color: #ef476f;
   color: white;
   border: none;
 }
 
-.Input-container {
+.Input-container-TargetCard {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   padding-bottom: 2%;
 }
