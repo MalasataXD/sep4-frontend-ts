@@ -7,9 +7,6 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
-
-//test
-import LoginStaus from "./components/LoginStatus/LoginStatus";
 import LivePage from "./routes/LivePage/LivePage";
 import TitleCard from "./components/TitleCard/TitleCard";
 
@@ -19,7 +16,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<Navbar />}>
       <Route index element={<LivePage></LivePage>} />
-      <Route path="/test" element={<LoginStaus />} />
+      <Route path="/test" element={<TitleCard />} />
     </Route>
   )
 );
@@ -28,7 +25,7 @@ const router = createBrowserRouter(
 function App() {
   return (
     <div>
-      <CarouselComp/>
+      <RouterProvider router={router} />
     </div>
   );
 }
