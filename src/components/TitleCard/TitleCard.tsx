@@ -1,5 +1,4 @@
 import { LINK, EditValuesPost } from "../config";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./TitleCard.css";
