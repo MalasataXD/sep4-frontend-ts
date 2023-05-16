@@ -1,6 +1,6 @@
-export const LINK: string = "localhost:8000";
-export const GetData: string = "/data";
-export const EditValuesPost: string = "/data";
+export const LINK: string = "http://localhost:8080";
+export const GetData: string = "/data-service/data";
+export const EditValuesPost: string = "/data-service/data";
 
 export const JWTLocation: string = "jwt";
 
