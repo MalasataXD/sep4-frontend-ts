@@ -15,21 +15,28 @@ import "swiper/css/scrollbar";
 
 function CarouselComp() {
     return (
-        <Swiper
-            modules={[Navigation, Pagination, Scrollbar, A11y, EffectCube]}
-            spaceBetween={50}
-            slidesPerView={1}
-            navigation
-            pagination={{ clickable: true }}
-            scrollbar={{ draggable: true }}
-        >
-          {CarouselImages.map((slide) => (
-            <SwiperSlide key={slide.url}>
-                <img src={slide.url} alt={slide.alt}/>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      );
+        <div className="carousel-container-wrapper">
+            <div className="carousel-container">
+                <Swiper className="swiper"
+                    modules={[Navigation, Pagination, Scrollbar, A11y, EffectCube]}
+                    spaceBetween={50}
+                    slidesPerView={1}
+                    navigation
+                    centeredSlides={false}
+                    centerInsufficientSlides={true}
+                    autoHeight={false}
+                    pagination={{ clickable: true }}
+                    scrollbar={{ draggable: true }}
+                >
+                    {CarouselImages.map((slide) => (
+                        <SwiperSlide className="swiper-slide" key={slide.url}>
+                            <img className="carousel-image" src={slide.url} alt={slide.alt}/>
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+            </div>
+        </div>
+    );
 }
 
 export default CarouselComp;
