@@ -25,7 +25,7 @@ const router = createBrowserRouter(
 function App() {
   return (
     <div>
-      <CarouselComp/>
+      <RouterProvider router={router} />
     </div>
   );
 }
