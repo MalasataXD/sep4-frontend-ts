@@ -1,0 +1,44 @@
+.graphContainer {
+    display: flex;
+    border: 5px solid #9BA4B5;
+    background-color: #394867;
+    padding: 2%;
+}
+
+@media (min-width: 1650px) {
+    .graphContainer {
+        justify-content: space-around;
+        align-items: center;
+    }
+}
+
+@media (max-width: 1650px) {
+    .graphContainer {
+        justify-content: center;
+        flex-flow: row wrap;
+    }
+}
+
+.tempGraphContainer {
+    width: 50%;
+    height: 250px;
+}
+
+@media (max-width: 1000px) {
+    .tempGraphContainer {
+        width: 100%;
+        height: 250px;
+    }
+}
+
+.humidityGraphContainer {
+    width: 50%;
+    height: 250px;
+}
+
+@media (max-width: 1000px) {
+    .humidityGraphContainer {
+        width: 100%;
+        height: 250px;
+    }
+}
