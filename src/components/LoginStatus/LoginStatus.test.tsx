@@ -33,7 +33,7 @@ describe("LoginStatus", () => {
       </MemoryRouter>
     );
 
-    const profileImage = screen.getByRole("img", { name: /Profile-img/i });
+    const profileImage = screen.getByRole("img", { name: /profile picture/i });
     expect(profileImage).toBeInTheDocument();
   });
 
@@ -47,7 +47,7 @@ describe("LoginStatus", () => {
       </MemoryRouter>
     );
 
-    const profileImage = screen.getByRole("img", { name: /Profile-img/i });
+    const profileImage = screen.getByRole("img", { name: /profile picture/i });
     expect(profileImage).toBeInTheDocument();
   });
 });
