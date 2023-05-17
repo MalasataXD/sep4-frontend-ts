@@ -1,9 +1,9 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import "./CollapsibleMenu.css";
-import Hamburger from "hamburger-react";
+import { Divide as Hamburger } from "hamburger-react";
 import { CollapsibleMenuItems, MenuItem } from "../config";
+import styles from "./CollapsibleMenu.module.css";
 
 export default function CollapsibleMenu() {
   const [showMenu, setShowMenu] = useState(false);
@@ -15,9 +15,8 @@ export default function CollapsibleMenu() {
   if (showMenu) {
     return (
       <div className="dropdown">
-        <Hamburger onToggle={toggleShowMenu} />
-
-        <div className="dropdown-content">
+        <Hamburger rounded color="#579BB1" onToggle={toggleShowMenu} />
+        <div className={styles.dropdownContent}>
           {CollapsibleMenuItems.map((item: MenuItem) => (
             <Link key={item.name} to={item.url}>
               {item.name}
@@ -29,7 +28,7 @@ export default function CollapsibleMenu() {
   } else {
     return (
       <div>
-        <Hamburger onToggle={toggleShowMenu} />
+        <Hamburger rounded color="#579BB1" onToggle={toggleShowMenu} />
       </div>
     );
   }
