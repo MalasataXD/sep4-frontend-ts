@@ -1,0 +1,56 @@
+/* ? BUTTON */
+.LoginButton{
+    background-color: #579BB1;
+    border: none;
+    border-radius: 5%;
+    padding: 5% 20% 7%;
+    margin-right: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    /* FONT */
+    font-family: "Sora", sans-serif;
+    color: #F1F6F9;
+}
+
+.LoginButton p,a {
+    margin: 0;
+    flex: 1;
+    /* FONT */
+    font-family: inherit;
+    text-align: center;
+    text-decoration: none;
+}
+
+.LoginButton .icon {
+    margin-right: 10px;
+}
+
+/* WIP ICONS */
+.icon {
+    width: 25px;
+}
+
+/* # Profile section */
+.ProfileSection{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-family: "Sora", sans-serif;
+}
+
+.ProfileSection p,a {
+    margin: 0;
+    flex: 1;
+    padding-top: 5%;
+    /* FONT */
+    font-family: inherit;
+    color: #579BB1;
+    text-align: center;
+    text-decoration: none;
+}
+
+.ProfileSection .icon {
+    margin-right: 10px;
+    padding: 0.5%;
+}
