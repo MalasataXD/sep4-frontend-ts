@@ -9,6 +9,8 @@ import {
 import Navbar from "./components/Navbar/Navbar";
 import LivePage from "./routes/LivePage/LivePage";
 import TitleCard from "./components/TitleCard/TitleCard";
+import LiveGraph from "./components/LiveGraph/LiveGraph";
+import LiveValue from "./components/LiveValue/LiveValue"
 
 //note: navbar ned to uses outlet
 
