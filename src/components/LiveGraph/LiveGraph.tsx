@@ -47,7 +47,7 @@ export default function LiveGraph() {
         }
       };
   
-      const timer = setTimeout(fetchData, 10000);
+      const timer = setTimeout(fetchData, 120000);
       return () => clearTimeout(timer);
     }, [FetchData]);
 
