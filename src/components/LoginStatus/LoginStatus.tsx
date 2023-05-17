@@ -1,21 +1,28 @@
 import { LoginStatus_Login, LoginStatus_Profil, JWTLocation } from "../config"
-import "./LoginStatus.css"
 import { Link } from "react-router-dom";
-import profile from '../../img/profile.svg';
 import jwt_decode from "jwt-decode"; //64 base
+
+import styles from "./LoginStatus.module.css";
+import userIcon from '../../img/icons/user.png';
 
 export default function LoginStaus() {
     
     if (isLoggedIn()) {
         return (
             <Link to={`${LoginStatus_Profil}`}>
-                <img src={profile} className="Profile-img" aria-label="Profile-img"></img>
+                <div className={styles.ProfileSection}>
+                    <img className={`${styles.icon} ${styles.ProfileImg}`} src={userIcon} alt="profile picture"/>
+                    <p>Profile</p>
+                </div>
             </Link>
         )
     } else {
         return (
             <Link to={`${LoginStatus_Login}`}>
-                <button className="Login-Button" >Login</button>
+                <button className={styles.LoginButton}>
+                    <img className={styles.icon} src={userIcon} alt="user icon"/>
+                    <p>LOGIN</p>
+                </button>
             </Link>
             
         )
