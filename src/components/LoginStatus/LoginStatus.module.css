@@ -1,8 +1,8 @@
 /* ? BUTTON */
-.LoginButton{
+.LoginButton {
     background-color: #579BB1;
     border: none;
-    border-radius: 5%;
+    border-radius: 5px;
     padding: 5% 20% 7%;
     margin-right: 50px;
     display: flex;
@@ -13,7 +13,7 @@
     color: #F1F6F9;
 }
 
-.LoginButton p,a {
+.LoginButton p, a {
     margin: 0;
     flex: 1;
     /* FONT */
@@ -32,14 +32,14 @@
 }
 
 /* # Profile section */
-.ProfileSection{
+.ProfileSection {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     font-family: "Sora", sans-serif;
 }
 
-.ProfileSection p,a {
+.ProfileSection p, a {
     margin: 0;
     flex: 1;
     padding-top: 5%;
