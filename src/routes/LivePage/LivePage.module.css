@@ -1,0 +1,35 @@
+.Container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    min-height: 700px;
+}
+
+.StackedContainers {
+    width: 90%;
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+
+}
+
+.LiveStats {
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+    margin-bottom: 0.5%;
+}
+
+.EditValues {
+    margin-bottom: 0.5%;
+}
+
+.Graphs {
+
+}
+
+
+.LivePage {
+    /* border: 1px solid white; */
+    display: flex;
+    justify-content: space-around;
+}
+
