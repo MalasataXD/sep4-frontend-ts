@@ -26,16 +26,16 @@ export default function LiveGraph() {
             throw new Error("Could not get information from API...");
           }
           const data = await response.json();
-  
+    
           const fetchedData: APIData = {
             id: parseInt(data[0].id),
             temp: parseInt(data[0].temp),
             humidity: parseInt(data[0].humidity),
             co2: parseInt(data[0].co2),
-            timestamp: data[0].timestamp
+            timestamp: data[0].timestamp.split(" ", 2)[1],
           };
-  
-          setData(prevData => {
+    
+          setData((prevData) => {
             const updatedData = [...prevData, fetchedData];
             if (updatedData.length > 15) {
               updatedData.shift(); // Remove the oldest element
@@ -46,10 +46,15 @@ export default function LiveGraph() {
           console.log(error);
         }
       };
-  
-      const timer = setTimeout(fetchData, 120000);
-      return () => clearTimeout(timer);
-    }, [FetchData]);
+    
+      const timer = setTimeout(fetchData, 0); // Call fetchData immediately on load
+      const interval = setInterval(fetchData, 120000); // Call fetchData every 10 seconds
+    
+      return () => {
+        clearTimeout(timer);
+        clearInterval(interval);
+      };
+    }, []);
 
   return (
     <div className="App">
