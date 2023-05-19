@@ -9,6 +9,7 @@ import {
 import Navbar from "./components/Navbar/Navbar";
 import LivePage from "./routes/LivePage/LivePage";
 import TitleCard from "./components/TitleCard/TitleCard";
+import HistoryGraph from "./components/HistoryGraph/HistoryGraph";
 
 //note: navbar ned to uses outlet
 
@@ -25,7 +26,7 @@ const router = createBrowserRouter(
 function App() {
   return (
     <div>
-      <RouterProvider router={router} />
+      <HistoryGraph /> 
     </div>
   );
 }
