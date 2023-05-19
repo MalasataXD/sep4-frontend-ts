@@ -171,7 +171,7 @@ export default function SelcetedBreadProfiles() {
           <div>
             <button
               onClick={() => {
-                setshowAdd(false);
+                setshowEdit(false);
                 setTitle("");
                 setDescription("");
               }}
@@ -204,7 +204,7 @@ export default function SelcetedBreadProfiles() {
           <div>
             <button
               onClick={() => {
-                setshowAdd(false);
+                setshowRemove(false);
               }}
             >
               Cancel
