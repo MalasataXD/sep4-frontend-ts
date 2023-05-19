@@ -38,8 +38,8 @@ export default function LiveGraph() {
     
           setData((prevData) => {
             const updatedData = [...prevData, fetchedData];
-            if (updatedData.length > 15) {
-              updatedData.shift(); // Remove the oldest element
+            if (updatedData.length >= 15) {
+              updatedData.shift(); // Remove the first element
             }
             return updatedData;
           });
@@ -49,7 +49,7 @@ export default function LiveGraph() {
       };
     
       const timer = setTimeout(fetchData, 0); // Call fetchData immediately on load
-      const interval = setInterval(fetchData, 120000); // Call fetchData every 10 seconds
+      const interval = setInterval(fetchData, 120000); // Call fetchData every 2 minutes
     
       return () => {
         clearTimeout(timer);
