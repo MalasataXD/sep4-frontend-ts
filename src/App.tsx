@@ -9,15 +9,16 @@ import {
 import Navbar from "./components/Navbar/Navbar";
 import LivePage from "./routes/LivePage/LivePage";
 import TitleCard from "./components/TitleCard/TitleCard";
-import SelcetedBreadProfiles from "./components/SelcetedBreadProfiles/SelcetedBreadProfiles";
+import LandingPage from "./routes/Landing/Landing";
 
 //note: navbar ned to uses outlet
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<Navbar />}>
-      <Route index element={<LivePage></LivePage>} />
-      <Route path="/test" element={<SelcetedBreadProfiles />} />
+      <Route path="/live" element={<LivePage></LivePage>} />
+      <Route index element={<LandingPage></LandingPage>} />
+      <Route path="/test" element={<TitleCard />} />
     </Route>
   )
 );
