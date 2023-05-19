@@ -50,7 +50,6 @@ export default function LiveStats() {
   async function fetchData(): Promise<void> {
     try {
       // # Makes a request to the API to get the latest data
-
       const response: Response = await fetch(LINK + GetData, {
         mode: "cors",
       });
