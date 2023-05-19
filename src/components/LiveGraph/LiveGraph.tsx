@@ -1,5 +1,5 @@
 import { Type } from "typescript";
-import "./LiveGraph.module.css";
+import styles from "./LiveGraph.module.css";
 import { LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line, ResponsiveContainer } from "recharts";
 import { useState, useEffect } from "react";
 import { GetData, LINK } from "../config";
@@ -19,6 +19,7 @@ export default function LiveGraph() {
     useEffect(() => {
       const fetchData = async (): Promise<void> => {
         try {
+          console.log("Fetching...");
           const response = await fetch(LINK + GetData, {
             mode: "cors",
           });
@@ -58,8 +59,8 @@ export default function LiveGraph() {
 
   return (
     <div className="App">
-      <div className="graph-container">
-        <div className="temp-graph-container">
+      <div className={styles.graphContainer}>
+        <div className={styles.tempGraphContainer}>
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data-testid="temp-graph" data={FetchData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#111111" />
@@ -71,7 +72,7 @@ export default function LiveGraph() {
             </LineChart>
           </ResponsiveContainer>
         </div>
-        <div className="humidity-graph-container">
+        <div className={styles.humidityGraphContainer}>
           <ResponsiveContainer width="100%" height={250}>
             <LineChart
               data-testid="humidity-graph"
