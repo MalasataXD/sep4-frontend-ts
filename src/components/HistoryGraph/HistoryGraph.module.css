@@ -1,0 +1,79 @@
+.graphContainer {
+    display: flex;
+    border: 5px solid #9BA4B5;
+    border-radius: 5px;
+    background-color: #394867;
+    padding: 2%;
+}
+
+@media (min-width: 1650px) {
+    .graphContainer {
+        justify-content: space-around;
+        align-items: center;
+    }
+}
+
+@media (max-width: 1650px) {
+    .graphContainer {
+        justify-content: center;
+        flex-flow: row wrap;
+    }
+}
+
+.tempGraphContainer {
+    width: 50%;
+    height: 550px;
+}
+
+@media (max-width: 1500px) {
+    .tempGraphContainer {
+        width: 100%;
+        height: 250px;
+
+        padding-bottom: 40px;
+    }
+}
+
+.humidityGraphContainer {
+    width: 50%;
+    height: 550px;
+}
+
+@media (max-width: 1500px) {
+    .humidityGraphContainer {
+        width: 100%;
+        height: 250px;
+
+        padding-bottom: 40px;
+    }
+}
+
+.buttonContainer {
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+}
+
+.tempButton {
+    width: 80px;
+    height: 25px;
+
+    margin-right: 4px;
+    background-color: white;
+    color: #FF6B6B;
+
+    border: none;
+    border-radius: 3px;
+}
+
+.humidityButton {
+    width: 80px;
+    height: 25px;
+
+    margin-right: 4px;
+    background-color: white;
+    color: #06D6A0;
+
+    border: none;
+    border-radius: 3px;
+}
