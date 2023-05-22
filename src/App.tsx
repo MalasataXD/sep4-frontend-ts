@@ -8,17 +8,17 @@ import {
 } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import LivePage from "./routes/LivePage/LivePage";
-import TitleCard from "./components/TitleCard/TitleCard";
 import LandingPage from "./routes/Landing/Landing";
+import LoginPage from "./routes/Login/LoginPage";
 
 //note: navbar ned to uses outlet
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<Navbar />}>
-      <Route path="/live" element={<LivePage></LivePage>} />
       <Route index element={<LandingPage></LandingPage>} />
-      <Route path="/test" element={<TitleCard />} />
+      <Route path="/live" element={<LivePage></LivePage>} />
+      <Route path="/login" element={<LoginPage></LoginPage>} />
     </Route>
   )
 );
