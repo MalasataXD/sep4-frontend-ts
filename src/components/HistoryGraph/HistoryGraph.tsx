@@ -9,166 +9,160 @@ import {
     Line,
     ResponsiveContainer,
 } from "recharts";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { GetData, LINK } from "../config";
 
 export default function HistoryGraph() {
     const [GraphData, setGraphData] = useState<APIData[]>([]);
 
+    const [errorState, setErrorState] = useState<string>("");
+    let hideErrorState : boolean = true;
+
+    const startDateRef = useRef<HTMLInputElement>(null);
+    const startTimeRef = useRef<HTMLInputElement>(null);
+    const endDateRef = useRef<HTMLInputElement>(null);
+    const endTimeRef = useRef<HTMLInputElement>(null);
+
     interface APIData {
         id: number;
-        temp: string;
-        humidity: string;
-        co2: string;
+        temp: number;
+        humidity: number;
+        co2: number;
         timestamp: string;
     }
 
-    enum Operations {
-        HOUR,
-        DAY,
-        MONTH,
-        YEAR
+    enum PPMCalc {
+        PPM_MAX = 5000
     }
 
-    enum Colors {
-        RED = "#FF6B6B",
-        GREEN = "#06D6A0",
-        WHITE = "#FFFFFF"
+    // # Toggles the Error message at the bottom of the component.
+    function toggleErrorState() {
+        const connectionSection = document.getElementById("errorState");
+        if (connectionSection) {
+          connectionSection.classList.toggle(`${styles.hide}`, !errorState);
+        }
+      }
+
+    function formatDate(dateString: string): string {
+        if (!dateString) {
+            return "";
+        }
+    
+        const date = new Date(dateString);
+        if (isNaN(date.getTime())) {
+            return "";
+        }
+    
+        const formattedDate = date.toLocaleDateString("en-GB");
+        return formattedDate.replace(/\//g, "-");
     }
 
-    function tempButtonClick(operation: Operations, id: string) {
-        // Reset styles for all buttons
-        document.getElementById("tempHourButton")!.style.backgroundColor = Colors.WHITE;
-        document.getElementById("tempHourButton")!.style.color = Colors.RED;
-    
-        document.getElementById("tempDayButton")!.style.backgroundColor = Colors.WHITE;
-        document.getElementById("tempDayButton")!.style.color = Colors.RED;
-    
-        document.getElementById("tempMonthButton")!.style.backgroundColor = Colors.WHITE;
-        document.getElementById("tempMonthButton")!.style.color = Colors.RED;
-    
-        document.getElementById("tempYearButton")!.style.backgroundColor = Colors.WHITE;
-        document.getElementById("tempYearButton")!.style.color = Colors.RED;
-    
-        // Set styles for the clicked button
-        document.getElementById(id)!.style.backgroundColor = Colors.RED;
-        document.getElementById(id)!.style.color = Colors.WHITE;
+    function formatTime(timeString: string): string {
+        if (timeString === "") {
+            return "";
+        }
+
+        return timeString+":00";
+    }
+
+    function SearchButtonClick() {
+        const startDate = formatDate(startDateRef.current?.value || "");
+        const startTime = formatTime(startTimeRef.current?.value || "");
+        const endDate = formatDate(endDateRef.current?.value || "");
+        const endTime = formatTime(endTimeRef.current?.value || "");
+
 
         //API call and operation HERE:
-        switch(operation)  {
-            case Operations.HOUR:
-                console.log(getHourFromNow());
-                console.log("Now: " + getNow());
-                break;
-            case Operations.DAY:
-                console.log(getDayFromNow());
-                console.log("Now: " + getNow());
-                break;
-            case Operations.MONTH:
-                console.log(getMonthFromNow());
-                console.log("Now: " + getNow());
-                break;
-            case Operations.YEAR:
-                console.log(getYearFromNow());
-                console.log("Now: " + getNow());
-                break;
+        console.log("Start Date:", startDate);
+        console.log("Start Time:", startTime);
+        console.log("End Date:", endDate);
+        console.log("End Time:", endTime);
+
+        //VALIDATION (Probably move into validation function)
+        if (startDate === "") {
+            toggleErrorState();
+            setErrorState("There must be a start date specified")
+            return;
         }
-    }
-
-    function humidityButtonClick(operation: Operations, id: string) {
-        // Reset styles for all buttons
-        document.getElementById("humidityHourButton")!.style.backgroundColor = Colors.WHITE;
-        document.getElementById("humidityHourButton")!.style.color = Colors.GREEN;
-    
-        document.getElementById("humidityDayButton")!.style.backgroundColor = Colors.WHITE;
-        document.getElementById("humidityDayButton")!.style.color = Colors.GREEN;
-    
-        document.getElementById("humidityMonthButton")!.style.backgroundColor = Colors.WHITE;
-        document.getElementById("humidityMonthButton")!.style.color = Colors.GREEN;
-    
-        document.getElementById("humidityYearButton")!.style.backgroundColor = Colors.WHITE;
-        document.getElementById("humidityYearButton")!.style.color = Colors.GREEN;
-    
-        // Set styles for the clicked button
-        document.getElementById(id)!.style.backgroundColor = Colors.GREEN;
-        document.getElementById(id)!.style.color = Colors.WHITE;
-
-        //API call and operation HERE:
-        switch(operation)  {
-            case Operations.HOUR:
-                console.log(getHourFromNow());
-                console.log("Now: " + getNow());
-                break;
-            case Operations.DAY:
-                console.log(getDayFromNow());
-                console.log("Now: " + getNow());
-                break;
-            case Operations.MONTH:
-                console.log(getMonthFromNow());
-                console.log("Now: " + getNow());
-                break;
-            case Operations.YEAR:
-                console.log(getYearFromNow());
-                console.log("Now: " + getNow());
-                break;
+        if (endDate === "") {
+            toggleErrorState();
+            setErrorState("There must be an end date specified")
+            return;
         }
+        if (startTime === "") {
+            toggleErrorState();
+            setErrorState("There must be a start time specified")
+            return;
+        }
+        if (endTime === "") {
+            toggleErrorState();
+            setErrorState("There must be an end time specified")
+            return;
+        }
+
+        setErrorState("");
+        FetchData("?fromDate=" + startDate + "%20" + startTime + "&toDate=" + endDate + "%20" + endTime);
     }
 
-    function formatDate(date: Date): string {
-        const day = date.getDate().toString().padStart(2, '0');
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const year = date.getFullYear().toString();
-        return `${day}-${month}-${year}`;
-    }
+    async function FetchData(query : string) : Promise<void> {
+        console.log("Query: " + LINK + GetData + query);
+        try {
+            // # Makes a request to the API to get data depending on the query
+            const response: Response = await fetch(LINK + GetData + query, {
+            mode: "cors",
+            });
+            // ! If something went wrong --> Throw an Error.
+            if (!response.ok) {
+                throw new Error("Could not get information from API...");
+            }
     
-    function formatTime(date: Date): string {
-        const hour = date.getHours().toString().padStart(2, '0');
-        const minute = date.getMinutes().toString().padStart(2, '0');
-        const seconds = date.getSeconds().toString().padStart(2, '0');
-        return `${hour}:${minute}:${seconds}`;
-    }
+            const data : APIData[] = await response.json(); // # Convert from JSON to APIData Object
+            const tmpData : APIData[] = [];
 
-    function getHourFromNow(): string {
-        const currentDatetime = new Date();
-        const targetDatetime = new Date(currentDatetime.getTime() - 1 * 60 * 60 * 1000);
-        const formattedDate = formatDate(targetDatetime);
-        const formattedTime = formatTime(targetDatetime);
-        return `Date: ${formattedDate}\nTime: ${formattedTime}`;
-    }
+            data.forEach((elm: APIData) => {
+                const tmpElm: APIData = {
+                    id: elm.id,
+                    temp: parseInt(elm.temp + ""),
+                    humidity: parseInt(elm.humidity + ""),
+                    co2: ((parseInt(elm.co2 + "") / PPMCalc.PPM_MAX) * 100),
+                    timestamp: elm.timestamp
+                }
+                tmpData.push(tmpElm);
+                console.log("Data log: " + JSON.stringify(tmpElm));
+            })
     
-    function getDayFromNow(): string {
-        const currentDatetime = new Date();
-        const targetDatetime = new Date(currentDatetime.getTime() - 1 * 24 * 60 * 60 * 1000);
-        const formattedDate = formatDate(targetDatetime);
-        const formattedTime = formatTime(targetDatetime);
-        return `Date: ${formattedDate}\nTime: ${formattedTime}`;
-    }
-    
-    function getMonthFromNow(): string {
-        const currentDatetime = new Date();
-        const targetDatetime = new Date(currentDatetime.getFullYear(), currentDatetime.getMonth() - 1, currentDatetime.getDate(), currentDatetime.getHours(), currentDatetime.getMinutes(), currentDatetime.getSeconds(), currentDatetime.getMilliseconds());
-        const formattedDate = formatDate(targetDatetime);
-        const formattedTime = formatTime(targetDatetime);
-        return `Date: ${formattedDate}\nTime: ${formattedTime}`;
-    }
-    
-    function getYearFromNow(): string {
-        const currentDatetime = new Date();
-        const targetDatetime = new Date(currentDatetime.getFullYear() - 1, currentDatetime.getMonth(), currentDatetime.getDate(), currentDatetime.getHours(), currentDatetime.getMinutes(), currentDatetime.getSeconds(), currentDatetime.getMilliseconds());
-        const formattedDate = formatDate(targetDatetime);
-        const formattedTime = formatTime(targetDatetime);
-        return `Date: ${formattedDate}\nTime: ${formattedTime}`;
-    }
+            // NOTE: Split the data into the correct displays.
+            setGraphData(tmpData);
 
-    function getNow(): string {
-        const currentDatetime = new Date();
-        const formattedDate = formatDate(currentDatetime);
-        const formattedTime = formatTime(currentDatetime);
-        return `Date: ${formattedDate}\nTime: ${formattedTime}`;
+            // # Set the connection status
+        } catch (Error) {
+            // # Indicate that we couldn't fetch from API
+            console.error(Error);
+        }
     }
     
 
     return (
         <div className="App">
+            <div className={styles.dateErrorWrapper}>
+                <div className={styles.dateContainer}>
+                    <input className={styles.dateInput} type="date" ref={startDateRef}></input>
+                    <input className={styles.dateInput} type="time" ref={startTimeRef}></input>
+
+                    <input className={styles.dateInput} type="date" ref={endDateRef}></input>
+                    <input className={styles.dateInput} type="time" ref={endTimeRef}></input>
+
+                    <button className={styles.dateButton} onClick={SearchButtonClick} >SEARCH</button>
+                </div>
+
+                <div
+        className={`${styles.ErrorContainer} ${errorState ? "" : styles.hide}`}
+        id="errorState"
+    >
+        {errorState}
+    </div>
+            </div>
+
             <div className={styles.graphContainer}>
                 <div className={styles.tempGraphContainer}>
                     <ResponsiveContainer width="100%">
@@ -178,7 +172,7 @@ export default function HistoryGraph() {
                             margin={{ top: 5, right: 10, left: 0, bottom: 5 }}
                         >
                         <CartesianGrid strokeDasharray="3 3" stroke="#111111" />
-                        <XAxis dataKey="time" stroke="#000000" />
+                        <XAxis dataKey="timestamp" stroke="#000000" />
                         <YAxis
                             unit="°C"
                             type="number"
@@ -195,13 +189,6 @@ export default function HistoryGraph() {
                         />
                         </LineChart>
                     </ResponsiveContainer>
-
-                    <div className={styles.buttonContainer}>
-                        <button name="tempHourButton" id="tempHourButton" className={styles.tempButton} onClick={() => tempButtonClick(Operations.HOUR, "tempHourButton")} >HOUR</button>
-                        <button name="tempDayButton" id="tempDayButton" className={styles.tempButton} onClick={() => tempButtonClick(Operations.DAY, "tempDayButton")} >DAY</button>
-                        <button name="tempMonthButton" id="tempMonthButton" className={styles.tempButton} onClick={() => tempButtonClick(Operations.MONTH, "tempMonthButton")} >MONTH</button>
-                        <button name="tempYearButton" id="tempYearButton" className={styles.tempButton} onClick={() => tempButtonClick(Operations.YEAR, "tempYearButton")} >YEAR</button>
-                    </div>
                 </div>
                 <div className={styles.humidityGraphContainer}>
                     <ResponsiveContainer width="100%">
@@ -211,7 +198,7 @@ export default function HistoryGraph() {
                             margin={{ top: 5, right: 10, left: 0, bottom: 5 }}
                         >
                             <CartesianGrid strokeDasharray="3 3" stroke="#111111" />
-                            <XAxis dataKey="time" stroke="#000000" />
+                            <XAxis dataKey="timestamp" stroke="#000000" />
                             <YAxis
                                 unit="%"
                                 type="number"
@@ -234,13 +221,6 @@ export default function HistoryGraph() {
                             />
                         </LineChart>
                     </ResponsiveContainer>
-
-                    <div className={styles.buttonContainer}>
-                        <button name="humidityHourButton" id="humidityHourButton" className={styles.humidityButton} onClick={() => humidityButtonClick(Operations.HOUR, "humidityHourButton")} >HOUR</button>
-                        <button name="humidityDayButton" id="humidityDayButton" className={styles.humidityButton} onClick={() => humidityButtonClick(Operations.DAY, "humidityDayButton")} >DAY</button>
-                        <button name="humidityMonthButton" id="humidityMonthButton" className={styles.humidityButton} onClick={() => humidityButtonClick(Operations.MONTH, "humidityMonthButton")} >MONTH</button>
-                        <button name="humidityYearButton" id="humidityYearButton" className={styles.humidityButton} onClick={() => humidityButtonClick(Operations.YEAR, "humidityYearButton")} >YEAR</button>
-                    </div>
                 </div>
             </div>
         </div>

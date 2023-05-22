@@ -6,6 +6,7 @@
     padding: 2%;
 }
 
+
 @media (min-width: 1650px) {
     .graphContainer {
         justify-content: space-around;
@@ -48,32 +49,58 @@
     }
 }
 
-.buttonContainer {
-    margin-top: 5px;
+.dateErrorWrapper {
+    border: 5px solid #9BA4B5;
+    border-radius: 5px;
+    background-color: #394867;
+
+    padding: 1%;
+    margin-bottom: 5px;
+}
+
+.dateContainer {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
-.tempButton {
-    width: 80px;
-    height: 25px;
+.dateInput {
+    width: 15%;
+    height: 45px;
 
-    margin-right: 4px;
+    border-radius: 5px;
+
+    margin-right: 45px;
+}
+
+.dateButton {
+    width: 100px;
+    height: 30px;
+
+    background-color: #579BB1;
+    color: white;
+    border: none;
+}
+
+.dateButton:hover {
     background-color: white;
+    color: #579BB1;
+}
+
+.ErrorContainer {
+    display: flex;
+    justify-content: center;
+    /* FONT */
+    font-family: inherit;
     color: #FF6B6B;
-
-    border: none;
-    border-radius: 3px;
 }
 
-.humidityButton {
-    width: 80px;
-    height: 25px;
+.hide {
+    display: none;
+}
 
-    margin-right: 4px;
-    background-color: white;
-    color: #06D6A0;
-
-    border: none;
-    border-radius: 3px;
+.dateErrorWrapper {
+    display: flex;
+    
+    flex-direction: column;
 }
