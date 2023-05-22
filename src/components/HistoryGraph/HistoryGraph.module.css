@@ -1,0 +1,117 @@
+.graphContainer {
+    display: flex;
+    border: 5px solid #9BA4B5;
+    border-radius: 5px;
+    background-color: #394867;
+    padding: 2%;
+}
+
+
+@media (min-width: 1650px) {
+    .graphContainer {
+        justify-content: space-around;
+        align-items: center;
+    }
+}
+
+@media (max-width: 1650px) {
+    .graphContainer {
+        justify-content: center;
+        flex-flow: row wrap;
+    }
+}
+
+.tempGraphContainer {
+    width: 50%;
+    height: 550px;
+}
+
+@media (max-width: 1500px) {
+    .tempGraphContainer {
+        width: 100%;
+        height: 250px;
+
+        padding-bottom: 40px;
+    }
+}
+
+.humidityGraphContainer {
+    width: 50%;
+    height: 550px;
+}
+
+@media (max-width: 1500px) {
+    .humidityGraphContainer {
+        width: 100%;
+        height: 250px;
+
+        padding-bottom: 40px;
+    }
+}
+
+.dateErrorWrapper {
+    border: 5px solid #9BA4B5;
+    border-radius: 5px;
+    background-color: #394867;
+
+    padding: 1%;
+    margin-bottom: 5px;
+}
+
+.dateContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dateInput {
+    width: 100%;
+    height: 45px;
+
+    border-radius: 5px;
+
+    margin-right: 45px;
+}
+
+.dateButton {
+    width: 100px;
+    height: 30px;
+
+    background-color: #579BB1;
+    color: white;
+    border: none;
+}
+
+.dateButton:hover {
+    background-color: white;
+    color: #579BB1;
+}
+
+.ErrorContainer {
+    display: flex;
+    justify-content: center;
+    /* FONT */
+    font-family: inherit;
+    color: #FF6B6B;
+}
+
+.hide {
+    display: none;
+}
+
+.dateErrorWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.icon {
+    width: 35px;
+    margin-right: 5px;
+}
+
+.iconInputContainer {
+    width: 20%;
+    
+    display: flex;
+    align-items: center;
+}
