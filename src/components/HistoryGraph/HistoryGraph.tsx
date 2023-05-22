@@ -12,6 +12,13 @@ import {
 import { useState, useEffect, useRef } from "react";
 import { GetData, LINK } from "../config";
 
+//Import icons
+import redCalendarIcon from "../../img/icons/redCalendar.png";
+import redClockIcon from "../../img/icons/redClock.png";
+
+import blueCalendarIcon from "../../img/icons/blueCalendar.png";
+import blueClockIcon from "../../img/icons/blueClock.png";
+
 export default function HistoryGraph() {
     const [GraphData, setGraphData] = useState<APIData[]>([]);
 
@@ -71,13 +78,6 @@ export default function HistoryGraph() {
         const endDate = formatDate(endDateRef.current?.value || "");
         const endTime = formatTime(endTimeRef.current?.value || "");
 
-
-        //API call and operation HERE:
-        console.log("Start Date:", startDate);
-        console.log("Start Time:", startTime);
-        console.log("End Date:", endDate);
-        console.log("End Time:", endTime);
-
         //VALIDATION (Probably move into validation function)
         if (startDate === "") {
             toggleErrorState();
@@ -100,6 +100,7 @@ export default function HistoryGraph() {
             return;
         }
 
+        //Fetch from API
         setErrorState("");
         FetchData("?fromDate=" + startDate + "%20" + startTime + "&toDate=" + endDate + "%20" + endTime);
     }
@@ -128,7 +129,6 @@ export default function HistoryGraph() {
                     timestamp: elm.timestamp
                 }
                 tmpData.push(tmpElm);
-                console.log("Data log: " + JSON.stringify(tmpElm));
             })
     
             // NOTE: Split the data into the correct displays.
@@ -146,11 +146,23 @@ export default function HistoryGraph() {
         <div className="App">
             <div className={styles.dateErrorWrapper}>
                 <div className={styles.dateContainer}>
-                    <input className={styles.dateInput} type="date" ref={startDateRef}></input>
-                    <input className={styles.dateInput} type="time" ref={startTimeRef}></input>
+                    <div className={styles.iconInputContainer}>
+                        <img className={styles.icon} src={redCalendarIcon} alt="calendar icon"/>
+                        <input className={styles.dateInput} type="date" ref={startDateRef}></input>
+                    </div>
+                    <div className={styles.iconInputContainer}>
+                        <img className={styles.icon} src={redClockIcon} alt="time icon"/>
+                        <input className={styles.dateInput} type="time" ref={startTimeRef}></input>
+                    </div>
 
-                    <input className={styles.dateInput} type="date" ref={endDateRef}></input>
-                    <input className={styles.dateInput} type="time" ref={endTimeRef}></input>
+                    <div className={styles.iconInputContainer}>
+                        <img className={styles.icon} src={blueCalendarIcon} alt="calendar icon"/>
+                        <input className={styles.dateInput} type="date" ref={endDateRef}></input>
+                    </div>
+                    <div className={styles.iconInputContainer}>
+                        <img className={styles.icon} src={blueClockIcon} alt="time icon"/>
+                        <input className={styles.dateInput} type="time" ref={endTimeRef}></input>
+                    </div>
 
                     <button className={styles.dateButton} onClick={SearchButtonClick} >SEARCH</button>
                 </div>

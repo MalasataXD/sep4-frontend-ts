@@ -65,7 +65,7 @@
 }
 
 .dateInput {
-    width: 15%;
+    width: 100%;
     height: 45px;
 
     border-radius: 5px;
@@ -101,6 +101,17 @@
 
 .dateErrorWrapper {
     display: flex;
-    
     flex-direction: column;
+}
+
+.icon {
+    width: 35px;
+    margin-right: 5px;
+}
+
+.iconInputContainer {
+    width: 20%;
+    
+    display: flex;
+    align-items: center;
 }
