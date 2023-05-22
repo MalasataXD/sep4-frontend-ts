@@ -18,15 +18,19 @@ export default function LiveStats() {
     timestamp: string;
   }
 
-  // NOTE: Updates the values, when there are new values!
   useEffect(() => {
-    setTimeout(() => {
+    // NOTE: Set a timeout to call fetchData after 2 minutes (120000 milliseconds)v
+    const fetchTimeout = setTimeout(() => {
       fetchData();
-    }, 120000); // NOTE: Waits 2 minutes between each fetch.
-  }, []);
+    }, 120000);
 
-  // NOTE: Fetches data immediately, when the component is loaded.
-  fetchData();
+    fetchData(); // ¤ Fetches data immediately when the component is loaded
+
+    // NOTE: Return a cleanup function to clear the timeout when the component is unmounted
+    return () => {
+      clearTimeout(fetchTimeout);
+    };
+  }, []);
 
   function switchConnection(): void {
     // NOTE: Fetch the connection status
@@ -46,7 +50,6 @@ export default function LiveStats() {
   async function fetchData(): Promise<void> {
     try {
       // # Makes a request to the API to get the latest data
-
       const response: Response = await fetch(LINK + GetData, {
         mode: "cors",
       });
