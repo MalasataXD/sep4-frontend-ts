@@ -10,6 +10,7 @@ import Navbar from "./components/Navbar/Navbar";
 import LivePage from "./routes/LivePage/LivePage";
 import TitleCard from "./components/TitleCard/TitleCard";
 import LandingPage from "./routes/Landing/Landing";
+import HistoryGraph from "./components/HistoryGraph/HistoryGraph";
 
 //note: navbar ned to uses outlet
 
@@ -19,6 +20,7 @@ const router = createBrowserRouter(
       <Route path="/live" element={<LivePage></LivePage>} />
       <Route index element={<LandingPage></LandingPage>} />
       <Route path="/test" element={<TitleCard />} />
+      <Route path="/history" element={<HistoryGraph />} />
     </Route>
   )
 );
@@ -27,7 +29,7 @@ const router = createBrowserRouter(
 function App() {
   return (
     <div>
-      <HistoryGraph /> 
+      <RouterProvider router={router} />
     </div>
   );
 }
