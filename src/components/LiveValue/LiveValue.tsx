@@ -63,7 +63,7 @@ export default function LiveStats() {
       // NOTE: Split the data into the correct displays.
       setTemperature(data[0].temp);
       setHumidity(data[0].humidity);
-      setCarbon((parseInt(data[0].co2) / 5000) * 100); // NOTE: CONVERT FROM PPM TO %
+      setCarbon(Number((Number((parseInt(data[0].co2) / 5000) * 100).toFixed(2)))); // NOTE: CONVERT FROM PPM TO %
       setLastUpdate(data[0].timestamp.split(" ", 2)[1]); // Splits the time from the date.
       HasConnection = true;
       // # Set the connection status
