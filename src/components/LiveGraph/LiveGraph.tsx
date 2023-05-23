@@ -40,7 +40,7 @@ export default function LiveGraph() {
           id: parseInt(data[0].id),
           temp: parseInt(data[0].temp),
           humidity: parseInt(data[0].humidity),
-          co2: parseInt(data[0].co2) / 200, // NOTE: CONVERT FROM PPM TO %
+          co2: (parseInt(data[0].co2) / 5000) * 100, // NOTE: CONVERT FROM PPM TO %
           timestamp: data[0].timestamp.split(" ", 2)[1],
         };
 
