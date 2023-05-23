@@ -13,7 +13,7 @@ export const EditValuesPost: string = "/data-service/target";
 export const JWTLocation: string = "jwt";
 
 //LoginStatus local
-export const LoginStatus_Login: string = "/test";
+export const LoginStatus_Login: string = "/login";
 export const LoginStatus_Profil: string = "/test";
 
 //CollapsibleMenu
