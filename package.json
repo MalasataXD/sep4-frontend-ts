@@ -2,7 +2,7 @@
   "name": "sep4-frontend-ts",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://www.sep4-dk1.github.io/SEP4-FRONTEND-TS",
+  "homepage": "https://www.sep4-dk1.github.io/SEP4-FRONTEND-TS/",
   "dependencies": {
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -32,6 +32,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
