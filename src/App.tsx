@@ -10,14 +10,14 @@ import Navbar from "./components/Navbar/Navbar";
 import LivePage from "./routes/LivePage/LivePage";
 import TitleCard from "./components/TitleCard/TitleCard";
 import SelcetedBreadProfiles from "./components/SelcetedBreadProfiles/SelcetedBreadProfiles";
-
+import BreadProfilesPage from "./routes/BreadProfilesPage/BreadProfilesPage";
 //note: navbar ned to uses outlet
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<Navbar />}>
       <Route index element={<LivePage></LivePage>} />
-      <Route path="/test" element={<SelcetedBreadProfiles />} />
+      <Route path="/test" element={<BreadProfilesPage />} />
     </Route>
   )
 );

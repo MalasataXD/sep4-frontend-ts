@@ -1,15 +1,71 @@
 import "./TargetCard.css";
 import { LINK, TargetCardUpdate } from "../config";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Turn } from "hamburger-react";
 import { forEachChild } from "typescript";
+import { map } from "d3-array";
+import { element } from "prop-types";
 
 export default function TargetCard(props: any) {
-  const [temperature, setTemperature] = useState<null | number>(null);
-  const [humidity, setHumidity] = useState<null | number>(null);
-  const [time, setTime] = useState<null | string>(null);
-
+  let selected: target = props.SelectedData?.targets.find(
+    (element: target, index: number) => index == props.Id
+  );
+  //input
+  const [temperature, setTemperature] = useState<undefined | number>(
+    Number(selected?.temp)
+  );
+  const [humidity, setHumidity] = useState<undefined | number>(
+    Number(selected?.humidity)
+  );
+  const [time, setTime] = useState<undefined | string>(selected?.offset);
+  const [disabled, setDisabled] = useState<boolean>(true);
   const [errorState, setErrorState] = useState("");
+
+  interface BreadProfile {
+    id?: number;
+    title?: string;
+    description?: string;
+    targets?: target[];
+  }
+
+  interface target {
+    id?: number;
+    temp?: string;
+    humidity?: string;
+    co2?: string;
+    offset?: string;
+  }
+
+  useEffect(() => {
+    const target: target = props.SelectedData?.targets?.find(
+      (item: target, index: number) => index === props.Id
+    );
+    if (target?.temp === null) {
+      setTemperature(undefined);
+    } else {
+      setTemperature(Number(target?.temp));
+    }
+
+    if (target?.humidity === null) {
+      setHumidity(undefined);
+    } else {
+      setHumidity(Number(target?.humidity));
+    }
+
+    if (target?.offset === null || target?.offset === undefined) {
+      setTime("");
+    } else {
+      setTime(target?.offset);
+    }
+  }, [props.SelectedData?.title]);
+
+  useEffect(() => {
+    if (props.ShowEdit) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [props.ShowEdit]);
 
   return (
     <div className="Target-card-card">
@@ -22,34 +78,86 @@ export default function TargetCard(props: any) {
           className="Input-TargetCard"
           placeholder="Temperature (°C)"
           type="number"
-          onChange={(event) =>
+          disabled={disabled}
+          id="Temperature"
+          value={temperature}
+          onChange={(event) => {
             setTemperature(
-              event.target.value === "" ? null : Number(event.target.value)
-            )
-          }
+              event.target.value === "" ? undefined : Number(event.target.value)
+            );
+
+            let t: target[] = [];
+
+            props.SelectedData.targets.map((item: target, index: number) => {
+              if (index !== props.Id) {
+                t = [...t, item];
+              } else {
+                t = [...t, { ...selected, temp: event.target.value }];
+              }
+            });
+
+            props.setSelectedDate({
+              ...props.SelectedData,
+              targets: [...t],
+            });
+          }}
         />
 
         <input
           className="Input-TargetCard"
           placeholder="Humidity (%)"
           type="number"
-          onChange={(event) =>
+          id="Humidity"
+          disabled={disabled}
+          value={humidity}
+          onChange={(event) => {
             setHumidity(
-              event.target.value === "" ? null : Number(event.target.value)
-            )
-          }
+              event.target.value === "" ? undefined : Number(event.target.value)
+            );
+
+            let t: target[] = [];
+
+            props.SelectedData.targets.map((item: target, index: number) => {
+              if (index !== props.Id) {
+                t = [...t, item];
+              } else {
+                t = [...t, { ...selected, humidity: event.target.value }];
+              }
+            });
+
+            props.setSelectedDate({
+              ...props.SelectedData,
+              targets: [...t],
+            });
+          }}
         />
 
         <input
           className="Input-TargetCard"
           placeholder="Time (hh:mm:ss)"
           type="text"
-          onChange={(event) =>
-            setTime(event.target.value === "" ? null : event.target.value)
-          }
-        />
+          id="Time"
+          disabled={disabled}
+          value={time}
+          onChange={(event) => {
+            setTime(event.target.value === "" ? undefined : event.target.value);
 
-        {isWhereASaveButton()}
+            let t: target[] = [];
+
+            props.SelectedData.targets.map((item: target, index: number) => {
+              if (index !== props.Id) {
+                t = [...t, item];
+              } else {
+                t = [...t, { ...selected, offset: event.target.value }];
+              }
+            });
+
+            props.setSelectedDate({
+              ...props.SelectedData,
+              targets: [...t],
+            });
+          }}
+        />
       </div>
       <div className="error-container hide" id="errorState">
         {errorState}
@@ -57,48 +165,13 @@ export default function TargetCard(props: any) {
     </div>
   );
 
-  function isWhereASaveButton() {
-    if (props.isEditModeOn === true) {
-      return (
-        <button
-          className="Save-button-TargetCard"
-          onClick={() => handleClick()}
-        >
-          SAVE
-        </button>
-      );
-    }
-    return;
-  }
-
-  async function handleClick() {
-    // Post to web-API
-    if (validation()) {
-      try {
-        //need to changes --------------------------------------------------
-        const response = await fetch(LINK + TargetCardUpdate, {
-          headers: { "Content-Type": "application/json" },
-          method: "POST",
-          body: JSON.stringify({
-            temp: `${temperature}`,
-            humidity: `${humidity}`,
-          }),
-        });
-        // -------------------------------------------------------------------
-        if (!response.ok) {
-          showErrorState();
-          setErrorState("Update failed!");
-        }
-      } catch (error) {
-        showErrorState();
-        setErrorState("server didn't respond!");
-      }
-    }
-  }
-
   function validation() {
     //Test for temperature and humidity
-    if (temperature === null || humidity === null || time === null) {
+    if (
+      temperature === undefined ||
+      humidity === undefined ||
+      time === undefined
+    ) {
       showErrorState();
       setErrorState("There must be an input");
       return false;

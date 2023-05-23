@@ -1,19 +1,29 @@
 //import { } from "../config;"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./SelcetedBreadProfiles.css";
+import BreadProfilesPage from "../../routes/BreadProfilesPage/BreadProfilesPage";
+import { async } from "q";
+import { title } from "process";
+import { element } from "prop-types";
 
-export default function SelcetedBreadProfiles() {
-  const [dropdownItems, setdropdownItems] = useState([
-    "Item 1",
-    "Item 2",
-    "Item 3",
-  ]);
+interface BreadProfile {
+  id?: number;
+  title?: string;
+  description?: string;
+  targets?: target[];
+}
 
+interface target {
+  id?: number;
+  temp?: string;
+  humidity?: string;
+  co2?: string;
+  offset?: string;
+}
+
+export default function SelcetedBreadProfiles(props: any) {
   const [showDropdown, setShowDropdown] = useState(false);
-  const [showAdd, setshowAdd] = useState(false);
-  const [showRemove, setshowRemove] = useState(false);
-  const [showEdit, setshowEdit] = useState(false);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState<string | undefined>("");
   const [Title, setTitle] = useState("");
   const [Description, setDescription] = useState("");
 
@@ -26,22 +36,13 @@ export default function SelcetedBreadProfiles() {
           id="myInput"
           value={inputValue}
           onFocus={toggleDropdownOn}
-          onChange={(event) => setInputValue(event.target.value)}
+          onChange={(event) => {
+            setInputValue(event.target.value);
+            props.setSelectedDate(null);
+          }}
         />
 
-        {showDropdown && (
-          <div id="myDropdown" className="dropdown-content">
-            {dropdownItems.map((item, index) => (
-              <div
-                key={index}
-                className="dropdown-item"
-                onMouseDown={() => handleItemClick(item)}
-              >
-                {item}
-              </div>
-            ))}
-          </div>
-        )}
+        {dropdown()}
       </div>
 
       {buttonsRemoveAndEdit()}
@@ -52,6 +53,34 @@ export default function SelcetedBreadProfiles() {
     </div>
   );
 
+  function dropdown() {
+    if (showDropdown) {
+      if (props.Data != null) {
+        return (
+          <div id="myDropdown" className="dropdown-content">
+            {props.Data.map((item: BreadProfile, index: number) => (
+              <div
+                key={index}
+                className="dropdown-item"
+                onMouseDown={() => handleItemClick(item)}
+              >
+                {item.title}
+              </div>
+            ))}
+          </div>
+        );
+      } else {
+        return (
+          <div id="myDropdown" className="dropdown-content">
+            <div className="dropdown-item">
+              No Bread Profiles or server down
+            </div>
+          </div>
+        );
+      }
+    }
+  }
+
   function buttonsRemoveAndEdit() {
     if (validationInput()) {
       return (
@@ -59,9 +88,13 @@ export default function SelcetedBreadProfiles() {
           <button
             className="dropbtn"
             onClick={() => {
-              setshowRemove(false);
-              setshowEdit(false);
-              setshowAdd(true);
+              props.setSelectedDate({ targets: [{}, {}, {}, {}] });
+              props.setshowRemove(false);
+              props.setshowEdit(false);
+              props.setshowAdd(true);
+              setInputValue("");
+              setDescription("");
+              setTitle("");
             }}
           >
             Add
@@ -69,9 +102,9 @@ export default function SelcetedBreadProfiles() {
           <button
             className="dropbtn"
             onClick={() => {
-              setshowAdd(false);
-              setshowEdit(false);
-              setshowRemove(true);
+              props.setshowAdd(false);
+              props.setshowEdit(false);
+              props.setshowRemove(true);
             }}
           >
             Remove
@@ -79,9 +112,11 @@ export default function SelcetedBreadProfiles() {
           <button
             className="dropbtn"
             onClick={() => {
-              setshowAdd(false);
-              setshowRemove(false);
-              setshowEdit(true);
+              props.setshowAdd(false);
+              props.setshowRemove(false);
+              props.setshowEdit(true);
+              setDescription(props.SelectedData.description);
+              setTitle(props.SelectedData.title);
             }}
           >
             Edit
@@ -93,9 +128,13 @@ export default function SelcetedBreadProfiles() {
         <button
           className="dropbtn"
           onClick={() => {
-            setshowRemove(false);
-            setshowEdit(false);
-            setshowAdd(true);
+            props.setSelectedDate({ targets: [{}, {}, {}, {}] });
+            props.setshowRemove(false);
+            props.setshowEdit(false);
+            props.setshowAdd(true);
+            setInputValue("");
+            setDescription("");
+            setTitle("");
           }}
         >
           Add
@@ -105,7 +144,7 @@ export default function SelcetedBreadProfiles() {
   }
 
   function add() {
-    if (showAdd) {
+    if (props.ShowAdd) {
       return (
         <div className="Add">
           <b>Create a new Profile</b>
@@ -124,7 +163,7 @@ export default function SelcetedBreadProfiles() {
           <div>
             <button
               onClick={() => {
-                setshowAdd(false);
+                props.setshowAdd(false);
                 setTitle("");
                 setDescription("");
               }}
@@ -134,7 +173,7 @@ export default function SelcetedBreadProfiles() {
 
             <button
               onClick={() => {
-                setshowAdd(false);
+                props.setshowAdd(false);
                 if (validationTitleAndDescription()) {
                   PostNewProfil();
                 }
@@ -150,9 +189,8 @@ export default function SelcetedBreadProfiles() {
   }
 
   function Edit() {
-    if (showEdit) {
+    if (props.ShowEdit) {
       //take data and set title and description
-
       return (
         <div className="Edit">
           <b>Editing Selected Profile</b>
@@ -161,7 +199,7 @@ export default function SelcetedBreadProfiles() {
             placeholder="Title"
             value={Title}
             onChange={(event) => setTitle(event.target.value)}
-          />
+          ></input>
 
           <textarea
             placeholder="Description"
@@ -171,7 +209,7 @@ export default function SelcetedBreadProfiles() {
           <div>
             <button
               onClick={() => {
-                setshowEdit(false);
+                props.setshowEdit(false);
                 setTitle("");
                 setDescription("");
               }}
@@ -181,7 +219,8 @@ export default function SelcetedBreadProfiles() {
 
             <button
               onClick={() => {
-                setshowAdd(false);
+                props.setshowAdd(false);
+                props.setshowEdit(false);
                 if (validationTitleAndDescription()) {
                   UpdateProfil();
                 }
@@ -197,14 +236,14 @@ export default function SelcetedBreadProfiles() {
   }
 
   function Remove() {
-    if (showRemove) {
+    if (props.ShowRemove) {
       return (
         <div className="Remove">
           <b>Deleting Selected Profile</b>
           <div>
             <button
               onClick={() => {
-                setshowRemove(false);
+                props.setshowRemove(false);
               }}
             >
               Cancel
@@ -212,7 +251,7 @@ export default function SelcetedBreadProfiles() {
 
             <button
               onClick={() => {
-                setshowRemove(false);
+                props.setshowRemove(false);
                 DeleteProfil();
               }}
             >
@@ -226,37 +265,90 @@ export default function SelcetedBreadProfiles() {
   }
 
   function validationInput() {
-    return true;
+    return (
+      props.SelectedData !== null && props.SelectedData?.title !== undefined
+    );
   }
 
   function validationTitleAndDescription() {
     return true;
   }
-
-  function GetProfils() {
-    //make hry profil from  server
-  }
-
+  //------------------------------------------------------------------------------
   function UpdateProfil() {
-    //make update profil to server
+    const breadProfil: BreadProfile = {
+      ...props.SelectedData,
+      title: Title,
+      description: Description,
+    };
+
+    props.UpdateProfil(breadProfil);
+
     setTitle("");
     setDescription("");
+    setInputValue("");
+
+    props.setSelectedDate(null);
   }
 
   function PostNewProfil() {
-    //make post new profil to server
+    const breadProfil: BreadProfile = {
+      ...props.SelectedData,
+      title: Title,
+      description: Description,
+    };
+
+    props.setSelectedDate({ breadProfil });
+
+    props.PostProfil(breadProfil);
+
     setTitle("");
     setDescription("");
+
+    props.setSelectedDate(null);
   }
 
   function DeleteProfil() {
-    //make delete re to server
+    const breadProfil: BreadProfile = {
+      ...props.SelectedData,
+    };
+    props.DeleteProfil(breadProfil);
+
+    setTitle("");
+    setDescription("");
     setInputValue("");
+
+    props.setSelectedDate(null);
   }
 
-  function handleItemClick(item: string) {
-    console.log("Clicked item:", item);
-    setInputValue(item);
+  //------------------------------------------------------------------------------
+  function handleItemClick(item: BreadProfile) {
+    props.setshowRemove(false);
+    props.setshowEdit(false);
+    props.setshowAdd(false);
+
+    let copieditem: BreadProfile = { ...item, targets: item.targets };
+
+    if (copieditem.targets === undefined) {
+      copieditem = { ...copieditem, targets: [] };
+    }
+
+    for (let i = 0; i < 4; i++) {
+      if (
+        copieditem?.targets?.find(
+          (element: target, index: number) => i === index
+        ) === null
+      ) {
+        copieditem = { ...copieditem, targets: [...copieditem.targets, {}] };
+      }
+    }
+
+    props.setSelectedDate({ ...copieditem });
+
+    setInputValue(item?.title);
+
+    setDescription("" + copieditem.description);
+    setTitle("" + copieditem.title);
+
     toggleDropdownOff();
   }
 
