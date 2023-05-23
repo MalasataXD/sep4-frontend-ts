@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/SEP4-FRONTEND-TS/static/css/main.39f192a5.css",
+    "main.js": "/SEP4-FRONTEND-TS/static/js/main.492c69d6.js",
+    "static/js/787.3e0502f4.chunk.js": "/SEP4-FRONTEND-TS/static/js/787.3e0502f4.chunk.js",
+    "static/media/About Us.jpg": "/SEP4-FRONTEND-TS/static/media/About Us.681d3924215c8aff3ec8.jpg",
+    "static/media/Bread Profile.jpg": "/SEP4-FRONTEND-TS/static/media/Bread Profile.6486133765c248f10c47.jpg",
+    "static/media/Our Project.jpg": "/SEP4-FRONTEND-TS/static/media/Our Project.f0dc87ff1f58bda9abef.jpg",
+    "static/media/Contact.jpg": "/SEP4-FRONTEND-TS/static/media/Contact.9c882ffc387ab2b153e0.jpg",
+    "static/media/History.jpg": "/SEP4-FRONTEND-TS/static/media/History.586c68892275349c28f1.jpg",
+    "static/media/Live.jpg": "/SEP4-FRONTEND-TS/static/media/Live.616dee24138c802d8d76.jpg",
+    "static/media/temperature.png": "/SEP4-FRONTEND-TS/static/media/temperature.3dcb0532a4a785ca6c71.png",
+    "static/media/user.png": "/SEP4-FRONTEND-TS/static/media/user.6a1c80e30ecb720ebd6b.png",
+    "static/media/send.png": "/SEP4-FRONTEND-TS/static/media/send.daf72947b1acf524fe9a.png",
+    "static/media/humidity.png": "/SEP4-FRONTEND-TS/static/media/humidity.01c239c1effc3a900cd4.png",
+    "index.html": "/SEP4-FRONTEND-TS/index.html",
+    "main.39f192a5.css.map": "/SEP4-FRONTEND-TS/static/css/main.39f192a5.css.map",
+    "main.492c69d6.js.map": "/SEP4-FRONTEND-TS/static/js/main.492c69d6.js.map",
+    "787.3e0502f4.chunk.js.map": "/SEP4-FRONTEND-TS/static/js/787.3e0502f4.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.39f192a5.css",
+    "static/js/main.492c69d6.js"
+  ]
+}
