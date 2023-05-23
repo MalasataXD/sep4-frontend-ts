@@ -9,7 +9,9 @@ import {
 import Navbar from "./components/Navbar/Navbar";
 import LivePage from "./routes/LivePage/LivePage";
 import LandingPage from "./routes/Landing/Landing";
+import HistoryGraph from "./components/HistoryGraph/HistoryGraph";
 import LoginPage from "./routes/Login/LoginPage";
+import { LoginStatus_Login } from "./components/config";
 
 //note: navbar ned to uses outlet
 
@@ -18,7 +20,9 @@ const router = createBrowserRouter(
     <Route element={<Navbar />}>
       <Route index element={<LandingPage></LandingPage>} />
       <Route path="/live" element={<LivePage></LivePage>} />
-      <Route path="/login" element={<LoginPage></LoginPage>} />
+      <Route index element={<LandingPage></LandingPage>} />
+      <Route path={LoginStatus_Login} element={<LoginPage />} />
+      <Route path="/history" element={<HistoryGraph />} />
     </Route>
   )
 );
