@@ -1,23 +1,9 @@
-//import { } from "../config;"
-import { useState, useEffect } from "react";
-import "./SelcetedBreadProfiles.css";
+import { useState } from "react";
+import "./SelectedBreadProfile.module.css";
+import {BreadProfile, target} from "../config";
+import styles from "./SelectedBreadProfile.module.css"
 
-interface BreadProfile {
-  id?: number;
-  title?: string;
-  description?: string;
-  targets?: target[];
-}
-
-interface target {
-  id?: number;
-  temp?: string;
-  humidity?: string;
-  co2?: string;
-  offset?: string;
-}
-
-export default function SelcetedBreadProfiles(props: any) {
+export default function SelectedBreadProfile(props: any) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [inputValue, setInputValue] = useState<string | undefined>("");
   const [Title, setTitle] = useState("");
@@ -25,7 +11,7 @@ export default function SelcetedBreadProfiles(props: any) {
 
   return (
     <div>
-      <div onBlur={toggleDropdownOff}>
+      <div className={styles.container} onBlur={toggleDropdownOff}>
         <input
           type="text"
           placeholder="Search.."
@@ -39,13 +25,14 @@ export default function SelcetedBreadProfiles(props: any) {
         />
 
         {dropdown()}
+        {Buttons()}
       </div>
 
-      {buttonsRemoveAndEdit()}
 
-      {add()}
-      {Remove()}
-      {Edit()}
+
+      {AddWindow()}
+      {RemoveWindow()}
+      {EditWindow()}
 
       <div className="error-container hide" id="errorState">
         {props.errorState}
@@ -53,41 +40,12 @@ export default function SelcetedBreadProfiles(props: any) {
     </div>
   );
 
-  function dropdown() {
-    if (showDropdown) {
-      if (props.Data != null) {
-        return (
-          <div id="myDropdown" className="dropdown-content">
-            {props.Data.map((item: BreadProfile, index: number) => (
-              <div
-                key={index}
-                className="dropdown-item"
-                onMouseDown={() => handleItemClick(item)}
-              >
-                {item.title}
-              </div>
-            ))}
-          </div>
-        );
-      } else {
-        return (
-          <div id="myDropdown" className="dropdown-content">
-            <div className="dropdown-item">
-              No Bread Profiles or server down
-            </div>
-          </div>
-        );
-      }
-    }
-  }
-
-  function buttonsRemoveAndEdit() {
-    if (validationInput()) {
+  // # CHANGES THE AMOUNT OF THE BUTTONS
+  function Buttons() {
+    if (CheckIsBreadProfile()) {
       return (
-        <div>
-          <button
-            className="dropbtn"
-            onClick={() => {
+        <div className={styles.buttonContainer}>
+          <button className={styles.button} onClick={() => {
               props.setSelectedDate({ targets: [{}, {}, {}, {}] });
               props.setshowRemove(false);
               props.setshowEdit(false);
@@ -95,39 +53,35 @@ export default function SelcetedBreadProfiles(props: any) {
               setInputValue("");
               setDescription("");
               setTitle("");
-            }}
-          >
+            }}>
             Add
           </button>
-          <button
-            className="dropbtn"
-            onClick={() => {
+
+          <button className={styles.button} onClick={() => {
               props.setshowAdd(false);
               props.setshowEdit(false);
               props.setshowRemove(true);
-            }}
-          >
+            }}>
             Remove
           </button>
-          <button
-            className="dropbtn"
-            onClick={() => {
+
+          <button className={styles.button} onClick={() => {
               props.setshowAdd(false);
               props.setshowRemove(false);
               props.setshowEdit(true);
               setDescription(props.SelectedData.description);
               setTitle(props.SelectedData.title);
-            }}
-          >
+            }}>
             Edit
           </button>
         </div>
       );
-    } else {
-      return (
-        <button
-          className="dropbtn"
-          onClick={() => {
+    }
+    else
+    {
+      return(
+          <div className={styles.buttonContainer}>
+        <button className={styles.button} onClick={() => {
             props.setSelectedDate({ targets: [{}, {}, {}, {}] });
             props.setshowRemove(false);
             props.setshowEdit(false);
@@ -135,48 +89,61 @@ export default function SelcetedBreadProfiles(props: any) {
             setInputValue("");
             setDescription("");
             setTitle("");
-          }}
-        >
+          }}>
           Add
         </button>
+          </div>
       );
     }
   }
 
-  function add() {
-    if (props.ShowAdd) {
-      return (
-        <div className="Add">
-          <b>Create a new Profile</b>
-          <input
-            type="text"
-            placeholder="Title"
-            value={Title}
-            onChange={(event) => setTitle(event.target.value)}
-          />
+  // NOTE: DROP-DOWN
+  function dropdown() {
+    if (showDropdown) {
+      if (props.Data != null) {
+        return (
+            <div className={styles.dropdown}>
+              {props.Data.map((item: BreadProfile, index: number) => (
+                  <div key={index} className={styles.dropdownItem} onMouseDown={() => HandleClickItem(item)}>
+                    <p>{item.title}</p>
+                  </div>
+              ))}
+            </div>
+        );
+      } else {
+        return (
+            <div className={styles.dropdown}>
+              <div className={styles.dropdownItem}>
+                No Bread Profiles or server down
+              </div>
+            </div>
+        );
+      }
+    }
+  }
 
-          <textarea
-            placeholder="Description"
-            value={Description}
-            onChange={(event) => setDescription(event.target.value)}
-          ></textarea>
-          <div>
-            <button
-              onClick={() => {
+  // NOTE: SHOWS THE DIFFERENT WINDOWS
+  function AddWindow() {
+    if (props.ShowAdd)
+    {
+      return (
+        <div className={styles.Add}>
+          <p>Create a new Profile</p>
+          <input type="text" placeholder="Title" value={Title} onChange={(event) => setTitle(event.target.value)}/>
+          <textarea placeholder="Description" value={Description} onChange={(event) => setDescription(event.target.value)}></textarea>
+          <div className={styles.buttons}>
+            <button onClick={() => {
                 props.setshowAdd(false);
                 setTitle("");
                 setDescription("");
                 hideErrorState();
-              }}
-            >
+              }} className={styles.cancel}>
               Cancel
             </button>
 
-            <button
-              onClick={() => {
-                PostNewProfil();
-              }}
-            >
+            <button onClick={() => {
+                PostProfile();
+              }} className={styles.confirm}>
               Create
             </button>
           </div>
@@ -185,13 +152,12 @@ export default function SelcetedBreadProfiles(props: any) {
     }
     return <></>;
   }
-
-  function Edit() {
+  function EditWindow() {
     if (props.ShowEdit) {
       //take data and set title and description
       return (
-        <div className="Edit">
-          <b>Editing Selected Profile</b>
+        <div className={styles.Edit}>
+          <p>Editing Selected Profile</p>
           <input
             type="text"
             placeholder="Title"
@@ -204,22 +170,22 @@ export default function SelcetedBreadProfiles(props: any) {
             value={Description}
             onChange={(event) => setDescription(event.target.value)}
           ></textarea>
-          <div>
+          <div className={styles.buttons}>
             <button
               onClick={() => {
                 props.setshowEdit(false);
                 setTitle("");
                 setDescription("");
                 hideErrorState();
-              }}
+              }} className={styles.cancel}
             >
               Cancel
             </button>
 
             <button
               onClick={() => {
-                UpdateProfil();
-              }}
+                UpdateProfile();
+              }} className={styles.confirm}
             >
               Save
             </button>
@@ -229,17 +195,16 @@ export default function SelcetedBreadProfiles(props: any) {
     }
     return <></>;
   }
-
-  function Remove() {
+  function RemoveWindow()  {
     if (props.ShowRemove) {
       return (
-        <div className="Remove">
-          <b>Deleting Selected Profile</b>
-          <div>
+        <div className={styles.Remove}>
+          <p>Deleting Selected Profile</p>
+          <div className={styles.buttons}>
             <button
               onClick={() => {
                 props.setshowRemove(false);
-              }}
+              }} className={styles.cancel}
             >
               Cancel
             </button>
@@ -247,8 +212,8 @@ export default function SelcetedBreadProfiles(props: any) {
             <button
               onClick={() => {
                 props.setshowRemove(false);
-                DeleteProfil();
-              }}
+                DeleteProfile();
+              }} className={styles.confirm}
             >
               Confirm
             </button>
@@ -259,21 +224,23 @@ export default function SelcetedBreadProfiles(props: any) {
     return <></>;
   }
 
-  function validationInput() {
+  // # CHECKS IF THE SELECTED PROFILE IN THE DROPDOWN IS DONE
+  function CheckIsBreadProfile() : boolean {
     return (
       props.SelectedData !== null && props.SelectedData?.title !== undefined
     );
   }
 
-  //------------------------------------------------------------------------------
-  function UpdateProfil() {
+  // NOTE: METHODS FROM PARENT (PAGE)
+  // * Just give the information to the page.
+  function UpdateProfile() {
     const breadProfil: BreadProfile = {
       ...props.SelectedData,
       title: Title,
       description: Description,
     };
 
-    if (validationAll(breadProfil)) {
+    if (ValidateBreadProfile(breadProfil)) {
       props.setshowAdd(false);
       props.setshowEdit(false);
       props.UpdateProfil(breadProfil);
@@ -285,15 +252,14 @@ export default function SelcetedBreadProfiles(props: any) {
       props.setSelectedDate(null);
     }
   }
-
-  function PostNewProfil() {
+  function PostProfile() {
     const breadProfil: BreadProfile = {
       ...props.SelectedData,
       title: Title,
       description: Description,
     };
 
-    if (validationAll(breadProfil)) {
+    if (ValidateBreadProfile(breadProfil)) {
       props.setshowAdd(false);
       props.setSelectedDate({ breadProfil });
 
@@ -305,8 +271,7 @@ export default function SelcetedBreadProfiles(props: any) {
       props.setSelectedDate(null);
     }
   }
-
-  function DeleteProfil() {
+  function DeleteProfile() {
     const breadProfil: BreadProfile = {
       ...props.SelectedData,
     };
@@ -319,46 +284,40 @@ export default function SelcetedBreadProfiles(props: any) {
     props.setSelectedDate(null);
   }
 
-  //------------------------------------------------------------------------------
-  function handleItemClick(item: BreadProfile) {
+  // # MAKE A SHADOW OF THE SELECTED PROFILE
+  function HandleClickItem(profile: BreadProfile) {
     props.setshowRemove(false);
     props.setshowEdit(false);
     props.setshowAdd(false);
 
-    let copieditem: BreadProfile = { ...item, targets: item.targets };
+    let copyOfProfile: BreadProfile = { ...profile, targets: profile.targets };
 
-    if (copieditem.targets === undefined) {
-      copieditem = { ...copieditem, targets: [] };
+    if (copyOfProfile.targets === undefined) {
+      copyOfProfile = { ...copyOfProfile, targets: [] };
     }
 
     for (let i = 0; i < 4; i++) {
       if (
-        copieditem?.targets?.find(
+        copyOfProfile?.targets?.find(
           (element: target, index: number) => i === index
         ) === null
       ) {
-        copieditem = { ...copieditem, targets: [...copieditem.targets, {}] };
+        copyOfProfile = { ...copyOfProfile, targets: [...copyOfProfile.targets, {}] };
       }
     }
 
-    props.setSelectedDate({ ...copieditem });
+    props.setSelectedDate({ ...copyOfProfile });
 
-    setInputValue(item?.title);
+    setInputValue(profile?.title);
 
-    setDescription("" + copieditem.description);
-    setTitle("" + copieditem.title);
+    setDescription("" + copyOfProfile.description);
+    setTitle("" + copyOfProfile.title);
 
     toggleDropdownOff();
   }
 
-  function toggleDropdownOn() {
-    setShowDropdown(true);
-  }
-  function toggleDropdownOff() {
-    setShowDropdown(false);
-  }
-
-  function validationAll(profile: BreadProfile) {
+  // # USED FOR VALIDATING ONE BREAD-PROFILE
+  function ValidateBreadProfile(profile: BreadProfile) {
     if (profile.title === "" || profile.description === "") {
       showErrorState();
       props.setErrorState("There must be an title and description");
@@ -368,7 +327,7 @@ export default function SelcetedBreadProfiles(props: any) {
     let hasFailed: boolean = false;
 
     profile.targets?.forEach((element) => {
-      if (!validation(element.temp, element.humidity, element.offset)) {
+      if (!ValidateTarget(element.temp, element.humidity, element.offset)) {
         hasFailed = true;
         return;
       }
@@ -381,23 +340,13 @@ export default function SelcetedBreadProfiles(props: any) {
     return !hasFailed;
   }
 
-  function validation(
-    temperature: string | undefined,
-    humidity: string | undefined,
-    time: string | undefined
-  ) {
-    if (!validationTemp(temperature)) {
-      return false;
-    }
-    if (!validationHumidity(humidity)) {
-      return false;
-    }
-    if (!validationTime(time)) {
-      return false;
-    }
-    return true;
+  // # USED FOR VALIDATING TARGETS (USES SUB-FUNCTIONS BELOW)
+  function ValidateTarget(temperature: string | undefined, humidity: string | undefined, time: string | undefined)
+  {
+    return !validationTemp(temperature) && !validationHumidity(humidity) && !validationTime(time)
   }
 
+  // * Validates the temperature is valid
   function validationTemp(temperature: string | undefined) {
     if (temperature === undefined || temperature === "") {
       showErrorState();
@@ -412,6 +361,7 @@ export default function SelcetedBreadProfiles(props: any) {
     return true;
   }
 
+  // * Validates the humidity is valid
   function validationHumidity(humidity: string | undefined) {
     if (humidity === undefined || humidity === "") {
       showErrorState();
@@ -426,6 +376,7 @@ export default function SelcetedBreadProfiles(props: any) {
     return true;
   }
 
+  // * Validates the time is valid
   function validationTime(time: string | undefined) {
     if (time === undefined || time === "") {
       showErrorState();
@@ -438,8 +389,7 @@ export default function SelcetedBreadProfiles(props: any) {
       return false;
     }
 
-    //Test for time
-    const Array = time.split(":");
+    const Array : string[] = time.split(":");
 
     if (Array.length != 3) {
       showErrorState();
@@ -465,7 +415,7 @@ export default function SelcetedBreadProfiles(props: any) {
       return false;
     }
 
-    for (let i = 0; i < Array.length; i++) {
+    for (let i : number = 0; i < Array.length; i++) {
       if (isNaN(parseInt(Array[i]))) {
         showErrorState();
         props.setErrorState("Not a number");
@@ -476,13 +426,23 @@ export default function SelcetedBreadProfiles(props: any) {
     return true;
   }
 
+
+  // ! USED TO SHOW/HIDE DROP-DOWN
+  function toggleDropdownOn() {
+    setShowDropdown(true);
+  }
+  function toggleDropdownOff() {
+    setShowDropdown(false);
+  }
+
+  // ! USED TO SHOW/HIDE ERROR-STATE
   function hideErrorState() {
-    var element = document.getElementById("errorState");
+    const element: HTMLElement | null  = document.getElementById("errorState");
     element?.classList.add("hide");
   }
 
   function showErrorState() {
-    var element = document.getElementById("errorState");
+    const element : HTMLElement | null = document.getElementById("errorState");
     element?.classList.remove("hide");
   }
 }

@@ -13,13 +13,29 @@ export const CollapsibleMenuItems: MenuItem[] = [
   { name: "Link 1", url: "/test" },
   { name: "Link 2", url: "/test" },
 ];
+
+
+//BreadProfilesPage
+export const BreadProfiles: string = "/data-service/bread";
 export interface MenuItem {
   name: string;
   url: string;
 }
+export interface BreadProfile {
+  id?: number;
+  title?: string;
+  description?: string;
+  targets?: target[];
+}
 
-//BreadProfilesPage
-export const BreadProfiles: string = "/data-service/bread";
+export interface target {
+  id?: number;
+  temp?: string;
+  humidity?: string;
+  co2?: string;
+  offset?: string;
+}
+
 
 //Carousel
 interface ImageItem {

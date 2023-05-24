@@ -8,10 +8,8 @@ import {
 } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import LivePage from "./routes/LivePage/LivePage";
-import TitleCard from "./components/TitleCard/TitleCard";
-import SelcetedBreadProfiles from "./components/SelcetedBreadProfiles/SelcetedBreadProfiles";
 import BreadProfilesPage from "./routes/BreadProfilesPage/BreadProfilesPage";
-//note: navbar ned to uses outlet
+//note: navbar need to uses outlet
 
 const router = createBrowserRouter(
   createRoutesFromElements(
