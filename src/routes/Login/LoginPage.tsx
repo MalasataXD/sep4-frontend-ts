@@ -1,7 +1,7 @@
 import styles from "./LoginPage.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { JWTLocation } from "../../components/config";
-import { Buffer } from "buffer";
+import { LandingPage } from "../../components/config";
+import Login from "../../components/login";
 
 export default function LoginPage() {
   const navigator = useNavigate();
@@ -25,27 +25,8 @@ export default function LoginPage() {
   );
 
   function login() {
-    //if correct mail and password
-    if (true) {
-      const decodedToken = { username: "testuser" };
-
-      const payload = {
-        userId: 123,
-        username: "john.doe",
-      };
-
-      const header = Buffer.from(JSON.stringify({ alg: "none" })).toString(
-        "base64"
-      );
-      const encodedPayload = Buffer.from(JSON.stringify(payload)).toString(
-        "base64"
-      );
-      const token = `${header}.${encodedPayload}.`;
-
-      localStorage.setItem(JWTLocation, token);
-
-      navigator("/");
-    }
+    Login.login();
+    navigator(LandingPage);
   }
 
   function register() {}

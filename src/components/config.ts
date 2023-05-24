@@ -1,7 +1,6 @@
 import aboutUs from "../img/TitleCardImages/About Us.jpg";
 import contact from "../img/TitleCardImages/Contact.jpg";
 import ourProject from "../img/TitleCardImages/Our Project.jpg";
-
 import breadProfile from "../img/TitleCardImages/Bread Profile.jpg";
 import history from "../img/TitleCardImages/History.jpg";
 import live from "../img/TitleCardImages/Live.jpg";
@@ -9,8 +8,6 @@ import live from "../img/TitleCardImages/Live.jpg";
 export const LINK: string = "http://localhost:8080";
 export const GetData: string = "/data-service/data";
 export const EditValuesPost: string = "/data-service/target";
-
-export const JWTLocation: string = "jwt";
 
 //LoginStatus local
 export const LoginStatus_Login: string = "/login";
