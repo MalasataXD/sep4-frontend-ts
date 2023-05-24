@@ -18,8 +18,8 @@ export interface MenuItem {
   url: string;
 }
 
-//TargetCard
-export const TargetCardUpdate: string = "/test";
+//BreadProfilesPage
+export const BreadProfiles: string = "/data-service/bread";
 
 //Carousel
 interface ImageItem {

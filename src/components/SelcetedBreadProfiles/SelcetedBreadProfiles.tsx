@@ -1,10 +1,6 @@
 //import { } from "../config;"
 import { useState, useEffect } from "react";
 import "./SelcetedBreadProfiles.css";
-import BreadProfilesPage from "../../routes/BreadProfilesPage/BreadProfilesPage";
-import { async } from "q";
-import { title } from "process";
-import { element } from "prop-types";
 
 interface BreadProfile {
   id?: number;
@@ -50,6 +46,10 @@ export default function SelcetedBreadProfiles(props: any) {
       {add()}
       {Remove()}
       {Edit()}
+
+      <div className="error-container hide" id="errorState">
+        {props.errorState}
+      </div>
     </div>
   );
 
@@ -166,6 +166,7 @@ export default function SelcetedBreadProfiles(props: any) {
                 props.setshowAdd(false);
                 setTitle("");
                 setDescription("");
+                hideErrorState();
               }}
             >
               Cancel
@@ -173,10 +174,7 @@ export default function SelcetedBreadProfiles(props: any) {
 
             <button
               onClick={() => {
-                props.setshowAdd(false);
-                if (validationTitleAndDescription()) {
-                  PostNewProfil();
-                }
+                PostNewProfil();
               }}
             >
               Create
@@ -212,6 +210,7 @@ export default function SelcetedBreadProfiles(props: any) {
                 props.setshowEdit(false);
                 setTitle("");
                 setDescription("");
+                hideErrorState();
               }}
             >
               Cancel
@@ -219,11 +218,7 @@ export default function SelcetedBreadProfiles(props: any) {
 
             <button
               onClick={() => {
-                props.setshowAdd(false);
-                props.setshowEdit(false);
-                if (validationTitleAndDescription()) {
-                  UpdateProfil();
-                }
+                UpdateProfil();
               }}
             >
               Save
@@ -270,9 +265,6 @@ export default function SelcetedBreadProfiles(props: any) {
     );
   }
 
-  function validationTitleAndDescription() {
-    return true;
-  }
   //------------------------------------------------------------------------------
   function UpdateProfil() {
     const breadProfil: BreadProfile = {
@@ -281,13 +273,17 @@ export default function SelcetedBreadProfiles(props: any) {
       description: Description,
     };
 
-    props.UpdateProfil(breadProfil);
+    if (validationAll(breadProfil)) {
+      props.setshowAdd(false);
+      props.setshowEdit(false);
+      props.UpdateProfil(breadProfil);
 
-    setTitle("");
-    setDescription("");
-    setInputValue("");
+      setTitle("");
+      setDescription("");
+      setInputValue("");
 
-    props.setSelectedDate(null);
+      props.setSelectedDate(null);
+    }
   }
 
   function PostNewProfil() {
@@ -297,14 +293,17 @@ export default function SelcetedBreadProfiles(props: any) {
       description: Description,
     };
 
-    props.setSelectedDate({ breadProfil });
+    if (validationAll(breadProfil)) {
+      props.setshowAdd(false);
+      props.setSelectedDate({ breadProfil });
 
-    props.PostProfil(breadProfil);
+      props.PostProfil(breadProfil);
 
-    setTitle("");
-    setDescription("");
+      setTitle("");
+      setDescription("");
 
-    props.setSelectedDate(null);
+      props.setSelectedDate(null);
+    }
   }
 
   function DeleteProfil() {
@@ -357,5 +356,133 @@ export default function SelcetedBreadProfiles(props: any) {
   }
   function toggleDropdownOff() {
     setShowDropdown(false);
+  }
+
+  function validationAll(profile: BreadProfile) {
+    if (profile.title === "" || profile.description === "") {
+      showErrorState();
+      props.setErrorState("There must be an title and description");
+      return false;
+    }
+
+    let hasFailed: boolean = false;
+
+    profile.targets?.forEach((element) => {
+      if (!validation(element.temp, element.humidity, element.offset)) {
+        hasFailed = true;
+        return;
+      }
+    });
+
+    if (!hasFailed) {
+      hideErrorState();
+      props.setErrorState("");
+    }
+    return !hasFailed;
+  }
+
+  function validation(
+    temperature: string | undefined,
+    humidity: string | undefined,
+    time: string | undefined
+  ) {
+    if (!validationTemp(temperature)) {
+      return false;
+    }
+    if (!validationHumidity(humidity)) {
+      return false;
+    }
+    if (!validationTime(time)) {
+      return false;
+    }
+    return true;
+  }
+
+  function validationTemp(temperature: string | undefined) {
+    if (temperature === undefined || temperature === "") {
+      showErrorState();
+      props.setErrorState("There must be an input in temperature");
+      return false;
+    }
+    if (Number(temperature) > 100 || Number(temperature) < -20) {
+      showErrorState();
+      props.setErrorState("Temperature must be between -20 and 100");
+      return false;
+    }
+    return true;
+  }
+
+  function validationHumidity(humidity: string | undefined) {
+    if (humidity === undefined || humidity === "") {
+      showErrorState();
+      props.setErrorState("There must be an input in Humidity");
+      return false;
+    }
+    if (Number(humidity) > 100 || Number(humidity) < 0) {
+      showErrorState();
+      props.setErrorState("Humidity must be between 0 and 100");
+      return false;
+    }
+    return true;
+  }
+
+  function validationTime(time: string | undefined) {
+    if (time === undefined || time === "") {
+      showErrorState();
+      props.setErrorState("There must be an input in Time");
+      return false;
+    }
+    if (time > "24:00:00" || time < "00:00:00") {
+      showErrorState();
+      props.setErrorState("Time must be between 00:00:00 and 24:00:00");
+      return false;
+    }
+
+    //Test for time
+    const Array = time.split(":");
+
+    if (Array.length != 3) {
+      showErrorState();
+      props.setErrorState("Time is not the right format");
+      return false;
+    }
+
+    if (parseInt(Array[0]) > 24 || parseInt(Array[0]) < 0) {
+      showErrorState();
+      props.setErrorState("Hours must be between 00 and 24");
+      return false;
+    }
+
+    if (parseInt(Array[1]) > 60 || parseInt(Array[1]) < 0) {
+      showErrorState();
+      props.setErrorState("Minutes must be between 00 and 60");
+      return false;
+    }
+
+    if (parseInt(Array[2]) > 60 || parseInt(Array[2]) < 0) {
+      showErrorState();
+      props.setErrorState("Seconds must be between 00 and 60");
+      return false;
+    }
+
+    for (let i = 0; i < Array.length; i++) {
+      if (isNaN(parseInt(Array[i]))) {
+        showErrorState();
+        props.setErrorState("Not a number");
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  function hideErrorState() {
+    var element = document.getElementById("errorState");
+    element?.classList.add("hide");
+  }
+
+  function showErrorState() {
+    var element = document.getElementById("errorState");
+    element?.classList.remove("hide");
   }
 }

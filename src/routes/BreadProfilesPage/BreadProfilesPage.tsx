@@ -2,7 +2,7 @@ import styles from "./BreadProfilesPage.module.css";
 import TargetCard from "../../components/TargetCard/TargetCard";
 import SelcetedBreadProfiles from "../../components/SelcetedBreadProfiles/SelcetedBreadProfiles";
 import { useState, useEffect } from "react";
-import { element } from "prop-types";
+import { LINK, BreadProfiles } from "../../components/config";
 
 export default function BreadProfilesPage() {
   const [data, setData] = useState<BreadProfile[] | null>(null);
@@ -12,35 +12,32 @@ export default function BreadProfilesPage() {
   const [showRemove, setshowRemove] = useState<boolean>(false);
   const [showEdit, setshowEdit] = useState<boolean>(false);
 
+  const [errorState, setErrorState] = useState("");
+
   useEffect(() => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log("Selected:", Selected);
-  }, [Selected]);
-
   async function fetchData(): Promise<void> {
     try {
       // # Makes a request to the API to get the latest data
-      const response: Response = await fetch(
-        "http://localhost:8080/data-service/bread",
-        {
-          headers: { "Content-Type": "application/json" },
-          method: "GET",
-          mode: "cors",
-        }
-      );
+      const response: Response = await fetch(LINK + BreadProfiles, {
+        headers: { "Content-Type": "application/json" },
+        method: "GET",
+        mode: "cors",
+      });
       // ! If something went wrong --> Throw an Error.
       if (!response.ok) {
-        throw new Error("Could not get information from API...");
+        showErrorState();
+        setErrorState("Could not get information from API...");
       }
 
       const data: BreadProfile[] = await response.json(); // # Convert from JSON to APIData Object
       // NOTE: Split the data into the correct displays.
       setData(data);
     } catch (Error) {
-      console.error(Error);
+      showErrorState();
+      setErrorState("server didn't respond!");
     }
   }
 
@@ -75,6 +72,8 @@ export default function BreadProfilesPage() {
         ShowAdd={showAdd}
         ShowRemove={showRemove}
         ShowEdit={showEdit}
+        errorState={errorState}
+        setErrorState={(text: string) => setErrorState(text)}
       />
       <TargetCard
         Title="Chilling"
@@ -120,61 +119,69 @@ export default function BreadProfilesPage() {
   }
 
   async function PostProfil(profil: BreadProfile) {
-    console.log("POST");
-    console.log(profil);
     try {
-      const response = await fetch("http://localhost:8080/data-service/bread", {
+      const response = await fetch(LINK + BreadProfiles, {
         headers: { "Content-Type": "application/json" },
         method: "POST",
         body: JSON.stringify(profil),
       });
 
       if (!response.ok) {
-        console.log("nok ok :c");
+        showErrorState();
+        setErrorState("not ok");
       }
     } catch (error) {
-      console.log("server didn't respond!");
+      showErrorState();
+      setErrorState("server didn't respond!");
     }
     fetchData();
   }
 
   async function DeleteProfil(profil: BreadProfile) {
-    console.log("DELETE");
-    console.log(profil);
     try {
-      const response = await fetch(
-        "http://localhost:8080/data-service/bread?id=" + profil?.id,
-        {
-          headers: { "Content-Type": "application/json" },
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(LINK + BreadProfiles + "?id=" + profil?.id, {
+        headers: { "Content-Type": "application/json" },
+        method: "DELETE",
+      });
 
       if (!response.ok) {
-        console.log("nok ok :c");
+        showErrorState();
+        setErrorState("not ok");
       }
     } catch (error) {
-      console.log("server didn't respond!");
+      showErrorState();
+      setErrorState("server didn't respond!");
     }
     fetchData();
   }
 
   async function UpdateProfil(profil: BreadProfile) {
-    console.log("UPDATE");
-    console.log(profil);
     try {
-      const response = await fetch("http://localhost:8080/data-service/bread", {
+      const response = await fetch(LINK + BreadProfiles, {
         headers: { "Content-Type": "application/json" },
         method: "PATCH",
         body: JSON.stringify(profil),
       });
 
       if (!response.ok) {
-        console.log("nok ok :c");
+        showErrorState();
+        setErrorState("not ok");
       }
     } catch (error) {
-      console.log("server didn't respond!");
+      showErrorState();
+      setErrorState("server didn't respond!");
     }
+
     fetchData();
+  }
+
+  function hideErrorState() {
+    var element = document.getElementById("errorState");
+    element?.classList.add("hide");
+  }
+
+  function showErrorState() {
+    var element = document.getElementById("errorState");
+    element?.classList.remove("hide");
   }
 }
