@@ -15,11 +15,17 @@ export const JWTLocation: string = "jwt";
 //LoginStatus local
 export const LoginStatus_Login: string = "/login";
 export const LoginStatus_Profil: string = "/test";
+export const LandingPage: string = "/";
+export const LivePage: string = "/live";
+export const BreadProfilePage: string = "/breadprofile";
+export const HistoryPage: string = "/history";
 
 //CollapsibleMenu
 export const CollapsibleMenuItems: MenuItem[] = [
-  { name: "Link 1", url: "/test" },
-  { name: "Link 2", url: "/test" },
+  { name: "Home", url: LandingPage },
+  { name: "Live information", url: LivePage },
+  { name: "Bread profiles", url: BreadProfilePage },
+  { name: "History", url: HistoryPage },
 ];
 export interface MenuItem {
   name: string;
@@ -80,19 +86,19 @@ export const TitleCards: TitelCardItem[] = [
     titel: "Live information",
     description: "Read and adjust your bread environment here!",
     url: `${live}`,
-    link: "/live",
+    link: LivePage,
   },
   {
     titel: "Bread profiles",
     description: "Create and start your own bread profiles here!",
     url: `${breadProfile}`,
-    link: "/test",
+    link: BreadProfilePage,
   },
   {
     titel: "History",
     description:
       "View the history of your recent uses of the bread profiles here!",
     url: `${history}`,
-    link: "/test",
+    link: HistoryPage,
   },
 ];
