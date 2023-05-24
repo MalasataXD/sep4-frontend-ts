@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import {
-  createBrowserRouter,
+  createHashRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
@@ -13,21 +13,18 @@ import HistoryGraph from "./components/HistoryGraph/HistoryGraph";
 import LoginPage from "./routes/Login/LoginPage";
 import { LoginStatus_Login } from "./components/config";
 
-//note: navbar ned to uses outlet
-
-const router = createBrowserRouter(
+const router = createHashRouter(
   createRoutesFromElements(
     <Route element={<Navbar />}>
-      <Route index element={<LandingPage></LandingPage>} />
-      <Route path="/live" element={<LivePage></LivePage>} />
-      <Route index element={<LandingPage></LandingPage>} />
+      <Route index element={<LandingPage />} />
+      <Route path="/live" element={<LivePage />} />
+      <Route index element={<LandingPage />} />
       <Route path={LoginStatus_Login} element={<LoginPage />} />
       <Route path="/history" element={<HistoryGraph />} />
     </Route>
   )
 );
 
-//do not add to this. Add to router (maybe only css)
 function App() {
   return (
     <div>
