@@ -1,6 +1,6 @@
 import styles from "./BreadProfilesPage.module.css";
 import TargetCard from "../../components/TargetCard/TargetCard";
-import SelcetedBreadProfiles from "../../components/SelcetedBreadProfiles/SelcetedBreadProfiles";
+import SelcetedBreadProfiles from "../../components/SelectedBreadProfile/SelectedBreadProfile";
 import { useState, useEffect } from "react";
 import { LINK, BreadProfiles } from "../../components/config";
 
