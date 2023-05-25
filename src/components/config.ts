@@ -1,7 +1,6 @@
 import aboutUs from "../img/TitleCardImages/About Us.jpg";
 import contact from "../img/TitleCardImages/Contact.jpg";
 import ourProject from "../img/TitleCardImages/Our Project.jpg";
-
 import breadProfile from "../img/TitleCardImages/Bread Profile.jpg";
 import history from "../img/TitleCardImages/History.jpg";
 import live from "../img/TitleCardImages/Live.jpg";
@@ -12,22 +11,19 @@ export const GetData: string = "/data-service/data";
 export const EditValuesPost: string = "/data-service/target";
 export const BreadProfiles: string = "/data-service/bread";
 
-export const JWTLocation: string = "jwt";
-
 // # PAGES
-export const LoginStatus_Login: string = "/login";
-export const LoginStatus_Profil: string = "/test";
-export const LandingPage: string = "/";
-export const LivePage: string = "/live";
+export const Landing: string = "/";
+export const Live: string = "/live";
 export const BreadProfile: string = "/breadprofile";
-export const HistoryPage: string = "/history";
+export const History: string = "/history";
+export const Login: string = "/login";
 
 // # DROPDOWN MENU
 export const CollapsibleMenuItems: MenuItem[] = [
-  { name: "Home", url: LandingPage },
-  { name: "Live information", url: LivePage },
+  { name: "Home", url: Landing },
+  { name: "Live information", url: Live },
   { name: "Bread profiles", url: BreadProfile },
-  { name: "History", url: HistoryPage },
+  { name: "History", url: History },
 ];
 
 // # INTERFACES
@@ -103,7 +99,7 @@ export const TitleCards: TitleCards[] = [
     title: "Live information",
     description: "Read and adjust your bread environment here!",
     url: `${live}`,
-    link: LivePage,
+    link: Live,
   },
   {
     title: "Bread profiles",
@@ -116,6 +112,6 @@ export const TitleCards: TitleCards[] = [
     description:
       "View the history of your recent uses of the bread profiles here!",
     url: `${history}`,
-    link: HistoryPage,
+    link: History,
   },
 ];
