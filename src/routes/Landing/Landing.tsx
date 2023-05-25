@@ -2,9 +2,8 @@ import styles from "./Landing.module.css";
 import Carousel from "../../components/Carousel/Carousel";
 import TitleCard from "../../components/TitleCard/TitleCard";
 import { useEffect, useState } from "react";
-import { JWTLocation, TitleCards } from "../../components/config";
-
-import jwt_decode from "jwt-decode"; //64 base
+import { TitleCards } from "../../components/config";
+import LoginHandler from "../../components/login";
 
 export default function LandingPage() {
   const [Titel1, setTitel1] = useState("");
@@ -22,7 +21,20 @@ export default function LandingPage() {
   const [Image3, setImage3] = useState("");
   const [Link3, setLink3] = useState("");
 
-  const [IsLoggedIn, setIsLoggedIn] = useState(isLoggedIn());
+  const [IsLoggedIn, setIsLoggedIn] = useState(LoginHandler.isLoggedIn());
+
+  const observer = {
+    update: (data: boolean) => {
+      setIsLoggedIn(data);
+    },
+  };
+
+  useEffect(() => {
+    LoginHandler.addObserver(observer);
+    return () => {
+      LoginHandler.removeObserver(observer);
+    };
+  }, []);
 
   useEffect(() => {
     if (IsLoggedIn) {
@@ -91,22 +103,4 @@ export default function LandingPage() {
       </div>
     </div>
   );
-
-  // Check if user is logged in and token has not expired
-  function isLoggedIn() {
-    const token = localStorage?.getItem(JWTLocation);
-    return token !== null && !isTokenExpired(token);
-  }
-
-  function isTokenExpired(token: string) {
-    const decoded: any = jwt_decode(token);
-
-    // If the 'exp' field does not exist, assume the token does not expire
-    if (decoded?.exp == null) {
-      return false;
-    }
-
-    const now: number = Date.now() / 1000;
-    return decoded.exp < now;
-  }
 }

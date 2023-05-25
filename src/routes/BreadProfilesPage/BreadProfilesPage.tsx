@@ -3,6 +3,8 @@ import SelectedBreadProfile from "../../components/SelectedBreadProfile/Selected
 import { useState, useEffect } from "react";
 import { LINK, BreadProfiles, BreadProfile } from "../../components/config";
 import styles from "./BreadProfilesPage.module.css";
+import { useNavigate } from "react-router-dom";
+import LoginHandler from "../../components/login";
 
 export default function BreadProfilesPage() {
   const [data, setData] = useState<BreadProfile[] | null>([
@@ -17,7 +19,13 @@ export default function BreadProfilesPage() {
 
   const [errorState, setErrorState] = useState("");
 
+  const navigate = useNavigate();
+
   useEffect(() => {
+    if (!LoginHandler.isLoggedIn()) {
+      navigate("/login");
+    }
+
     fetchData();
   }, []);
 
