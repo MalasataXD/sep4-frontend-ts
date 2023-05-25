@@ -13,6 +13,7 @@ export default function BreadProfilesPage() {
   const [showAdd, setshowAdd] = useState<boolean>(false);
   const [showRemove, setshowRemove] = useState<boolean>(false);
   const [showEdit, setshowEdit] = useState<boolean>(false);
+  const [showStart, setshowStart] = useState<boolean>(false);
 
   const [errorState, setErrorState] = useState("");
 
@@ -33,6 +34,7 @@ export default function BreadProfilesPage() {
         setshowAdd={(newValue: boolean) => setshowAdd(newValue)}
         setshowRemove={(newValue: boolean) => setshowRemove(newValue)}
         setshowEdit={(newValue: boolean) => setshowEdit(newValue)}
+        setshowStart={(newValue: boolean) => setshowStart(newValue)}
         SelectedData={Selected}
         Data={data}
         PostProfil={(profile: BreadProfile) => PostProfile(profile)}
@@ -41,6 +43,7 @@ export default function BreadProfilesPage() {
         ShowAdd={showAdd}
         ShowRemove={showRemove}
         ShowEdit={showEdit}
+        ShowStart={showStart}
         errorState={errorState}
         setErrorState={(text: string) => setErrorState(text)}
       />

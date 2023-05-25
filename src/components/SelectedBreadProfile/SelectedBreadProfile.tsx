@@ -31,6 +31,7 @@ export default function SelectedBreadProfile(props: any) {
       {AddWindow()}
       {RemoveWindow()}
       {EditWindow()}
+      {StartWindow()}
 
       <div
         className={`${styles.errorContainer} ${styles.hide}`}
@@ -83,6 +84,20 @@ export default function SelectedBreadProfile(props: any) {
             }}
           >
             Edit
+          </button>
+
+          <button
+            className={styles.button}
+            onClick={() => {
+              props.setshowAdd(false);
+              props.setshowRemove(false);
+              props.setshowEdit(false);
+              props.setshowStart(true);
+              setDescription(props.SelectedData.description);
+              setTitle(props.SelectedData.title);
+            }}
+          >
+            Start
           </button>
         </div>
       );
@@ -247,6 +262,37 @@ export default function SelectedBreadProfile(props: any) {
               onClick={() => {
                 props.setshowRemove(false);
                 DeleteProfile();
+              }}
+              className={styles.confirm}
+            >
+              Confirm
+            </button>
+          </div>
+        </div>
+      );
+    }
+    return <></>;
+  }
+
+  function StartWindow() {
+    if (props.ShowStart) {
+      return (
+        <div className={styles.Remove}>
+          <p>Starting Selected Profile</p>
+          <div className={styles.buttons}>
+            <button
+              onClick={() => {
+                props.setshowStart(false);
+              }}
+              className={styles.cancel}
+            >
+              Cancel
+            </button>
+
+            <button
+              onClick={() => {
+                props.setshowStart(false);
+                console.log("STARTING PROFILE...");
               }}
               className={styles.confirm}
             >
