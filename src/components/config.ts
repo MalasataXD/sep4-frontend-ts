@@ -6,40 +6,64 @@ import breadProfile from "../img/TitleCardImages/Bread Profile.jpg";
 import history from "../img/TitleCardImages/History.jpg";
 import live from "../img/TitleCardImages/Live.jpg";
 
-export const LINK: string = "http://localhost:8080";
+// # API LINKS
+export const LINK: string = "LINK";
 export const GetData: string = "/data-service/data";
 export const EditValuesPost: string = "/data-service/target";
+export const BreadProfiles: string = "/data-service/bread";
 
 export const JWTLocation: string = "jwt";
 
-//LoginStatus local
+// # PAGES
 export const LoginStatus_Login: string = "/login";
 export const LoginStatus_Profil: string = "/test";
 export const LandingPage: string = "/";
 export const LivePage: string = "/live";
-export const BreadProfilePage: string = "/breadprofile";
+export const BreadProfile: string = "/breadprofile";
 export const HistoryPage: string = "/history";
 
-//CollapsibleMenu
+// # DROPDOWN MENU
 export const CollapsibleMenuItems: MenuItem[] = [
   { name: "Home", url: LandingPage },
   { name: "Live information", url: LivePage },
-  { name: "Bread profiles", url: BreadProfilePage },
+  { name: "Bread profiles", url: BreadProfile },
   { name: "History", url: HistoryPage },
 ];
+
+// # INTERFACES
 export interface MenuItem {
   name: string;
   url: string;
 }
 
-//TargetCard
-export const TargetCardUpdate: string = "/test";
+export interface BreadProfile {
+  id?: number;
+  title?: string;
+  description?: string;
+  targets?: target[];
+}
 
-//Carousel
+export interface target {
+  id?: number;
+  temp?: string;
+  humidity?: string;
+  co2?: string;
+  offset?: string;
+}
+
 interface ImageItem {
   url: string;
   alt: string;
 }
+
+interface TitleCards {
+  title: string;
+  description: string;
+  url: string;
+  link: string;
+}
+
+// # CAROUSEL IMAGES (ON LANDING PAGE)
 export const CarouselImages: ImageItem[] = [
   {
     url: "https://www.design.svgbackgrounds.com/wp-content/uploads/2021/05/rose-petals-gradient-overlapping-circle-background.jpg",
@@ -55,47 +79,40 @@ export const CarouselImages: ImageItem[] = [
   },
 ];
 
-//TitleCards
-interface TitelCardItem {
-  titel: string;
-  description: string;
-  url: string;
-  link: string;
-}
-
-export const TitleCards: TitelCardItem[] = [
+// # TITLE CARDS (ON LANDING PAGE)
+export const TitleCards: TitleCards[] = [
   {
-    titel: "Our Project",
+    title: "Our Project",
     description: "You can read about our project here!",
     url: `${ourProject}`,
     link: "/test",
   },
   {
-    titel: "About Us",
+    title: "About Us",
     description: "Meet the creators of this site here!",
     url: `${aboutUs}`,
     link: "/test",
   },
   {
-    titel: "Contact",
+    title: "Contact",
     description: "Feel free to contact us we don't bite!",
     url: `${contact}`,
     link: "/test",
   },
   {
-    titel: "Live information",
+    title: "Live information",
     description: "Read and adjust your bread environment here!",
     url: `${live}`,
     link: LivePage,
   },
   {
-    titel: "Bread profiles",
+    title: "Bread profiles",
     description: "Create and start your own bread profiles here!",
     url: `${breadProfile}`,
-    link: BreadProfilePage,
+    link: BreadProfile,
   },
   {
-    titel: "History",
+    title: "History",
     description:
       "View the history of your recent uses of the bread profiles here!",
     url: `${history}`,
