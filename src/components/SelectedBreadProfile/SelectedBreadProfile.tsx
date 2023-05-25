@@ -276,9 +276,10 @@ export default function SelectedBreadProfile(props: any) {
     };
 
     if (ValidateBreadProfile(breadProfil)) {
+      var newBreadProfile: BreadProfile = formatTime(breadProfil);
       props.setshowAdd(false);
       props.setshowEdit(false);
-      props.UpdateProfil(breadProfil);
+      props.UpdateProfil(newBreadProfile);
 
       setTitle("");
       setDescription("");
@@ -286,26 +287,6 @@ export default function SelectedBreadProfile(props: any) {
 
       props.setSelectedDate(null);
     }
-  }
-
-  function formatTime(profile: BreadProfile): BreadProfile {
-    profile.targets?.forEach((target) => {
-      if (target.offset !== undefined) {
-        if (target.offset.split("")[0] === "0") {
-          const stringArr : string[] = target.offset.split("")
-          stringArr.shift(); //Remove first element ("0")
-
-          var tempString = "";
-          stringArr.forEach((element) => {
-            tempString += element
-          });
-
-          target.offset = tempString;
-        }
-      }
-    });
-
-    return profile;
   }
 
   function PostProfile() {
@@ -341,6 +322,26 @@ export default function SelectedBreadProfile(props: any) {
     setInputValue("");
 
     props.setSelectedDate(null);
+  }
+
+  function formatTime(profile: BreadProfile): BreadProfile {
+    profile.targets?.forEach((target) => {
+      if (target.offset !== undefined) {
+        if (target.offset.split("")[0] === "0") {
+          const stringArr: string[] = target.offset.split("");
+          stringArr.shift(); //Remove first element ("0")
+
+          var tempString = "";
+          stringArr.forEach((element) => {
+            tempString += element;
+          });
+
+          target.offset = tempString;
+        }
+      }
+    });
+
+    return profile;
   }
 
   // # MAKE A SHADOW OF THE SELECTED PROFILE
@@ -452,11 +453,6 @@ export default function SelectedBreadProfile(props: any) {
       props.setErrorState("There must be an input in Time");
       return false;
     }
-    if (time > "24:00:00" || time < "0:00:00") {
-      showErrorState();
-      props.setErrorState("Time must be between 0:00:00 and 24:00:00");
-      return false;
-    }
 
     const Array: string[] = time.split(":");
 
@@ -507,11 +503,11 @@ export default function SelectedBreadProfile(props: any) {
   // ! USED TO SHOW/HIDE ERROR-STATE
   function hideErrorState() {
     const element: HTMLElement | null = document.getElementById("errorState");
-    element?.classList.add("hide");
+    element?.classList.add(styles.hide);
   }
 
   function showErrorState() {
     const element: HTMLElement | null = document.getElementById("errorState");
-    element?.classList.remove("hide");
+    element?.classList.remove(styles.hide);
   }
 }

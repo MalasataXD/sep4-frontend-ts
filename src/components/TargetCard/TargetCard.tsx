@@ -41,7 +41,7 @@ export default function TargetCard(props: any) {
     } else {
       setTime(target?.offset);
     }
-  }, [props.SelectedData?.title]);
+  }, [props.SelectedData]);
 
   // NOTE: Disables/enables the fields on Edit Mode.
   useEffect(() => {
