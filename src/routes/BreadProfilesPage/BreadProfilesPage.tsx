@@ -7,10 +7,7 @@ import { useNavigate } from "react-router-dom";
 import LoginHandler from "../../components/login";
 
 export default function BreadProfilesPage() {
-  const [data, setData] = useState<BreadProfile[] | null>([
-    { id: 97, title: "Franskbrød", description: "Very nice" },
-    { id: 98, title: "Rundstykker", description: "Very nice too." },
-  ]);
+  const [data, setData] = useState<BreadProfile[] | null>();
   const [Selected, setSelected] = useState<BreadProfile | null>(null);
 
   const [showAdd, setshowAdd] = useState<boolean>(false);

@@ -6,7 +6,7 @@ import history from "../img/TitleCardImages/History.jpg";
 import live from "../img/TitleCardImages/Live.jpg";
 
 // # API LINKS
-export const LINK: string = "LINK";
+export const LINK: string = "https://data-service-cloudrun-ppkfliesmq-ey.a.run.app";
 export const GetData: string = "/data-service/data";
 export const EditValuesPost: string = "/data-service/target";
 export const BreadProfiles: string = "/data-service/bread";

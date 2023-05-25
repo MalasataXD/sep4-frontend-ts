@@ -69,6 +69,26 @@ export function EditValues() {
       connectionSection.classList.toggle(`${styles.hide}`, hideErrorState);
     }
   }
+
+  function formatTime(dateStr: string): string {
+    let dateString: string = dateStr.split(" ")[0];
+    let timeString: string = dateStr.split(" ")[1];
+
+    if (timeString.split("")[0] === "0") {
+      const stringArr : string[] = timeString.split("")
+      stringArr.shift(); //Remove first element ("0")
+
+      var tempString = "";
+      stringArr.forEach((element) => {
+          tempString += element
+      });
+
+      timeString = tempString;
+    }
+
+    return dateString + " " + timeString;
+  }
+
   async function handleClick() {
     // Post to web-API
     if (validation()) {
@@ -87,6 +107,8 @@ export function EditValues() {
           ":" +
           ("00" + date.getSeconds()).slice(-2);
 
+        var finalDateStr: string = formatTime(dateStr);
+
         const response = await fetch(LINK + EditValuesPost, {
           headers: { "Content-Type": "application/json" },
           method: "POST",
@@ -94,7 +116,7 @@ export function EditValues() {
             {
               temp: `${temperature}`,
               humidity: `${humidity}`,
-              timeToActivate: `${dateStr}`,
+              timeToActivate: `${finalDateStr}`,
             },
           ]),
         });
