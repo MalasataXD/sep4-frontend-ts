@@ -11,6 +11,7 @@ import LivePage from "./routes/LivePage/LivePage";
 import LandingPage from "./routes/Landing/Landing";
 import HistoryGraph from "./components/HistoryGraph/HistoryGraph";
 import LoginPage from "./routes/Login/LoginPage";
+import BreadProfilesPage from "./routes/BreadProfilesPage/BreadProfilesPage";
 import { LoginStatus_Login } from "./components/config";
 
 const router = createHashRouter(
@@ -21,6 +22,7 @@ const router = createHashRouter(
       <Route index element={<LandingPage />} />
       <Route path={LoginStatus_Login} element={<LoginPage />} />
       <Route path="/history" element={<HistoryGraph />} />
+      <Route path="/breadprofile" element={<BreadProfilesPage />} />
     </Route>
   )
 );

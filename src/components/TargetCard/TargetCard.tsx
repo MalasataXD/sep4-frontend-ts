@@ -1,11 +1,15 @@
-import "./TargetCard.css";
+import "./TargetCard.module.css";
 import { useEffect, useState } from "react";
+import { target } from "../config";
+import styles from "./TargetCard.module.css";
 
 export default function TargetCard(props: any) {
+  // ¤ RECEIVED TARGET
   let selected: target = props.SelectedData?.targets.find(
     (element: target, index: number) => index == props.Id
   );
-  //input
+
+  // # INPUT
   const [temperature, setTemperature] = useState<undefined | number>(
     Number(selected?.temp)
   );
@@ -15,21 +19,7 @@ export default function TargetCard(props: any) {
   const [time, setTime] = useState<undefined | string>(selected?.offset);
   const [disabled, setDisabled] = useState<boolean>(true);
 
-  interface BreadProfile {
-    id?: number;
-    title?: string;
-    description?: string;
-    targets?: target[];
-  }
-
-  interface target {
-    id?: number;
-    temp?: string;
-    humidity?: string;
-    co2?: string;
-    offset?: string;
-  }
-
+  // NOTE: Updates the fields from the received target
   useEffect(() => {
     const target: target = props.SelectedData?.targets?.find(
       (item: target, index: number) => index === props.Id
@@ -53,6 +43,7 @@ export default function TargetCard(props: any) {
     }
   }, [props.SelectedData?.title]);
 
+  // NOTE: Disables/enables the fields on Edit Mode.
   useEffect(() => {
     if (props.ShowEdit || props.ShowAdd) {
       setDisabled(false);
@@ -62,14 +53,13 @@ export default function TargetCard(props: any) {
   }, [props.ShowEdit, props.ShowAdd]);
 
   return (
-    <div className="Target-card-card">
-      <div className="Title-TargetCard">
+    <div className={styles.card}>
+      <div className={styles.cardTitle}>
         <b>{props.Title}</b>
       </div>
       <br />
-      <div className="Input-container-TargetCard">
+      <div className={styles.inputContainer}>
         <input
-          className="Input-TargetCard"
           placeholder="Temperature (°C)"
           type="number"
           disabled={disabled}
@@ -98,7 +88,6 @@ export default function TargetCard(props: any) {
         />
 
         <input
-          className="Input-TargetCard"
           placeholder="Humidity (%)"
           type="number"
           id="Humidity"
@@ -127,7 +116,6 @@ export default function TargetCard(props: any) {
         />
 
         <input
-          className="Input-TargetCard"
           placeholder="Time (hh:mm:ss)"
           type="text"
           id="Time"

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./SelectedBreadProfile.module.css";
-import {BreadProfile, target} from "../config";
-import styles from "./SelectedBreadProfile.module.css"
+import { BreadProfile, target } from "../config";
+import styles from "./SelectedBreadProfile.module.css";
 
 export default function SelectedBreadProfile(props: any) {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -28,14 +28,15 @@ export default function SelectedBreadProfile(props: any) {
         {Buttons()}
       </div>
 
-
-
       {AddWindow()}
       {RemoveWindow()}
       {EditWindow()}
 
-      <div className="error-container hide" id="errorState">
-        {props.errorState}
+      <div
+        className={`${styles.errorContainer} ${styles.hide}`}
+        id="errorState"
+      >
+        <p>{props.errorState}</p>
       </div>
     </div>
   );
@@ -45,7 +46,9 @@ export default function SelectedBreadProfile(props: any) {
     if (CheckIsBreadProfile()) {
       return (
         <div className={styles.buttonContainer}>
-          <button className={styles.button} onClick={() => {
+          <button
+            className={styles.button}
+            onClick={() => {
               props.setSelectedDate({ targets: [{}, {}, {}, {}] });
               props.setshowRemove(false);
               props.setshowEdit(false);
@@ -53,46 +56,54 @@ export default function SelectedBreadProfile(props: any) {
               setInputValue("");
               setDescription("");
               setTitle("");
-            }}>
+            }}
+          >
             Add
           </button>
 
-          <button className={styles.button} onClick={() => {
+          <button
+            className={styles.button}
+            onClick={() => {
               props.setshowAdd(false);
               props.setshowEdit(false);
               props.setshowRemove(true);
-            }}>
+            }}
+          >
             Remove
           </button>
 
-          <button className={styles.button} onClick={() => {
+          <button
+            className={styles.button}
+            onClick={() => {
               props.setshowAdd(false);
               props.setshowRemove(false);
               props.setshowEdit(true);
               setDescription(props.SelectedData.description);
               setTitle(props.SelectedData.title);
-            }}>
+            }}
+          >
             Edit
           </button>
         </div>
       );
-    }
-    else
-    {
-      return(
-          <div className={styles.buttonContainer}>
-        <button className={styles.button} onClick={() => {
-            props.setSelectedDate({ targets: [{}, {}, {}, {}] });
-            props.setshowRemove(false);
-            props.setshowEdit(false);
-            props.setshowAdd(true);
-            setInputValue("");
-            setDescription("");
-            setTitle("");
-          }}>
-          Add
-        </button>
-          </div>
+    } else {
+      return (
+        <div className={styles.buttonContainer}>
+          <button
+            className={styles.button}
+            onClick={() => {
+              props.setSelectedDate({ targets: [{}, {}, {}, {}] });
+              props.setshowRemove(false);
+              props.setshowEdit(false);
+              props.setshowAdd(true);
+              setInputValue("");
+              setDescription("");
+              setTitle("");
+            }}
+          >
+            Add
+          </button>
+        </div>
       );
     }
   }
@@ -102,21 +113,25 @@ export default function SelectedBreadProfile(props: any) {
     if (showDropdown) {
       if (props.Data != null) {
         return (
-            <div className={styles.dropdown}>
-              {props.Data.map((item: BreadProfile, index: number) => (
-                  <div key={index} className={styles.dropdownItem} onMouseDown={() => HandleClickItem(item)}>
-                    <p>{item.title}</p>
-                  </div>
-              ))}
-            </div>
+          <div className={styles.dropdown}>
+            {props.Data.map((item: BreadProfile, index: number) => (
+              <div
+                key={index}
+                className={styles.dropdownItem}
+                onMouseDown={() => HandleClickItem(item)}
+              >
+                <p>{item.title}</p>
+              </div>
+            ))}
+          </div>
         );
       } else {
         return (
-            <div className={styles.dropdown}>
-              <div className={styles.dropdownItem}>
-                No Bread Profiles or server down
-              </div>
+          <div className={styles.dropdown}>
+            <div className={styles.dropdownItem}>
+              No Bread Profiles or server down
             </div>
+          </div>
         );
       }
     }
@@ -124,26 +139,40 @@ export default function SelectedBreadProfile(props: any) {
 
   // NOTE: SHOWS THE DIFFERENT WINDOWS
   function AddWindow() {
-    if (props.ShowAdd)
-    {
+    if (props.ShowAdd) {
       return (
         <div className={styles.Add}>
           <p>Create a new Profile</p>
-          <input type="text" placeholder="Title" value={Title} onChange={(event) => setTitle(event.target.value)}/>
-          <textarea placeholder="Description" value={Description} onChange={(event) => setDescription(event.target.value)}></textarea>
+          <input
+            type="text"
+            placeholder="Title"
+            value={Title}
+            onChange={(event) => setTitle(event.target.value)}
+          />
+          <textarea
+            placeholder="Description"
+            value={Description}
+            onChange={(event) => setDescription(event.target.value)}
+          ></textarea>
           <div className={styles.buttons}>
-            <button onClick={() => {
+            <button
+              onClick={() => {
                 props.setshowAdd(false);
                 setTitle("");
                 setDescription("");
                 hideErrorState();
-              }} className={styles.cancel}>
+              }}
+              className={styles.cancel}
+            >
               Cancel
             </button>
 
-            <button onClick={() => {
+            <button
+              onClick={() => {
                 PostProfile();
-              }} className={styles.confirm}>
+              }}
+              className={styles.confirm}
+            >
               Create
             </button>
           </div>
@@ -152,6 +181,7 @@ export default function SelectedBreadProfile(props: any) {
     }
     return <></>;
   }
+
   function EditWindow() {
     if (props.ShowEdit) {
       //take data and set title and description
@@ -177,7 +207,8 @@ export default function SelectedBreadProfile(props: any) {
                 setTitle("");
                 setDescription("");
                 hideErrorState();
-              }} className={styles.cancel}
+              }}
+              className={styles.cancel}
             >
               Cancel
             </button>
@@ -185,7 +216,8 @@ export default function SelectedBreadProfile(props: any) {
             <button
               onClick={() => {
                 UpdateProfile();
-              }} className={styles.confirm}
+              }}
+              className={styles.confirm}
             >
               Save
             </button>
@@ -195,7 +227,8 @@ export default function SelectedBreadProfile(props: any) {
     }
     return <></>;
   }
-  function RemoveWindow()  {
+
+  function RemoveWindow() {
     if (props.ShowRemove) {
       return (
         <div className={styles.Remove}>
@@ -204,7 +237,8 @@ export default function SelectedBreadProfile(props: any) {
             <button
               onClick={() => {
                 props.setshowRemove(false);
-              }} className={styles.cancel}
+              }}
+              className={styles.cancel}
             >
               Cancel
             </button>
@@ -213,7 +247,8 @@ export default function SelectedBreadProfile(props: any) {
               onClick={() => {
                 props.setshowRemove(false);
                 DeleteProfile();
-              }} className={styles.confirm}
+              }}
+              className={styles.confirm}
             >
               Confirm
             </button>
@@ -225,7 +260,7 @@ export default function SelectedBreadProfile(props: any) {
   }
 
   // # CHECKS IF THE SELECTED PROFILE IN THE DROPDOWN IS DONE
-  function CheckIsBreadProfile() : boolean {
+  function CheckIsBreadProfile(): boolean {
     return (
       props.SelectedData !== null && props.SelectedData?.title !== undefined
     );
@@ -252,6 +287,7 @@ export default function SelectedBreadProfile(props: any) {
       props.setSelectedDate(null);
     }
   }
+
   function PostProfile() {
     const breadProfil: BreadProfile = {
       ...props.SelectedData,
@@ -271,6 +307,7 @@ export default function SelectedBreadProfile(props: any) {
       props.setSelectedDate(null);
     }
   }
+
   function DeleteProfile() {
     const breadProfil: BreadProfile = {
       ...props.SelectedData,
@@ -302,7 +339,10 @@ export default function SelectedBreadProfile(props: any) {
           (element: target, index: number) => i === index
         ) === null
       ) {
-        copyOfProfile = { ...copyOfProfile, targets: [...copyOfProfile.targets, {}] };
+        copyOfProfile = {
+          ...copyOfProfile,
+          targets: [...copyOfProfile.targets, {}],
+        };
       }
     }
 
@@ -341,9 +381,16 @@ export default function SelectedBreadProfile(props: any) {
   }
 
   // # USED FOR VALIDATING TARGETS (USES SUB-FUNCTIONS BELOW)
-  function ValidateTarget(temperature: string | undefined, humidity: string | undefined, time: string | undefined)
-  {
-    return !validationTemp(temperature) && !validationHumidity(humidity) && !validationTime(time)
+  function ValidateTarget(
+    temperature: string | undefined,
+    humidity: string | undefined,
+    time: string | undefined
+  ) {
+    return (
+      !validationTemp(temperature) &&
+      !validationHumidity(humidity) &&
+      !validationTime(time)
+    );
   }
 
   // * Validates the temperature is valid
@@ -389,7 +436,7 @@ export default function SelectedBreadProfile(props: any) {
       return false;
     }
 
-    const Array : string[] = time.split(":");
+    const Array: string[] = time.split(":");
 
     if (Array.length != 3) {
       showErrorState();
@@ -415,7 +462,7 @@ export default function SelectedBreadProfile(props: any) {
       return false;
     }
 
-    for (let i : number = 0; i < Array.length; i++) {
+    for (let i: number = 0; i < Array.length; i++) {
       if (isNaN(parseInt(Array[i]))) {
         showErrorState();
         props.setErrorState("Not a number");
@@ -426,23 +473,23 @@ export default function SelectedBreadProfile(props: any) {
     return true;
   }
 
-
   // ! USED TO SHOW/HIDE DROP-DOWN
   function toggleDropdownOn() {
     setShowDropdown(true);
   }
+
   function toggleDropdownOff() {
     setShowDropdown(false);
   }
 
   // ! USED TO SHOW/HIDE ERROR-STATE
   function hideErrorState() {
-    const element: HTMLElement | null  = document.getElementById("errorState");
+    const element: HTMLElement | null = document.getElementById("errorState");
     element?.classList.add("hide");
   }
 
   function showErrorState() {
-    const element : HTMLElement | null = document.getElementById("errorState");
+    const element: HTMLElement | null = document.getElementById("errorState");
     element?.classList.remove("hide");
   }
 }

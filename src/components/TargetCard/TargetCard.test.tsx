@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { render, fireEvent, screen, act } from "@testing-library/react";
 import TargetCard from "./TargetCard";
-import { factory } from "typescript";
 
 describe("TargetCard", () => {
   test("renders the component", () => {
