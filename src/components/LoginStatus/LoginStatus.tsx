@@ -8,13 +8,22 @@ import styles from "./LoginStatus.module.css";
 import userIcon from "../../img/icons/user.png";
 
 export default function LoginStaus() {
-  const [LoggedIn, setLoggedIn] = useState(Login.isLoggedIn());
+  const [isLoggedIn, setIsLoggedIn] = useState(Login.isLoggedIn());
+
+  const observer = {
+    update: (data: boolean) => {
+      setIsLoggedIn(data);
+    },
+  };
 
   useEffect(() => {
-    setLoggedIn(Login.isLoggedIn());
-  }, [LoggedIn]);
+    Login.addObserver(observer);
+    return () => {
+      Login.removeObserver(observer);
+    };
+  }, []);
 
-  if (Login.isLoggedIn()) {
+  if (isLoggedIn) {
     return (
       // <Link to={"/"}>
       <div onClick={Login.logout} className={styles.ProfileSection}>

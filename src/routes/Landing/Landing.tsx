@@ -23,6 +23,19 @@ export default function LandingPage() {
 
   const [IsLoggedIn, setIsLoggedIn] = useState(Login.isLoggedIn());
 
+  const observer = {
+    update: (data: boolean) => {
+      setIsLoggedIn(data);
+    },
+  };
+
+  useEffect(() => {
+    Login.addObserver(observer);
+    return () => {
+      Login.removeObserver(observer);
+    };
+  }, []);
+
   useEffect(() => {
     if (IsLoggedIn) {
       setTitel1(TitleCards[3].titel);

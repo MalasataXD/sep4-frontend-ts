@@ -2,10 +2,36 @@ import jwt_decode from "jwt-decode"; //64 base
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Buffer } from "buffer";
+import React, { Component } from "react";
 
 export const JWTLocation: string = "jwt";
 
+type ObserverComponentType = {
+  update: (data: any) => void;
+};
+
 class Login {
+  static observers: ObserverComponentType[] = [];
+
+  constructor() {
+    Login.observers = [];
+  }
+
+  static addObserver(observer: ObserverComponentType) {
+    if (Login.observers.includes(observer)) {
+      return;
+    }
+    Login.observers.push(observer);
+  }
+
+  static notifyObservers(data: boolean) {
+    Login.observers.forEach((observer) => observer.update(data));
+  }
+
+  static removeObserver(observer: ObserverComponentType) {
+    Login.observers = Login.observers.filter((obs) => obs !== observer);
+  }
+
   static isLoggedIn() {
     const token = localStorage?.getItem(JWTLocation);
 
@@ -33,11 +59,15 @@ class Login {
       console.log(token);
 
       localStorage.setItem("jwt", token);
+      Login.notifyObservers(true);
     }
   }
 
   static logout() {
     localStorage.removeItem(JWTLocation);
+    Login.notifyObservers(false);
+
+    window.location.href = "/";
   }
 }
 
