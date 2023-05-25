@@ -74,13 +74,27 @@ export default function HistoryGraph() {
     return formattedDate.replace(/\//g, "-");
   }
 
-  function formatTime(timeString: string): string {
-    if (timeString === "") {
-      return "";
-    }
+    function formatTime(timeString: string): string {
+        let finalString: string = timeString
+        
+        if (finalString === "") {
+            return "";
+        }
 
-    return timeString + ":00";
-  }
+        if (finalString.split("")[0] === "0") {
+            const stringArr : string[] = finalString.split("")
+            stringArr.shift(); //Remove first element ("0")
+
+            var tempString = "";
+            stringArr.forEach((element) => {
+                tempString += element
+            });
+
+            finalString = tempString;
+        }
+
+        return finalString+":00";
+    }
 
   function SearchButtonClick() {
     const startDate = formatDate(startDateRef.current?.value || "");
