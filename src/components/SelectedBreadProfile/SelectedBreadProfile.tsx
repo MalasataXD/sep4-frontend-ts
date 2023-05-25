@@ -70,6 +70,7 @@ export default function SelectedBreadProfile(props: any) {
               props.setshowEdit(false);
               props.setshowRemove(true);
               props.setshowStart(false);
+              reselectProfil(props.SelectedData?.id);
             }}
           >
             Remove
@@ -98,6 +99,7 @@ export default function SelectedBreadProfile(props: any) {
               props.setshowStart(true);
               setDescription(props.SelectedData.description);
               setTitle(props.SelectedData.title);
+              reselectProfil(props.SelectedData?.id);
             }}
           >
             Start
@@ -179,6 +181,7 @@ export default function SelectedBreadProfile(props: any) {
                 setTitle("");
                 setDescription("");
                 hideErrorState();
+                props.setSelectedDate(null);
               }}
               className={styles.cancel}
             >
@@ -225,6 +228,7 @@ export default function SelectedBreadProfile(props: any) {
                 setTitle("");
                 setDescription("");
                 hideErrorState();
+                reselectProfil(props.SelectedData?.id);
               }}
               className={styles.cancel}
             >
@@ -295,6 +299,7 @@ export default function SelectedBreadProfile(props: any) {
             <button
               onClick={() => {
                 props.setshowStart(false);
+                props.postSelectedDatasTargets();
                 console.log("STARTING PROFILE...");
               }}
               className={styles.confirm}
@@ -377,13 +382,15 @@ export default function SelectedBreadProfile(props: any) {
     profile.targets?.forEach((target) => {
       if (target.offset !== undefined) {
         if (target.offset.split("")[0] === "0") {
-          const stringArr: string[] = target.offset.split("");
-          stringArr.shift(); //Remove first element ("0")
+          const stringArr: string[] = target.offset.split(":");
 
           var tempString = "";
-          stringArr.forEach((element) => {
-            tempString += element;
-          });
+
+          tempString += Number(stringArr[0]);
+          tempString += ":";
+          tempString += stringArr[1];
+          tempString += ":";
+          tempString += stringArr[2];
 
           target.offset = tempString;
         }
@@ -393,12 +400,23 @@ export default function SelectedBreadProfile(props: any) {
     return profile;
   }
 
-  // # MAKE A SHADOW OF THE SELECTED PROFILE
-  function HandleClickItem(profile: BreadProfile) {
-    props.setshowRemove(false);
-    props.setshowEdit(false);
-    props.setshowAdd(false);
+  // # Reselect profil, so changes doesn't show after cancel
+  function reselectProfil(id: number) {
+    let profile: BreadProfile = {};
 
+    for (let index = 0; index < props.Data.length; index++) {
+      if (props.Data[index].id === id) {
+        profile = props.Data[index];
+      }
+    }
+
+    let copyOfProfile: BreadProfile = makeCopy(profile);
+
+    props.setSelectedDate({ ...copyOfProfile });
+  }
+
+  // # MAKE a SHADOW (copy)
+  function makeCopy(profile: BreadProfile): BreadProfile {
     let copyOfProfile: BreadProfile = { ...profile, targets: profile.targets };
 
     if (copyOfProfile.targets === undefined) {
@@ -417,6 +435,17 @@ export default function SelectedBreadProfile(props: any) {
         };
       }
     }
+
+    return { ...copyOfProfile };
+  }
+
+  // # MAKE A SHADOW OF THE SELECTED PROFILE
+  function HandleClickItem(profile: BreadProfile) {
+    props.setshowRemove(false);
+    props.setshowEdit(false);
+    props.setshowAdd(false);
+
+    let copyOfProfile: BreadProfile = makeCopy(profile);
 
     props.setSelectedDate({ ...copyOfProfile });
 

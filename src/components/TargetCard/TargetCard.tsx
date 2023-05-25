@@ -10,11 +10,11 @@ export default function TargetCard(props: any) {
   );
 
   // # INPUT
-  const [temperature, setTemperature] = useState<undefined | number>(
-    Number(selected?.temp)
+  const [temperature, setTemperature] = useState<undefined | string>(
+    selected?.temp
   );
-  const [humidity, setHumidity] = useState<undefined | number>(
-    Number(selected?.humidity)
+  const [humidity, setHumidity] = useState<undefined | string>(
+    selected?.humidity
   );
   const [time, setTime] = useState<undefined | string>(selected?.offset);
   const [disabled, setDisabled] = useState<boolean>(true);
@@ -24,24 +24,36 @@ export default function TargetCard(props: any) {
     const target: target = props.SelectedData?.targets?.find(
       (item: target, index: number) => index === props.Id
     );
-    if (target?.temp === null) {
-      setTemperature(undefined);
+    if (
+      target?.temp === null ||
+      target?.temp === undefined ||
+      target?.temp === ""
+    ) {
+      setTemperature("");
     } else {
-      setTemperature(Number(target?.temp));
+      setTemperature(target?.temp);
     }
 
-    if (target?.humidity === null) {
-      setHumidity(undefined);
+    if (
+      target?.humidity === null ||
+      target?.humidity === undefined ||
+      target?.humidity === ""
+    ) {
+      setHumidity("");
     } else {
-      setHumidity(Number(target?.humidity));
+      setHumidity(target?.humidity);
     }
 
-    if (target?.offset === null || target?.offset === undefined) {
+    if (
+      target?.offset === null ||
+      target?.offset === undefined ||
+      target?.humidity === ""
+    ) {
       setTime("");
     } else {
       setTime(target?.offset);
     }
-  }, [props.SelectedData]);
+  }, [props.SelectedData, props.ShowEdit, props.ShowAdd]);
 
   // NOTE: Disables/enables the fields on Edit Mode.
   useEffect(() => {
@@ -66,9 +78,7 @@ export default function TargetCard(props: any) {
           id="Temperature"
           value={temperature}
           onChange={(event) => {
-            setTemperature(
-              event.target.value === "" ? undefined : Number(event.target.value)
-            );
+            setTemperature(event.target.value === "" ? "" : event.target.value);
 
             let t: target[] = [];
 
@@ -94,9 +104,7 @@ export default function TargetCard(props: any) {
           disabled={disabled}
           value={humidity}
           onChange={(event) => {
-            setHumidity(
-              event.target.value === "" ? undefined : Number(event.target.value)
-            );
+            setHumidity(event.target.value === "" ? "" : event.target.value);
 
             let t: target[] = [];
 
@@ -122,7 +130,7 @@ export default function TargetCard(props: any) {
           disabled={disabled}
           value={time}
           onChange={(event) => {
-            setTime(event.target.value === "" ? undefined : event.target.value);
+            setTime(event.target.value === "" ? "" : event.target.value);
 
             let t: target[] = [];
 

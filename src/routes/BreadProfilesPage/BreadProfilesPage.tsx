@@ -1,7 +1,12 @@
 import TargetCard from "../../components/TargetCard/TargetCard";
 import SelectedBreadProfile from "../../components/SelectedBreadProfile/SelectedBreadProfile";
 import { useState, useEffect } from "react";
-import { LINK, BreadProfiles, BreadProfile } from "../../components/config";
+import {
+  LINK,
+  BreadProfiles,
+  BreadProfile,
+  EditValuesPost,
+} from "../../components/config";
 import styles from "./BreadProfilesPage.module.css";
 import { useNavigate } from "react-router-dom";
 import LoginHandler from "../../components/login";
@@ -40,6 +45,7 @@ export default function BreadProfilesPage() {
         PostProfil={(profile: BreadProfile) => PostProfile(profile)}
         DeleteProfil={(profile: BreadProfile) => DeleteProfile(profile)}
         UpdateProfil={(profile: BreadProfile) => UpdateProfile(profile)}
+        postSelectedDatasTargets={() => postSelectedDatasTargets()}
         ShowAdd={showAdd}
         ShowRemove={showRemove}
         ShowEdit={showEdit}
@@ -107,6 +113,24 @@ export default function BreadProfilesPage() {
       // NOTE: Places the converted data into UseState
       setData(data);
     } catch (Error) {
+      showErrorState();
+      setErrorState("server didn't respond!");
+    }
+  }
+  // # POST SELECTED BREAD PROFILES TARGETS TO END POINT
+  async function postSelectedDatasTargets() {
+    try {
+      const response = await fetch(LINK + EditValuesPost, {
+        headers: { "Content-Type": "application/json" },
+        method: "POST",
+        body: JSON.stringify(Selected?.targets),
+      });
+
+      if (!response.ok) {
+        showErrorState();
+        setErrorState("not ok");
+      }
+    } catch (error) {
       showErrorState();
       setErrorState("server didn't respond!");
     }
