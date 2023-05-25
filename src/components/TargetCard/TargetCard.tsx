@@ -116,7 +116,7 @@ export default function TargetCard(props: any) {
         />
 
         <input
-          placeholder="Time (hh:mm:ss)"
+          placeholder="Time (h:mm:ss)"
           type="text"
           id="Time"
           disabled={disabled}

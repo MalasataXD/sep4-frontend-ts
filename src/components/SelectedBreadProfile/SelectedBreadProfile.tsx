@@ -288,6 +288,26 @@ export default function SelectedBreadProfile(props: any) {
     }
   }
 
+  function formatTime(profile: BreadProfile): BreadProfile {
+    profile.targets?.forEach((target) => {
+      if (target.offset !== undefined) {
+        if (target.offset.split("")[0] === "0") {
+          const stringArr : string[] = target.offset.split("")
+          stringArr.shift(); //Remove first element ("0")
+
+          var tempString = "";
+          stringArr.forEach((element) => {
+            tempString += element
+          });
+
+          target.offset = tempString;
+        }
+      }
+    });
+
+    return profile;
+  }
+
   function PostProfile() {
     const breadProfil: BreadProfile = {
       ...props.SelectedData,
@@ -296,10 +316,12 @@ export default function SelectedBreadProfile(props: any) {
     };
 
     if (ValidateBreadProfile(breadProfil)) {
-      props.setshowAdd(false);
-      props.setSelectedDate({ breadProfil });
+      var newBreadProfile: BreadProfile = formatTime(breadProfil);
 
-      props.PostProfil(breadProfil);
+      props.setshowAdd(false);
+      props.setSelectedDate({ newBreadProfile });
+
+      props.PostProfil(newBreadProfile);
 
       setTitle("");
       setDescription("");
@@ -387,9 +409,9 @@ export default function SelectedBreadProfile(props: any) {
     time: string | undefined
   ) {
     return (
-      !validationTemp(temperature) &&
-      !validationHumidity(humidity) &&
-      !validationTime(time)
+      validationTemp(temperature) &&
+      validationHumidity(humidity) &&
+      validationTime(time)
     );
   }
 
@@ -430,9 +452,9 @@ export default function SelectedBreadProfile(props: any) {
       props.setErrorState("There must be an input in Time");
       return false;
     }
-    if (time > "24:00:00" || time < "00:00:00") {
+    if (time > "24:00:00" || time < "0:00:00") {
       showErrorState();
-      props.setErrorState("Time must be between 00:00:00 and 24:00:00");
+      props.setErrorState("Time must be between 0:00:00 and 24:00:00");
       return false;
     }
 
@@ -446,7 +468,7 @@ export default function SelectedBreadProfile(props: any) {
 
     if (parseInt(Array[0]) > 24 || parseInt(Array[0]) < 0) {
       showErrorState();
-      props.setErrorState("Hours must be between 00 and 24");
+      props.setErrorState("Hours must be between 0 and 24");
       return false;
     }
 
