@@ -54,6 +54,7 @@ export default function SelectedBreadProfile(props: any) {
               props.setshowRemove(false);
               props.setshowEdit(false);
               props.setshowAdd(true);
+              props.setshowStart(false);
               setInputValue("");
               setDescription("");
               setTitle("");
@@ -68,6 +69,7 @@ export default function SelectedBreadProfile(props: any) {
               props.setshowAdd(false);
               props.setshowEdit(false);
               props.setshowRemove(true);
+              props.setshowStart(false);
             }}
           >
             Remove
@@ -79,6 +81,7 @@ export default function SelectedBreadProfile(props: any) {
               props.setshowAdd(false);
               props.setshowRemove(false);
               props.setshowEdit(true);
+              props.setshowStart(false);
               setDescription(props.SelectedData.description);
               setTitle(props.SelectedData.title);
             }}
