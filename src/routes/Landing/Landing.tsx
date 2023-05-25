@@ -38,32 +38,32 @@ export default function LandingPage() {
 
   useEffect(() => {
     if (IsLoggedIn) {
-      setTitel1(TitleCards[3].titel);
+      setTitel1(TitleCards[3].title);
       setDescription1(TitleCards[3].description);
       setImage1(TitleCards[3].url);
       setLink1(TitleCards[3].link);
 
-      setTitel2(TitleCards[4].titel);
+      setTitel2(TitleCards[4].title);
       setDescription2(TitleCards[4].description);
       setImage2(TitleCards[4].url);
       setLink2(TitleCards[4].link);
 
-      setTitel3(TitleCards[5].titel);
+      setTitel3(TitleCards[5].title);
       setDescription3(TitleCards[5].description);
       setImage3(TitleCards[5].url);
       setLink3(TitleCards[5].link);
     } else {
-      setTitel1(TitleCards[0].titel);
+      setTitel1(TitleCards[0].title);
       setDescription1(TitleCards[0].description);
       setImage1(TitleCards[0].url);
       setLink1(TitleCards[0].link);
 
-      setTitel2(TitleCards[1].titel);
+      setTitel2(TitleCards[1].title);
       setDescription2(TitleCards[1].description);
       setImage2(TitleCards[1].url);
       setLink2(TitleCards[1].link);
 
-      setTitel3(TitleCards[2].titel);
+      setTitel3(TitleCards[2].title);
       setDescription3(TitleCards[2].description);
       setImage3(TitleCards[2].url);
       setLink3(TitleCards[2].link);
