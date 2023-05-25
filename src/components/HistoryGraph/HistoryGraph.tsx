@@ -19,13 +19,13 @@ import redClockIcon from "../../img/icons/redClock.png";
 
 import blueCalendarIcon from "../../img/icons/blueCalendar.png";
 import blueClockIcon from "../../img/icons/blueClock.png";
-import Login from "../../components/login";
+import LoginHandler from "../../components/login";
 
 export default function HistoryGraph() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!Login.isLoggedIn()) {
+    if (!LoginHandler.isLoggedIn()) {
       navigate("/login");
     }
   }, []);

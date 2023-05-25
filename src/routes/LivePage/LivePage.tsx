@@ -4,7 +4,7 @@ import styles from "./LivePage.module.css";
 import LiveStats from "../../components/LiveValue/LiveValue";
 import EditValues from "../../components/EditValues/EditValues";
 import LiveGraph from "../../components/LiveGraph/LiveGraph";
-import Login from "../../components/login";
+import LoginHandler from "../../components/login";
 
 export default function LivePage() {
   // Assuming you have a variable to determine the user's login status
@@ -12,7 +12,7 @@ export default function LivePage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!Login.isLoggedIn()) {
+    if (!LoginHandler.isLoggedIn()) {
       navigate("/login");
     }
   }, []);

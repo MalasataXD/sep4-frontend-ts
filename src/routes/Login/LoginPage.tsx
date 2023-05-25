@@ -1,7 +1,7 @@
 import styles from "./LoginPage.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { LandingPage } from "../../components/config";
-import Login from "../../components/login";
+import { Landing } from "../../components/config";
+import LoginHandler from "../../components/login";
 
 export default function LoginPage() {
   const navigator = useNavigate();
@@ -25,8 +25,8 @@ export default function LoginPage() {
   );
 
   function login() {
-    Login.login();
-    navigator(LandingPage);
+    LoginHandler.login();
+    navigator(Landing);
   }
 
   function register() {}

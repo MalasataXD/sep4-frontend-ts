@@ -3,7 +3,7 @@ import Carousel from "../../components/Carousel/Carousel";
 import TitleCard from "../../components/TitleCard/TitleCard";
 import { useEffect, useState } from "react";
 import { TitleCards } from "../../components/config";
-import Login from "../../components/login";
+import LoginHandler from "../../components/login";
 
 export default function LandingPage() {
   const [Titel1, setTitel1] = useState("");
@@ -21,7 +21,7 @@ export default function LandingPage() {
   const [Image3, setImage3] = useState("");
   const [Link3, setLink3] = useState("");
 
-  const [IsLoggedIn, setIsLoggedIn] = useState(Login.isLoggedIn());
+  const [IsLoggedIn, setIsLoggedIn] = useState(LoginHandler.isLoggedIn());
 
   const observer = {
     update: (data: boolean) => {
@@ -30,9 +30,9 @@ export default function LandingPage() {
   };
 
   useEffect(() => {
-    Login.addObserver(observer);
+    LoginHandler.addObserver(observer);
     return () => {
-      Login.removeObserver(observer);
+      LoginHandler.removeObserver(observer);
     };
   }, []);
 

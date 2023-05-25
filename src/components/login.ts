@@ -1,8 +1,5 @@
 import jwt_decode from "jwt-decode"; //64 base
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { Buffer } from "buffer";
-import React, { Component } from "react";
 
 export const JWTLocation: string = "jwt";
 
@@ -10,26 +7,28 @@ type ObserverComponentType = {
   update: (data: any) => void;
 };
 
-class Login {
+class LoginHandler {
   static observers: ObserverComponentType[] = [];
 
   constructor() {
-    Login.observers = [];
+    LoginHandler.observers = [];
   }
 
   static addObserver(observer: ObserverComponentType) {
-    if (Login.observers.includes(observer)) {
+    if (LoginHandler.observers.includes(observer)) {
       return;
     }
-    Login.observers.push(observer);
+    LoginHandler.observers.push(observer);
   }
 
   static notifyObservers(data: boolean) {
-    Login.observers.forEach((observer) => observer.update(data));
+    LoginHandler.observers.forEach((observer) => observer.update(data));
   }
 
   static removeObserver(observer: ObserverComponentType) {
-    Login.observers = Login.observers.filter((obs) => obs !== observer);
+    LoginHandler.observers = LoginHandler.observers.filter(
+      (obs) => obs !== observer
+    );
   }
 
   static isLoggedIn() {
@@ -59,13 +58,13 @@ class Login {
       console.log(token);
 
       localStorage.setItem("jwt", token);
-      Login.notifyObservers(true);
+      LoginHandler.notifyObservers(true);
     }
   }
 
   static logout() {
     localStorage.removeItem(JWTLocation);
-    Login.notifyObservers(false);
+    LoginHandler.notifyObservers(false);
 
     window.location.href = "/";
   }
@@ -83,4 +82,4 @@ function isTokenExpired(token: string) {
   return decoded.exp < now;
 }
 
-export default Login;
+export default LoginHandler;
