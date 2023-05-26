@@ -31,6 +31,7 @@ export default function SelectedBreadProfile(props: any) {
       {AddWindow()}
       {RemoveWindow()}
       {EditWindow()}
+      {StartWindow()}
 
       <div
         className={`${styles.errorContainer} ${styles.hide}`}
@@ -53,6 +54,7 @@ export default function SelectedBreadProfile(props: any) {
               props.setshowRemove(false);
               props.setshowEdit(false);
               props.setshowAdd(true);
+              props.setshowStart(false);
               setInputValue("");
               setDescription("");
               setTitle("");
@@ -67,6 +69,8 @@ export default function SelectedBreadProfile(props: any) {
               props.setshowAdd(false);
               props.setshowEdit(false);
               props.setshowRemove(true);
+              props.setshowStart(false);
+              reselectProfil(props.SelectedData?.id);
             }}
           >
             Remove
@@ -78,11 +82,27 @@ export default function SelectedBreadProfile(props: any) {
               props.setshowAdd(false);
               props.setshowRemove(false);
               props.setshowEdit(true);
+              props.setshowStart(false);
               setDescription(props.SelectedData.description);
               setTitle(props.SelectedData.title);
             }}
           >
             Edit
+          </button>
+
+          <button
+            className={styles.button}
+            onClick={() => {
+              props.setshowAdd(false);
+              props.setshowRemove(false);
+              props.setshowEdit(false);
+              props.setshowStart(true);
+              setDescription(props.SelectedData.description);
+              setTitle(props.SelectedData.title);
+              reselectProfil(props.SelectedData?.id);
+            }}
+          >
+            Start
           </button>
         </div>
       );
@@ -161,6 +181,7 @@ export default function SelectedBreadProfile(props: any) {
                 setTitle("");
                 setDescription("");
                 hideErrorState();
+                props.setSelectedDate(null);
               }}
               className={styles.cancel}
             >
@@ -207,6 +228,7 @@ export default function SelectedBreadProfile(props: any) {
                 setTitle("");
                 setDescription("");
                 hideErrorState();
+                reselectProfil(props.SelectedData?.id);
               }}
               className={styles.cancel}
             >
@@ -259,6 +281,37 @@ export default function SelectedBreadProfile(props: any) {
     return <></>;
   }
 
+  function StartWindow() {
+    if (props.ShowStart) {
+      return (
+        <div className={styles.Remove}>
+          <p>Starting Selected Profile</p>
+          <div className={styles.buttons}>
+            <button
+              onClick={() => {
+                props.setshowStart(false);
+              }}
+              className={styles.cancel}
+            >
+              Cancel
+            </button>
+
+            <button
+              onClick={() => {
+                props.setshowStart(false);
+                props.postSelectedDatasTargets();
+              }}
+              className={styles.confirm}
+            >
+              Confirm
+            </button>
+          </div>
+        </div>
+      );
+    }
+    return <></>;
+  }
+
   // # CHECKS IF THE SELECTED PROFILE IN THE DROPDOWN IS DONE
   function CheckIsBreadProfile(): boolean {
     return (
@@ -276,9 +329,10 @@ export default function SelectedBreadProfile(props: any) {
     };
 
     if (ValidateBreadProfile(breadProfil)) {
+      var newBreadProfile: BreadProfile = formatTime(breadProfil);
       props.setshowAdd(false);
       props.setshowEdit(false);
-      props.UpdateProfil(breadProfil);
+      props.UpdateProfil(newBreadProfile);
 
       setTitle("");
       setDescription("");
@@ -286,26 +340,6 @@ export default function SelectedBreadProfile(props: any) {
 
       props.setSelectedDate(null);
     }
-  }
-
-  function formatTime(profile: BreadProfile): BreadProfile {
-    profile.targets?.forEach((target) => {
-      if (target.offset !== undefined) {
-        if (target.offset.split("")[0] === "0") {
-          const stringArr: string[] = target.offset.split("");
-          stringArr.shift(); //Remove first element ("0")
-
-          var tempString = "";
-          stringArr.forEach((element) => {
-            tempString += element;
-          });
-
-          target.offset = tempString;
-        }
-      }
-    });
-
-    return profile;
   }
 
   function PostProfile() {
@@ -343,30 +377,55 @@ export default function SelectedBreadProfile(props: any) {
     props.setSelectedDate(null);
   }
 
+  function formatTime(profile: BreadProfile): BreadProfile {
+    profile.targets?.forEach((target) => {
+      if (target.offset !== undefined) {
+        if (target.offset.split("")[0] === "0") {
+          const stringArr: string[] = target.offset.split(":");
+
+          var tempString = "";
+
+          tempString += Number(stringArr[0]);
+          tempString += ":";
+          tempString += stringArr[1];
+          tempString += ":";
+          tempString += stringArr[2];
+
+          target.offset = tempString;
+        }
+      }
+    });
+
+    return profile;
+  }
+
+  // # Reselect profil, so changes doesn't show after cancel
+  function reselectProfil(id: number) {
+    let profile: BreadProfile = {};
+
+    for (let index = 0; index < props.Data.length; index++) {
+      if (props.Data[index].id === id) {
+        profile = props.Data[index];
+      }
+    }
+
+    let copyOfProfile: BreadProfile = makeCopy(profile);
+
+    props.setSelectedDate({ ...copyOfProfile });
+  }
+
+  // # MAKE a SHADOW (copy)
+  function makeCopy(profile: BreadProfile): BreadProfile {
+    return JSON.parse(JSON.stringify(profile));
+  }
+
   // # MAKE A SHADOW OF THE SELECTED PROFILE
   function HandleClickItem(profile: BreadProfile) {
     props.setshowRemove(false);
     props.setshowEdit(false);
     props.setshowAdd(false);
 
-    let copyOfProfile: BreadProfile = { ...profile, targets: profile.targets };
-
-    if (copyOfProfile.targets === undefined) {
-      copyOfProfile = { ...copyOfProfile, targets: [] };
-    }
-
-    for (let i = 0; i < 4; i++) {
-      if (
-        copyOfProfile?.targets?.find(
-          (element: target, index: number) => i === index
-        ) === null
-      ) {
-        copyOfProfile = {
-          ...copyOfProfile,
-          targets: [...copyOfProfile.targets, {}],
-        };
-      }
-    }
+    let copyOfProfile: BreadProfile = makeCopy(profile);
 
     props.setSelectedDate({ ...copyOfProfile });
 
@@ -452,11 +511,6 @@ export default function SelectedBreadProfile(props: any) {
       props.setErrorState("There must be an input in Time");
       return false;
     }
-    if (time > "24:00:00" || time < "0:00:00") {
-      showErrorState();
-      props.setErrorState("Time must be between 0:00:00 and 24:00:00");
-      return false;
-    }
 
     const Array: string[] = time.split(":");
 
@@ -507,11 +561,11 @@ export default function SelectedBreadProfile(props: any) {
   // ! USED TO SHOW/HIDE ERROR-STATE
   function hideErrorState() {
     const element: HTMLElement | null = document.getElementById("errorState");
-    element?.classList.add("hide");
+    element?.classList.add(styles.hide);
   }
 
   function showErrorState() {
     const element: HTMLElement | null = document.getElementById("errorState");
-    element?.classList.remove("hide");
+    element?.classList.remove(styles.hide);
   }
 }

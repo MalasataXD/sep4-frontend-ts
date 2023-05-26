@@ -10,8 +10,10 @@ export default function Navbar() {
         <div className="Drop-down">
           <CollapsibleMenu />
         </div>
-        <div className="logo">logo</div>
-        <div className="login">
+        <div>
+          <p>INSERT EPIC LOGO HERE</p>
+        </div>
+        <div>
           <LoginStaus />
         </div>
       </div>

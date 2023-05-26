@@ -219,6 +219,31 @@
     font-family: "Sora", sans-serif;
 }
 
+/* # START WINDOW */
+.Start {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 5px solid #9ba4b5;
+    border-radius: 5px;
+    width: 25%;
+
+    margin-left: 1.75%;
+    margin-top: 0.5%;
+    background-color: #394867;
+    padding: 1%;
+}
+
+.Start p {
+    margin-top: 1%;
+    margin-bottom: 3%;
+    text-align: center;
+    /* FONT */
+    font-size: 16px;
+    font-family: "Sora", sans-serif;
+    color: #F1F6F9;
+}
+
 /* ! ERROR STATE*/
 .errorContainer {
     display: flex;
