@@ -74,27 +74,27 @@ export default function HistoryGraph() {
     return formattedDate.replace(/\//g, "-");
   }
 
-    function formatTime(timeString: string): string {
-        let finalString: string = timeString
-        
-        if (finalString === "") {
-            return "";
-        }
+  function formatTime(timeString: string): string {
+    let finalString: string = timeString;
 
-        if (finalString.split("")[0] === "0") {
-            const stringArr : string[] = finalString.split("")
-            stringArr.shift(); //Remove first element ("0")
-
-            var tempString = "";
-            stringArr.forEach((element) => {
-                tempString += element
-            });
-
-            finalString = tempString;
-        }
-
-        return finalString+":00";
+    if (finalString === "") {
+      return "";
     }
+
+    if (finalString.split("")[0] === "0") {
+      const stringArr: string[] = finalString.split("");
+      stringArr.shift(); //Remove first element ("0")
+
+      var tempString = "";
+      stringArr.forEach((element) => {
+        tempString += element;
+      });
+
+      finalString = tempString;
+    }
+
+    return finalString + ":00";
+  }
 
   function SearchButtonClick() {
     const startDate = formatDate(startDateRef.current?.value || "");
@@ -185,6 +185,7 @@ export default function HistoryGraph() {
               alt="calendar icon"
             />
             <input
+              aria-label="Start Date"
               className={styles.dateInput}
               type="date"
               ref={startDateRef}
@@ -193,6 +194,7 @@ export default function HistoryGraph() {
           <div className={styles.iconInputContainer}>
             <img className={styles.icon} src={redClockIcon} alt="time icon" />
             <input
+              aria-label="Start Time"
               className={styles.dateInput}
               type="time"
               ref={startTimeRef}
@@ -206,6 +208,7 @@ export default function HistoryGraph() {
               alt="calendar icon"
             />
             <input
+              aria-label="End Date"
               className={styles.dateInput}
               type="date"
               ref={endDateRef}
@@ -214,6 +217,7 @@ export default function HistoryGraph() {
           <div className={styles.iconInputContainer}>
             <img className={styles.icon} src={blueClockIcon} alt="time icon" />
             <input
+              aria-label="End Time"
               className={styles.dateInput}
               type="time"
               ref={endTimeRef}

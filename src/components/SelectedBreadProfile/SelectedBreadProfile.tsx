@@ -20,7 +20,7 @@ export default function SelectedBreadProfile(props: any) {
           onFocus={toggleDropdownOn}
           onChange={(event) => {
             setInputValue(event.target.value);
-            props.setSelectedDate(null);
+            props.setSelectedData(null);
           }}
         />
 
@@ -50,7 +50,7 @@ export default function SelectedBreadProfile(props: any) {
           <button
             className={styles.button}
             onClick={() => {
-              props.setSelectedDate({ targets: [{}, {}, {}, {}] });
+              props.setSelectedData({ targets: [{}, {}, {}, {}] });
               props.setshowRemove(false);
               props.setshowEdit(false);
               props.setshowAdd(true);
@@ -112,7 +112,7 @@ export default function SelectedBreadProfile(props: any) {
           <button
             className={styles.button}
             onClick={() => {
-              props.setSelectedDate({ targets: [{}, {}, {}, {}] });
+              props.setSelectedData({ targets: [{}, {}, {}, {}] });
               props.setshowRemove(false);
               props.setshowEdit(false);
               props.setshowAdd(true);
