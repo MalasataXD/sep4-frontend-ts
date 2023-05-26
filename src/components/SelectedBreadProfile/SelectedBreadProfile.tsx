@@ -20,7 +20,7 @@ export default function SelectedBreadProfile(props: any) {
           onFocus={toggleDropdownOn}
           onChange={(event) => {
             setInputValue(event.target.value);
-            props.setSelectedDate(null);
+            props.setSelectedData(null);
           }}
         />
 
@@ -49,7 +49,7 @@ export default function SelectedBreadProfile(props: any) {
           <button
             className={styles.button}
             onClick={() => {
-              props.setSelectedDate({ targets: [{}, {}, {}, {}] });
+              props.setSelectedData({ targets: [{}, {}, {}, {}] });
               props.setshowRemove(false);
               props.setshowEdit(false);
               props.setshowAdd(true);
@@ -92,7 +92,7 @@ export default function SelectedBreadProfile(props: any) {
           <button
             className={styles.button}
             onClick={() => {
-              props.setSelectedDate({ targets: [{}, {}, {}, {}] });
+              props.setSelectedData({ targets: [{}, {}, {}, {}] });
               props.setshowRemove(false);
               props.setshowEdit(false);
               props.setshowAdd(true);
@@ -292,12 +292,12 @@ export default function SelectedBreadProfile(props: any) {
     profile.targets?.forEach((target) => {
       if (target.offset !== undefined) {
         if (target.offset.split("")[0] === "0") {
-          const stringArr : string[] = target.offset.split("")
+          const stringArr: string[] = target.offset.split("");
           stringArr.shift(); //Remove first element ("0")
 
           var tempString = "";
           stringArr.forEach((element) => {
-            tempString += element
+            tempString += element;
           });
 
           target.offset = tempString;
