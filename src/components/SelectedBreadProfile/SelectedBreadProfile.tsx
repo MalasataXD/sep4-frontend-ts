@@ -181,7 +181,7 @@ export default function SelectedBreadProfile(props: any) {
                 setTitle("");
                 setDescription("");
                 hideErrorState();
-                props.setSelectedDate(null);
+                props.setSelectedData(null);
               }}
               className={styles.cancel}
             >
@@ -338,7 +338,7 @@ export default function SelectedBreadProfile(props: any) {
       setDescription("");
       setInputValue("");
 
-      props.setSelectedDate(null);
+      props.setSelectedData(null);
     }
   }
 
@@ -353,14 +353,14 @@ export default function SelectedBreadProfile(props: any) {
       var newBreadProfile: BreadProfile = formatTime(breadProfil);
 
       props.setshowAdd(false);
-      props.setSelectedDate({ newBreadProfile });
+      props.setSelectedData({ newBreadProfile });
 
       props.PostProfil(newBreadProfile);
 
       setTitle("");
       setDescription("");
 
-      props.setSelectedDate(null);
+      props.setSelectedData(null);
     }
   }
 
@@ -374,7 +374,7 @@ export default function SelectedBreadProfile(props: any) {
     setDescription("");
     setInputValue("");
 
-    props.setSelectedDate(null);
+    props.setSelectedData(null);
   }
 
   function formatTime(profile: BreadProfile): BreadProfile {
@@ -411,7 +411,7 @@ export default function SelectedBreadProfile(props: any) {
 
     let copyOfProfile: BreadProfile = makeCopy(profile);
 
-    props.setSelectedDate({ ...copyOfProfile });
+    props.setSelectedData({ ...copyOfProfile });
   }
 
   // # MAKE a SHADOW (copy)
@@ -427,7 +427,7 @@ export default function SelectedBreadProfile(props: any) {
 
     let copyOfProfile: BreadProfile = makeCopy(profile);
 
-    props.setSelectedDate({ ...copyOfProfile });
+    props.setSelectedData({ ...copyOfProfile });
 
     setInputValue(profile?.title);
 

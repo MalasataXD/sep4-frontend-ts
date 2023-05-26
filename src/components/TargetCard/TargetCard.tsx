@@ -90,7 +90,7 @@ export default function TargetCard(props: any) {
               }
             });
 
-            props.setSelectedDate({
+            props.setSelectedData({
               ...props.SelectedData,
               targets: [...t],
             });
@@ -116,7 +116,7 @@ export default function TargetCard(props: any) {
               }
             });
 
-            props.setSelectedDate({
+            props.setSelectedData({
               ...props.SelectedData,
               targets: [...t],
             });
@@ -142,7 +142,7 @@ export default function TargetCard(props: any) {
               }
             });
 
-            props.setSelectedDate({
+            props.setSelectedData({
               ...props.SelectedData,
               targets: [...t],
             });
