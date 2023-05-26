@@ -6,10 +6,12 @@ import {
   BreadProfiles,
   BreadProfile,
   EditValuesPost,
+  postTarget,
 } from "../../components/config";
 import styles from "./BreadProfilesPage.module.css";
 import { useNavigate } from "react-router-dom";
 import LoginHandler from "../../components/login";
+import { element } from "prop-types";
 
 export default function BreadProfilesPage() {
   const [data, setData] = useState<BreadProfile[] | null>();
@@ -120,10 +122,35 @@ export default function BreadProfilesPage() {
   // # POST SELECTED BREAD PROFILES TARGETS TO END POINT
   async function postSelectedDatasTargets() {
     try {
+      let bread: BreadProfile = makeCopy(Selected!);
+      let toSended: postTarget[] = [];
+
+      const date = new Date();
+      var dateStr =
+        ("00" + date.getDate()).slice(-2) +
+        "-" +
+        ("00" + (date.getMonth() + 1)).slice(-2) +
+        "-" +
+        date.getFullYear();
+
+      bread?.targets?.map((element) => {
+        element.offset = dateStr + " " + element.offset;
+      });
+      bread?.targets?.map((element) => {
+        toSended = [
+          ...toSended,
+          {
+            temp: `${element.temp}`,
+            humidity: `${element.humidity}`,
+            timeToActivate: `${element.offset}`,
+          },
+        ];
+      });
+
       const response = await fetch(LINK + EditValuesPost, {
         headers: { "Content-Type": "application/json" },
         method: "POST",
-        body: JSON.stringify(Selected?.targets),
+        body: JSON.stringify(toSended),
       });
 
       if (!response.ok) {
@@ -134,6 +161,10 @@ export default function BreadProfilesPage() {
       showErrorState();
       setErrorState("server didn't respond!");
     }
+  }
+  // # MAKE a SHADOW (copy)
+  function makeCopy(profile: BreadProfile): BreadProfile {
+    return JSON.parse(JSON.stringify(profile));
   }
 
   // # SET SELECTED BREAD PROFILE FROM DROPDOWN

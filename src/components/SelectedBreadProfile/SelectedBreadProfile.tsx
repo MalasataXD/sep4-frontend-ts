@@ -300,7 +300,6 @@ export default function SelectedBreadProfile(props: any) {
               onClick={() => {
                 props.setshowStart(false);
                 props.postSelectedDatasTargets();
-                console.log("STARTING PROFILE...");
               }}
               className={styles.confirm}
             >
@@ -417,26 +416,7 @@ export default function SelectedBreadProfile(props: any) {
 
   // # MAKE a SHADOW (copy)
   function makeCopy(profile: BreadProfile): BreadProfile {
-    let copyOfProfile: BreadProfile = { ...profile, targets: profile.targets };
-
-    if (copyOfProfile.targets === undefined) {
-      copyOfProfile = { ...copyOfProfile, targets: [] };
-    }
-
-    for (let i = 0; i < 4; i++) {
-      if (
-        copyOfProfile?.targets?.find(
-          (element: target, index: number) => i === index
-        ) === null
-      ) {
-        copyOfProfile = {
-          ...copyOfProfile,
-          targets: [...copyOfProfile.targets, {}],
-        };
-      }
-    }
-
-    return { ...copyOfProfile };
+    return JSON.parse(JSON.stringify(profile));
   }
 
   // # MAKE A SHADOW OF THE SELECTED PROFILE
