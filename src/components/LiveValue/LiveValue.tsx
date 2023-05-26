@@ -19,16 +19,12 @@ export default function LiveStats() {
   }
 
   useEffect(() => {
-    // NOTE: Set a timeout to call fetchData after 2 minutes (120000 milliseconds)v
-    const fetchTimeout = setTimeout(() => {
-      fetchData();
-    }, 120000);
+    const timer = setTimeout(fetchData, 0); // Call fetchData immediately on load
+    const interval = setInterval(fetchData, 120000); // Call fetchData every 2 minutes
 
-    fetchData(); // ¤ Fetches data immediately when the component is loaded
-
-    // NOTE: Return a cleanup function to clear the timeout when the component is unmounted
     return () => {
-      clearTimeout(fetchTimeout);
+      clearTimeout(timer);
+      clearInterval(interval);
     };
   }, []);
 
@@ -63,7 +59,7 @@ export default function LiveStats() {
       // NOTE: Split the data into the correct displays.
       setTemperature(data[0].temp);
       setHumidity(data[0].humidity);
-      setCarbon(Number((Number((parseInt(data[0].co2) / 5000) * 100).toFixed(2)))); // NOTE: CONVERT FROM PPM TO %
+      setCarbon(parseInt(data[0].co2)); // NOTE: CONVERT FROM PPM TO %
       setLastUpdate(data[0].timestamp.split(" ", 2)[1]); // Splits the time from the date.
       HasConnection = true;
       // # Set the connection status
@@ -97,9 +93,11 @@ export default function LiveStats() {
       <div className={`${styles.section} ${styles.zoom} ${styles.carbon}`}>
         <div className={`${styles.title} ${styles.tooltip}`}>
           <b>C0₂</b>
-          <span className={styles.tooltiptext}>100% = 5000 ppm</span>
+          <span className={styles.tooltiptext}>{Carbon} PPM</span>
         </div>
-        <div>{Carbon} %</div>
+        <div>
+          {Number(Number((parseInt(String(Carbon)) / 5000) * 100).toFixed(2))} %
+        </div>
       </div>
 
       <div className={`${styles.section} ${styles.time}`}>

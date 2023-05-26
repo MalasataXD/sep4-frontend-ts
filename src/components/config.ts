@@ -6,7 +6,8 @@ import history from "../img/TitleCardImages/History.jpg";
 import live from "../img/TitleCardImages/Live.jpg";
 
 // # API LINKS
-export const LINK: string = "https://data-service-cloudrun-ppkfliesmq-ey.a.run.app";
+export const LINK: string =
+  "https://data-service-cloudrun-ppkfliesmq-ey.a.run.app";
 export const GetData: string = "/data-service/data";
 export const EditValuesPost: string = "/data-service/target";
 export const BreadProfiles: string = "/data-service/bread";
@@ -43,8 +44,14 @@ export interface target {
   id?: number;
   temp?: string;
   humidity?: string;
-  co2?: string;
   offset?: string;
+}
+
+export interface postTarget {
+  id?: number;
+  temp?: string;
+  humidity?: string;
+  timeToActivate?: string;
 }
 
 interface ImageItem {
