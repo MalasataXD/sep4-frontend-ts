@@ -38,7 +38,7 @@ export default function BreadProfilesPage() {
   return (
     <div>
       <SelectedBreadProfile
-        setSelectedDate={(profile: BreadProfile) => setSelectedData(profile)}
+        setSelectedData={(profile: BreadProfile) => setSelectedData(profile)}
         setshowAdd={(newValue: boolean) => setshowAdd(newValue)}
         setshowRemove={(newValue: boolean) => setshowRemove(newValue)}
         setshowEdit={(newValue: boolean) => setshowEdit(newValue)}
@@ -61,7 +61,7 @@ export default function BreadProfilesPage() {
           Title="Chilling"
           SelectedData={Selected}
           Id={0}
-          setSelectedDate={(profile: BreadProfile) => setSelectedData(profile)}
+          setSelectedData={(profile: BreadProfile) => setSelectedData(profile)}
           ShowAdd={showAdd}
           ShowRemove={showRemove}
           ShowEdit={showEdit}
@@ -70,7 +70,7 @@ export default function BreadProfilesPage() {
           Title="Storage"
           SelectedData={Selected}
           Id={1}
-          setSelectedDate={(profile: BreadProfile) => setSelectedData(profile)}
+          setSelectedData={(profile: BreadProfile) => setSelectedData(profile)}
           ShowAdd={showAdd}
           ShowRemove={showRemove}
           ShowEdit={showEdit}
@@ -79,7 +79,7 @@ export default function BreadProfilesPage() {
           Title="Awakening"
           SelectedData={Selected}
           Id={2}
-          setSelectedDate={(profile: BreadProfile) => setSelectedData(profile)}
+          setSelectedData={(profile: BreadProfile) => setSelectedData(profile)}
           ShowAdd={showAdd}
           ShowRemove={showRemove}
           ShowEdit={showEdit}
@@ -88,7 +88,7 @@ export default function BreadProfilesPage() {
           Title="Leavening"
           SelectedData={Selected}
           Id={3}
-          setSelectedDate={(profile: BreadProfile) => setSelectedData(profile)}
+          setSelectedData={(profile: BreadProfile) => setSelectedData(profile)}
           ShowAdd={showAdd}
           ShowRemove={showRemove}
           ShowEdit={showEdit}
