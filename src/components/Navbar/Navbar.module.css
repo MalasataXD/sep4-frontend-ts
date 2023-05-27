@@ -1,0 +1,26 @@
+.navbar {
+    /* Display flex and background color */
+    display: flex;
+    background-color: #394867;
+
+    /* Align items to center vertically */
+    align-items: center;
+    /* Justify-content to set items at start, middle and end */
+    justify-content: space-between;
+
+    /* Width and heigh definition */
+    width: 95%;
+
+    /* Border definition */
+    border-radius: 6px;
+
+    /* Margin and padding */
+    margin: 1% auto;
+    padding: 0.25% 1% 0.25% 1%;
+}
+
+.navbar p {
+    color: #F1F6F9;
+    font-size: 100%;
+    font-family: "Sora", sans-serif;
+}

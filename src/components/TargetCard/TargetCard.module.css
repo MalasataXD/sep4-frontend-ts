@@ -1,0 +1,43 @@
+.card {
+    background-color: #394867;
+    border: 5px solid #9ba4b5;
+    border-radius: 5px;
+    display: inline-block;
+    width: 24%;
+    margin-left: 1.75%;
+    margin-right: 1.75%;
+    margin-top: 2%;
+}
+
+.cardTitle {
+    padding-top: 2%;
+    margin-top: 2%;
+    display: flex;
+    justify-content: center;
+    /* FONT */
+    font-size: 125%;
+    color: #f1f6f9;
+    font-family: "Sora", sans-serif;
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 2%;
+}
+
+.inputContainer input {
+    padding: 1.5%;
+    margin-bottom: 3%;
+    width: 50%;
+    border-radius: 5px;
+    border: none;
+    font-family: "Sora", sans-serif;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

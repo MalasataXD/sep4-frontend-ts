@@ -1,0 +1,112 @@
+/* # COMPONENT */
+.card {
+    background-color: #394867;
+    border: #9BA4B5 solid 5px;
+    border-radius: 5px;
+}
+
+.title {
+    padding-top: 0.75%;
+    padding-bottom: 1%;
+    display: flex;
+    justify-content: center;
+    /* FONT */
+    font-size: 125%;
+    font-family: "Sora", sans-serif;
+    color: #F1F6F9;
+}
+
+/* ¤ CONTAINERS */
+.container {
+    /* # ROW */
+    display: flex;
+    flex-direction: row;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.section {
+    flex-basis: 33%;
+    padding-bottom: 0.75%;
+    margin: 0 2% 0;
+    display: flex;
+    /* CSS MAGIC */
+    justify-content: center;
+    align-items: center;
+}
+
+.section .icon {
+    margin-right: 10px;
+}
+
+.ErrorContainer {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 2%;
+    /* FONT */
+    font-family: inherit;
+    color: #FF6B6B;
+}
+
+/* * INPUT FIELD */
+.inputField {
+    padding-top: 2%; /* HEIGHT */
+    padding-bottom: 2%; /* HEIGHT */
+    width: 100%;
+    font-family: "Sora", sans-serif;
+    border: none;
+    border-radius: 5px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* ? BUTTON */
+.SaveButton {
+    width: 50%;
+    background-color: #579BB1;
+    border: none;
+    border-radius: 5px;
+    padding-top: 1.5%; /* HEIGHT */
+    padding-bottom: 1.5%; /* HEIGHT */
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    /* FONT */
+    font-family: "Sora", sans-serif;
+    color: #F1F6F9;
+}
+
+.SaveButton:active {
+    transform: translateY(2px);
+    background-color: #45788D; 
+}
+
+
+.SaveButton p {
+    margin: 0;
+    flex: 1;
+    text-align: center;
+
+    /* FONT */
+    font-family: inherit;
+}
+
+.SaveButton .icon {
+    margin-right: 10px;
+}
+
+/* WIP ICONS */
+.icon {
+    width: 25px;
+}
+
+/* ! USED FOR ERRORS! */
+.hide {
+    display: none;
+}

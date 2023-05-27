@@ -1,0 +1,7 @@
+.titleCardContainer {
+  display: flex;
+  justify-content: center;
+  gap: 5%; /* Adjust the value as per your desired spacing */
+  margin-left: 5%;
+  margin-right: 5%;
+}

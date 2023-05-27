@@ -1,24 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import {
+  createHashRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
+import Navbar from "./components/Navbar/Navbar";
+import LivePage from "./routes/LivePage/LivePage";
+import LandingPage from "./routes/Landing/Landing";
+import HistoryGraph from "./components/HistoryGraph/HistoryGraph";
+import LoginPage from "./routes/Login/LoginPage";
+import BreadProfilesPage from "./routes/BreadProfilesPage/BreadProfilesPage";
+import { Live, BreadProfile, History, Login } from "./components/config";
+
+const router = createHashRouter(
+  createRoutesFromElements(
+    <Route element={<Navbar />}>
+      <Route index element={<LandingPage />} />
+      <Route path={Live} element={<LivePage />} />
+      <Route path={BreadProfile} element={<BreadProfilesPage />} />
+      <Route path={History} element={<HistoryGraph />} />
+      <Route path={Login} element={<LoginPage />} />
+    </Route>
+  )
+);
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <RouterProvider router={router} />
     </div>
   );
 }

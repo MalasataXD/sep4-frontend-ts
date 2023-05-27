@@ -1,0 +1,270 @@
+.container {
+    border: 5px solid #9ba4b5;
+    border-radius: 5px;
+    width: 25.5%;
+    padding: 0.75%;
+    margin-left: 1.75%;
+    margin-top: 0.5%;
+    background-color: #394867;
+}
+
+.container input {
+    width: 90%;
+    font-size: 16px;
+    font-family: "Sora", sans-serif;
+    border-radius: 5px;
+    border: none;
+}
+
+.buttonContainer {
+    margin-top: 1.75%;
+}
+
+.button {
+    background-color: #579bb1;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+
+
+    padding: 1%;
+    margin-right: 2%;
+    /* FONT */
+    font-size: 16px;
+    font-family: "Sora", sans-serif;
+    color: #F1F6F9;
+}
+
+.button:hover, .button:focus {
+    color: #579bb1;
+    background-color: #f1f6f9;
+}
+
+.dropdown {
+    position: absolute;
+    background-color: #f1f6f9;
+    min-width: 23%;
+    overflow: auto;
+    font-size: 16px;
+    font-family: "Sora", sans-serif;
+    z-index: 1;
+    margin-top: 0.5%;
+}
+
+.dropdownItem p {
+    margin-top: 0.75%;
+    margin-bottom: 0.75%;
+    margin-left: 1%;
+}
+
+.dropdownItem p:hover {
+    color: #579bb1;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.buttons button {
+    background-color: #579BB1;
+    border: none;
+    border-radius: 5px;
+    margin-right: 2%;
+    padding: 2%;
+    /* FONT */
+    font-family: "Sora", sans-serif;
+    font-size: 14px;
+    color: #F1F6F9;
+}
+
+.buttons button:hover {
+    background-color: #F1F6F9;
+    color: #579BB1;
+}
+
+
+.buttons button.confirm {
+    background-color: #6bcb77;
+    color: #F1F6F9;
+}
+
+.buttons button.confirm:hover {
+    background-color: #F1F6F9;
+    color: #6bcb77;
+}
+
+.buttons button.cancel {
+    background-color: #ff6b6b;
+    color: #F1F6F9;
+}
+
+.buttons button.cancel:hover {
+    background-color: #F1F6F9;
+    color: #ff6b6b;
+}
+
+
+/* # ADD WINDOW */
+
+.Add {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border: 5px solid #9ba4b5;
+    border-radius: 5px;
+    width: 25%;
+    height: 300px;
+    margin-left: 1.75%;
+    margin-top: 0.5%;
+    background-color: #394867;
+    padding: 1%;
+}
+
+.Add p {
+    margin-top: 1%;
+    margin-bottom: 3%;
+    text-align: center;
+    /* FONT */
+    font-size: 16px;
+    font-family: "Sora", sans-serif;
+    color: #F1F6F9;
+}
+
+.Add input {
+    padding: 1%;
+    width: 90%;
+    margin: 0 auto 5%;
+    font-size: 16px;
+    font-family: "Sora", sans-serif;
+}
+
+.Add textarea {
+    padding: 1%;
+    width: 90%;
+    height: 200%;
+    margin: 0 auto 5%;
+    font-size: 14px;
+    font-family: "Sora", sans-serif;
+}
+
+
+/* # REMOVE WINDOW */
+
+.Remove {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 5px solid #9ba4b5;
+    border-radius: 5px;
+    width: 25%;
+
+    margin-left: 1.75%;
+    margin-top: 0.5%;
+    background-color: #394867;
+    padding: 1%;
+}
+
+.Remove p {
+    margin-top: 1%;
+    margin-bottom: 3%;
+    text-align: center;
+    /* FONT */
+    font-size: 16px;
+    font-family: "Sora", sans-serif;
+    color: #F1F6F9;
+}
+
+/* # EDIT WINDOW */
+
+.Edit {
+    display: flex;
+    flex-direction: column;
+    border: 5px solid #9ba4b5;
+
+    border-radius: 5px;
+    width: 25%;
+    height: 300px;
+    margin-left: 1.75%;
+    margin-top: 0.5%;
+    background-color: #394867;
+    padding: 1%;
+}
+
+.Edit p {
+    margin-top: 1%;
+    margin-bottom: 3%;
+    text-align: center;
+    /* FONT */
+    font-size: 16px;
+    font-family: "Sora", sans-serif;
+    color: #F1F6F9;
+}
+
+.Edit input {
+    padding: 1%;
+    width: 90%;
+    margin: 0 auto 5%;
+    font-size: 16px;
+    font-family: "Sora", sans-serif;
+}
+
+.Edit textarea {
+    padding: 1%;
+    width: 90%;
+    height: 200%;
+    margin: 0 auto 5%;
+    font-size: 14px;
+    font-family: "Sora", sans-serif;
+}
+
+/* # START WINDOW */
+.Start {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 5px solid #9ba4b5;
+    border-radius: 5px;
+    width: 25%;
+
+    margin-left: 1.75%;
+    margin-top: 0.5%;
+    background-color: #394867;
+    padding: 1%;
+}
+
+.Start p {
+    margin-top: 1%;
+    margin-bottom: 3%;
+    text-align: center;
+    /* FONT */
+    font-size: 16px;
+    font-family: "Sora", sans-serif;
+    color: #F1F6F9;
+}
+
+/* ! ERROR STATE*/
+.errorContainer {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.errorContainer p {
+    border: 5px solid #9ba4b5;
+    border-radius: 5px;
+    background-color: #394867;
+    padding: 1% 5%;
+
+
+    font-size: 150%;
+    font-family: "Sora", sans-serif;
+    color: #ff6b6b;
+
+
+}
+
+.hide {
+    display: none;
+}
