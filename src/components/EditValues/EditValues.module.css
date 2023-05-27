@@ -82,6 +82,12 @@ input::-webkit-inner-spin-button {
     color: #F1F6F9;
 }
 
+.SaveButton:active {
+    transform: translateY(2px);
+    background-color: #45788D; 
+}
+
+
 .SaveButton p {
     margin: 0;
     flex: 1;
